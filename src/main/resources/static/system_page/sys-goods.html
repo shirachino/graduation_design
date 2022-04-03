@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>商品管理</title>
+	<link rel="stylesheet" href="../plug/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../plug/bootstrap-table-master/dist/bootstrap-table.css">
+	<link rel="stylesheet" type="text/css" href="../css/sysstyle.css" >
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<script src="../plug/vue/vue.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="../js/sys_goods.js" type="module"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: 'Linearicons-Free';
+			src: url('../fonts/Linearicons-Free.eot?pbf4y');
+			src: url('../fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
+				url('../fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
+				url('../fonts/Linearicons-Free.woff?pbf4y') format('woff'),
+				url('../fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
+			font-weight: normal;
+			font-style: normal;
+			font-display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bg-box">
+	<div class="top">
+		<h2>商品库存管理</h2>
+	</div>
+	<!-- VUE作用域 -->
+	<div id="goods">
+		<div class="goodsmod clearfix" id="goods-head">
+			<el-row>
+				<el-button type="primary" class="addbtn floatleft" data-toggle="modal"
+						   data-target="#addModal" style="margin-left: 15px">入库</el-button>
+				<div class="scmod floatleft" style="margin-left: 66px;">
+					<input type="text" name="scname" placeholder="请输入要查询的商品" v-model="searchGoodsInfo.goodsName"/>
+					<el-button type="primary" icon="el-icon-search" circle @click="searchGoodsByName"></el-button>
+				</div>
+			</el-row>
+		</div>
+		<!-- 商品列表 -->
+		<div id="datalist">
+			<el-table
+					:data="goodsList"
+					style="width: 100%"
+					:default-sort = "{prop: 'goods_id', order: 'descending'}"
+					:row-class-name="tableRowClassName"
+					v-loading = "isLoading"
+					element-loading-background = "rgba(0, 0, 0, 0.8)"
+					element-loading-text = "加载中，请稍后..."
+					element-loading-spinner = "el-icon-loading"
+					>
+				<el-table-column
+						prop="goods_id"
+						label="商品编号"
+						sortable
+						width="150">
+				</el-table-column>
+				<el-table-column
+						prop="goods_name"
+						label="商品名称"
+						width="150">
+				</el-table-column>
+				<el-table-column
+						prop="goods_type"
+						label="商品类型"
+						width="150"
+						column-key="type"
+						:filters="[{text: '饮料', value: '饮料'}, {text: '食品', value: '食品'}, {text: '日用品', value: '日用品'}, {text: '香烟', value: '香烟'}]"
+						:filter-method="filterHandler">
+				</el-table-column>
+				<el-table-column
+						prop="goods_num"
+						label="商品数量"
+						sortable
+						width="150">
+				</el-table-column>
+				<el-table-column
+						prop="goods_inPrice"
+						label="单价"
+						width="100">
+				</el-table-column>
+				<el-table-column
+						prop="goods_outPrice"
+						label="售价"
+						width="100">
+				</el-table-column>
+				<el-table-column
+						prop="goods_SHLdate"
+						label="上架日期"
+						width="120">
+				</el-table-column>
+				<el-table-column
+						prop="goods_EXPdate"
+						label="过期时间"
+						width="120">
+				</el-table-column>
+				<el-table-column
+						prop="goods_saleNum"
+						label="销量"
+						width="90">
+				</el-table-column>
+				<el-table-column
+						label="修改"
+						width="100">
+					<template slot-scope="scope">
+					<el-button type="primary" size="small" class="revbtn"
+							    @click="moveUpdateRowToModel(scope.row)">修改</el-button>
+					</template>
+				</el-table-column>
+				<el-table-column
+						label="删除"
+						width="90">
+					<template slot-scope="scope">
+					<el-button type="text" size="small" @click.native.stop="deleteGoods(scope.row)">删除</el-button>
+					</template>
+				</el-table-column>
+			</el-table>
+			<el-pagination
+					@size-change="handleSizeChange"
+					@current-change="handleCurrentChange"
+					:current-page.sync="currentPage"
+					:page-sizes="[100, 200, 300, 400]"
+					:page-size="100"
+					layout="sizes, prev, pager, next"
+					:total="1000">
+			</el-pagination>
+		</div>
+		<!-- 商品列表/ -->
+
+		<!-- 新增模态框 -->
+		<div class="add mydefmodal" id="addFun">
+			<button type="button" class="close"><span>&times;</span></button>
+			<div class="mydefmodal_main">
+				<div class="mydefmodal_header">
+					<h4 class="mydefmodal_title">商品入库</h4>
+				</div>
+				<div class="mydefmodal_body">
+					<table>
+						<tr>
+							<td>商品编号</td>
+							<td><input class="form_control" v-model="addGoodsInfo.goodsId" placeholder="编号"> </td>
+						</tr>
+						<tr>
+							<td>商品名称</td>
+							<td><input class="form_control" v-model="addGoodsInfo.goodsName" placeholder="名称"> </td>
+						</tr>
+						<tr>
+							<td>商品类型</td>
+							<td><input class="form_control" v-model="addGoodsInfo.goodsType" placeholder="类型"> </td>
+						</tr>
+						<tr>
+							<td>商品数量</td>
+							<td><input class="form_control" v-model="addGoodsInfo.goodsNum" placeholder="数量"> </td>
+						</tr>
+						<tr>
+							<td>进价</td>
+							<td><input class="form_control" type="number" step="0.01" v-model="addGoodsInfo.goodsInPrice" placeholder="进价"> </td>
+						</tr>
+						<tr>
+							<td>售价</td>
+							<td><input class="form_control" type="number" step="0.01" v-model="addGoodsInfo.goodsOutPrice" placeholder="售价"> </td>
+						</tr>
+						<tr>
+							<td>上架日期</td>
+							<td>
+								<input type="date" class="form_control" v-model="addGoodsInfo.goodsSHLdate" placeholder="上架日期"> </td>
+						</tr>
+						<tr>
+							<td>过期时间</td>
+							<td><input type="date" class="form_control" v-model="addGoodsInfo.goodsEXPdate" placeholder="过期时间"> </td>
+						</tr>
+					</table>
+					<div class="mydefmodal_footer">
+						<button type="button" class="mydefbtn mydefbtn_default">取消</button>
+						<el-button :plain="true" @click="addGoodsToStock">入库</el-button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mask"></div>
+		<!-- 新增模态框/ -->
+
+		<!-- 修改模态框 -->
+		<div class="rev mydefmodal" id="revFun">
+			<button type="button" class="close"><span>&times;</span></button>
+			<div class="mydefmodal_main">
+				<div class="mydefmodal_header">
+					<h4 class="mydefmodal_title">商品修改</h4>
+				</div>
+				<div class="mydefmodal_body">
+					<table>
+						<tr>
+							<td>商品编号</td>
+							<td><input class="form_control" v-model="UpdGoodsInfo.goodsId" placeholder="编号" disabled> </td>
+						</tr>
+						<tr>
+							<td>商品名称</td>
+							<td><input class="form_control" v-model="UpdGoodsInfo.goodsName" placeholder="名称"> </td>
+						</tr>
+						<tr>
+							<td>商品类型</td>
+							<td><input class="form_control" v-model="UpdGoodsInfo.goodsType" placeholder="类型"> </td>
+						</tr>
+						<tr>
+							<td>商品数量</td>
+							<td><input class="form_control" v-model="UpdGoodsInfo.goodsNum" placeholder="数量"> </td>
+						</tr>
+						<tr>
+							<td>进价</td>
+							<td><input class="form_control" type="number" step="0.01" v-model="UpdGoodsInfo.goodsInPrice" placeholder="进价"> </td>
+						</tr>
+						<tr>
+							<td>售价</td>
+							<td><input class="form_control" type="number" step="0.01" v-model="UpdGoodsInfo.goodsOutPrice" placeholder="售价"> </td>
+						</tr>
+						<tr>
+							<td>上架日期</td>
+							<td>
+								<input type="date" class="form_control" v-model="UpdGoodsInfo.goodsSHLdate" placeholder="上架日期"> </td>
+						</tr>
+						<tr>
+							<td>过期时间</td>
+							<td><input type="date" class="form_control" v-model="UpdGoodsInfo.goodsEXPdate" placeholder="过期时间"> </td>
+						</tr>
+					</table>
+					<div class="mydefmodal_footer">
+						<button type="button" class="mydefbtn mydefbtn_default">取消</button>
+						<button type="button" class="mydefbtn mydefbtn_primary" @click="updateGoods">修改</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 修改模态框/ -->
+
+		<!-- 销售模态框 -->
+		<div class="sold mydefmodal">
+			<button type="button" class="close"><span>&times;</span></button>
+			<div class="mydefmodal_main">
+				<div class="mydefmodal_header">
+					<h4 class="mydefmodal_title">商品销售</h4>
+				</div>
+				<div class="mydefmodal_body">
+					<table>
+						<tr>
+							<td>商品编号</td>
+							<td><input class="form_control" v-model="" placeholder="编号"> </td>
+						</tr>
+						<tr>
+							<td>商品名称</td>
+							<td><input class="form_control" v-model="" placeholder="名称"> </td>
+						</tr>
+						<tr>
+							<td>销售数量</td>
+							<td><input class="form_control" v-model="" placeholder="数量"> </td>
+						</tr>
+						<tr>
+							<td>销售日期</td>
+							<td><input type="date" class="form_control" v-model="" placeholder="上架日期"> </td>
+						</tr>
+					</table>
+					<div class="mydefmodal_footer">
+						<button type="button" class="mydefbtn mydefbtn_default">取消</button>
+						<button type="button" class="mydefbtn mydefbtn_primary">销售</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 销售模态框/ -->
+	</div>
+	<!-- VUE作用域/ -->
+	</div>
+</body>
+
+</html>

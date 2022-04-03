@@ -1,0 +1,38 @@
+.w{
+	width: 1500px;
+	margin: 0 auto;
+}
+.top{
+	height: 120px;
+	background-color: #ffffff;
+}
+.top_logo{
+	float: left;
+	width: 15.765%;
+	height: 120px;
+}
+.top_logo a img{
+	width: 85%;
+	margin: 20px 0 0 50px;
+}
+.top_mod{
+	float: right;
+	height: 120px;
+}
+.top_mod ul li{
+	float: left;
+	height: 120px;
+}
+.top_mod ul li a{
+	padding: 48px 60px;
+	line-height: 120px;
+	font-size: 18px;
+	transition: all .3s;
+}
+.top_mod ul li a:hover{
+	color: white;
+	background-color: skyblue;
+}
+@media screen and (max-width: 1360px){
+	.top{width: 1360px;}
+}

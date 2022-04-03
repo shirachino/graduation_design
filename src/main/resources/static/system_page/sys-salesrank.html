@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../js/sys_salesrank.js" type="module"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Linearicons-Free';
+            src: url('../fonts/Linearicons-Free.eot?pbf4y');
+            src: url('../fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
+            url('../fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
+            url('../fonts/Linearicons-Free.woff?pbf4y') format('woff'),
+            url('../fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+    </style>
+    <title>销量排行</title>
+</head>
+
+<body style="margin: 20px 0 0 20px;">
+<div class="bg-box">
+    <div class="top">
+        <h2>商品销量排行</h2>
+    </div>
+    <div class="sales_rank" id="salesRank">
+        <el-row :gutter="20">
+            <el-col :span="16">
+                <div class="grid-content">
+                    <el-card shadow="hover">
+                        <h3><span></span>总销量排行</h3>
+                        <div id="total_sales_rank"></div>
+                    </el-card>
+
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content">
+                    <el-card shadow="hover">
+                        <h3><span></span>销量类型排行</h3>
+                        <div id="type_sales_rank"></div>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+        <el-row :gutter="20">
+            <el-card shadow="hover">
+            <h3><span></span>各销量排行</h3>
+            <el-col :span="6">
+                <el-card shadow="hover">
+
+                </el-card>
+            </el-col>
+            <el-col :span="6">
+                <el-card shadow="hover">
+
+                </el-card>
+            </el-col>
+            <el-col :span="6">
+                <el-card shadow="hover">
+
+                </el-card>
+            </el-col>
+            <el-col :span="6">
+                <el-card shadow="hover">
+
+                </el-card>
+            </el-col>
+            </el-card>
+        </el-row>
+
+
+    </div>
+
+
+</div>
+</body>
+
+</html>

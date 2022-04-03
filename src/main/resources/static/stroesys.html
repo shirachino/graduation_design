@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="聊城大学 计算机学院 电子商务">
+	<meta name="keywords" content="系统,商品,毕设,商店管理" />
+	<title>店铺管家-店铺管理系统</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/stroesys.css" />
+	<link rel="shortcut icon" href="icon_logo.ico" />
+	<script src="plug/jquery/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="plug/vue/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		@font-face {
+			font-family: 'Linearicons-Free';
+			src: url('fonts/Linearicons-Free.eot?pbf4y');
+			src: url('fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
+				url('fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
+				url('fonts/Linearicons-Free.woff?pbf4y') format('woff'),
+				url('fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
+			font-weight: normal;
+			font-style: normal;
+			font-display: block;
+		}
+	</style>
+	<script type="text/javascript">
+		function SetIFrameHeight() {
+			var iframeid = document.getElementById("iframe"); //iframe id
+			if (document.getElementById) {
+				iframeid.height = document.documentElement.clientHeight;
+			}
+		}
+	</script>
+</head>
+
+<body style="background-color: rgb(240, 240, 240);">
+	<!-- 头部logo和用户 -->
+	<div class="top">
+		<div class="top_logo">
+			<a href="index.html"><img src="img/logo2.png"></a>
+		</div>
+		<div class="time">
+			<div id="now_time">
+				<p></p>
+			</div>
+		</div>
+		<div class="user" id="user-box">
+			<div class="profile">
+				<img src="img/user_head.jpg" alt="">
+				<span>{{sysUserName}}</span>
+				<span id="user_state">在线</span>
+				<span id="user_vip"><a href="javascript:void(0);">VIP</a></span>
+			</div>
+			<span class="set">
+				<ul class="user_set">
+					<li><a href="javascript:void(0);">修改账户信息</a></li>
+					<li><a href="javascript:void(0);">修改密码</a></li>
+					<li><a href="javascript:void(0);">开通VIP</a></li>
+					<li><a href="javascript:void(0);">退出登录</a></li>
+				</ul>
+			</span>
+		</div>
+	</div>
+	<!-- 头部logo和用户/ -->
+	<!-- 侧边导航栏 -->
+	<div class="nav">
+		<div class="nav_title">
+			菜单
+		</div>
+		<details>
+			<summary class="summary">店铺信息</summary>
+		</details>
+		<ul>
+			<li><a href="system_page/sys-index.html" target="iframe">店铺首页</a></li>
+			<li><a href="system_page/sys-goods.html" target="iframe">商品库存</a></li>
+			<li><a href="javascript:void(0);" target="iframe">上架记录</a></li>
+			<li><a href="javascript:void(0);" target="iframe">缺货查看</a></li>
+			<li><a href="javascript:void(0);" target="iframe">临近保质期查看</a></li>
+		</ul>
+		<details>
+			<summary class="summary">销售信息</summary>
+		</details>
+		<ul>
+			<li><a href="system_page/sys-salerecord.html" target="iframe">销售记录</a></li>
+			<li><a href="javascript:void(0);" target="iframe">营业额</a></li>
+			<li><a href="system_page/sys-customer.html" target="iframe">顾客流量</a></li>
+		</ul>
+		<details>
+			<summary class="summary">统计分析</summary>
+		</details>
+		<ul>
+			<li><a href="system_page/sys-salesrank.html" target="iframe">销量排行</a></li>
+			<li><a href="javascript:void(0);" target="iframe">净利润排行</a></li>
+			<li><a href="javascript:void(0);" target="iframe">关联分析</a></li>
+		</ul>
+	</div>
+	<!-- 侧边导航栏/ -->
+	<div class="nav_tog">
+
+	</div>
+
+	<!-- 嵌入页面 -->
+	<iframe src="system_page/sys-index.html" id="iframe" name="iframe" onload="SetIFrameHeight()"></iframe>
+	<!-- 嵌入页面/ -->
+
+	<!-- 底部版权 -->
+	<footer class="footer">
+		<div class="copyright w" style="width: 100%;">
+			Copyright © 聊城大学计算机学院2018级15班 张景浩 出品 &nbsp;备案号 鲁ICP-XXXXX
+		</div>
+	</footer>
+	<!-- 底部版权/ -->
+	<!-- JavaScript -->
+	<script src="js/stroesys.js" type="module" charset="utf-8"></script>
+	<script>
+		// 显示系统时间
+		function myGetDate() {
+			var time_box = document.getElementById('now_time').children[0];
+			var date = new Date();
+			var h = date.getHours();
+			h = h < 10 ? '0' + h : h;
+			var m = date.getMinutes();
+			m = m < 10 ? '0' + m : m;
+			var s = date.getSeconds();
+			s = s < 10 ? '0' + s : s;
+			var d = date.getDay();
+			var n = date.getFullYear();
+			var y = date.getMonth() + 1;
+			var r = date.getDate();
+			var week = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+			if (date.getHours() < 6) {
+				time_box.innerHTML = '门迎晓日财源广，现在是' + ' ' + n + '年' + y + '月' + r + '日' + ' ' + '凌晨' + h + ':' + m + ':' + s + ' ' +
+					week[d];
+			} else if (date.getHours() < 12) {
+				time_box.innerHTML = '生意兴隆通四海，现在是' + ' ' + n + '年' + y + '月' + r + '日' + ' ' + '上午' + h + ':' + m + ':' + s + ' ' +
+					week[d];
+			} else if (date.getHours() < 18) {
+				time_box.innerHTML = '财源茂盛达三江，现在是' + ' ' + n + '年' + y + '月' + r + '日' + ' ' + '下午' + h + ':' + m + ':' + s + ' ' +
+					week[d];
+			} else {
+				time_box.innerHTML = '十分生意稳如山，现在是' + ' ' + n + '年' + y + '月' + r + '日' + ' ' + '晚上' + h + ':' + m + ':' + s + ' ' +
+					week[d];
+			}
+		}
+		myGetDate(); //打开页面执行获取时间
+		setInterval("myGetDate()", 1000); //每一秒执行一次获取时间函数
+	</script>
+
+</body>
+
+</html>

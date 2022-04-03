@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>店铺管家-用户注册</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/register.css" />
+	<link rel="shortcut icon" href="icon_logo.ico" />
+	<script src="plug/jquery/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="plug/vue/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="plug/vue/vue-resource.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<style type="text/css">
+		@font-face {
+			font-family: 'Linearicons-Free';
+			src: url('fonts/Linearicons-Free.eot?pbf4y');
+			src: url('fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
+				url('fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
+				url('fonts/Linearicons-Free.woff?pbf4y') format('woff'),
+				url('fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
+			font-weight: normal;
+			font-style: normal;
+			font-display: block;
+		}
+	</style>
+</head>
+
+<body style="background: url(img/loginbg.png) no-repeat; background-position:50% 20%;">
+	<!-- 头部logo -->
+	<header class="rtop">
+		<div class="toppic w">
+			<div class="top_logo">
+				<a href="index.html"><img src="img/logo.png" alt="logo"></a>
+			</div>
+		</div>
+	</header>
+	<!-- 头部logo/ -->
+	<!-- 注册区域 -->
+	<div class="registerarea">
+		<h3>注册新用户
+			<div class="log">我有账号，去<a href="login.html">登录</a></div>
+		</h3>
+		<div class="reg_form" id="reg">
+			<ul>
+				<li>
+					<label>用户名：</label>
+					<input type="text" name="regName" id="reg-name" v-model="regInfo.regName" class="inp" />
+					<span class="error" id="reg-name-f">请输入6-16位字母、数字、下划线</span>
+					<span class="error" id="reg-name-rf">用户名已被使用</span>
+					<span class="success" id="reg-name-t">格式正确</span>
+				</li>
+				<li>
+					<label>手机号：</label>
+					<input type="text" name="regTelNum" id="reg-telnum" v-model="regInfo.regTelNum" class="inp" />
+					<span class="error" id="reg-telnum-f">手机号码格式错误，请重新输入</span>
+				</li>
+				<li>
+					<label>登录密码：</label>
+					<input type="password" name="regPsw" id="reg-psw" v-model="regInfo.regPsw" class="inp" />
+					<span class="error" id="reg-psw-f">请输入6-16位密码</span>
+				</li>
+				<li class="safe">安全程度 <em class="ruo default">弱</em> <em class="zhong default">中</em> <em
+						class="qiang default">强</em></li>
+				<li>
+					<label>确认密码：</label>
+					<input type="password" name="regSecPsw" id="reg-sec-psw" v-model="regInfo.regSecPsw" class="inp" />
+					<span class="error" id="reg-sec-psw-f">输入的密码不一致</span>
+				</li>
+				<li class="check" style="margin-left: 150px;">
+					<input type="checkbox" name="regAgree" id="reg-agree" v-model="regInfo.regAgree" />
+					同意协议并注册
+					<a href="#">《用户协议》</a>
+				</li>
+				<li style="margin-left: 220px;">
+					<input type="submit" @click="submitRegForm()" value="提交注册" class="btn" />
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 注册区域/ -->
+	<!-- 底部模块 -->
+	<footer class="footer">
+		<div class="copyright w">
+			Copyright © 聊城大学计算机学院2018级15班 张景浩 出品 &nbsp;备案号 鲁ICP-XXXXX
+		</div>
+	</footer>
+	<!-- 底部模块/ -->
+
+	<script src="js/register.js" type="module"></script>
+</body>
+
+</html>

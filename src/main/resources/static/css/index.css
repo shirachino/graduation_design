@@ -1,0 +1,130 @@
+.top_mod ul .menu li{
+	position: relative;
+	float: none;
+	height: 40px;
+	width: 156px;
+	text-align: center;
+	padding: 10px ;
+	border: 1px solid #e2e2e2;
+	border-top: none;
+	background-color: #f3f3f3;
+	z-index: 999;
+}
+.menu{
+	display: none;
+}
+.banner{
+	margin-top: 20px;
+	height: 600px;
+}
+.banner_one{
+	position: relative;
+	margin-top: 20px;
+	color: #3992ff;
+}
+.banner_one img{
+	position: absolute;
+	top: 30px;
+	right: -20px;
+	width: 900px;
+	transition: all 0.3s;
+}
+.banner_one img:hover{
+	top: 20px;
+}
+.info_one{
+	position: absolute;
+	top:50px;
+	left: 50px;
+}
+.info_one h1{
+	margin: 20px 50px;
+	font-size: 90px;
+}
+.info_one h2{
+	margin: 20px 50px;
+	font-size: 40px;
+	color: #77b4ff;
+}
+.info_one p{
+	margin: 20px 100px;
+	font-size: 24px;
+	color: #87b7ff;
+}
+.info_one a{
+	display: block;
+	height: 60px;
+	width: 170px;
+	margin: 50px 0 0 150px;
+	background-color: #87CEEB;
+	border: 1px solid skyblue;
+	border-radius: 15px;
+	font-size: 24px;
+	font-weight: 600;
+	text-align: center;
+	line-height: 55px;
+	color: white;
+	transition: transform 0.5s;
+}
+.info_one a:hover{
+	box-shadow: 0 0 10px #66B2FF;
+	transform: scale(1.1);
+}
+.footer{
+	position: relative;
+	height: 196px;
+}
+
+.city{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height:190px;
+	background: url(../img/bg.png) no-repeat;
+	box-shadow: 0 0 25px #87CEEB;
+	animation: cx 10s linear infinite;
+}
+@keyframes cx{
+	0%{
+		background-position: 0 0;
+	}
+	100%{
+		background-position: -1920px 0;
+	}
+}
+.bear{
+	position: relative;
+	top: 50px;
+	width: 200px;
+	height: 100px;
+	background: url(../img/bear.png) no-repeat;
+	animation: x .5s steps(8) infinite, m 5s forwards;
+}
+@keyframes x {
+    /* 定义动画 */
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -1600px 0;
+    }
+}
+@keyframes m {
+    0% {
+		left: 0;
+    }
+    100% {
+        left: 50%;
+        transform: translate(-50%);
+    }
+}
+.copyright{
+	position: absolute;
+	top: 160px;
+	left: calc(50% - 230px);
+	width: 450px;
+	font-size: 12px;
+	color: #FFEEE5;
+	z-index: 999;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顾客流量分析</title>
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../js/sys_customer.js" type="module"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Linearicons-Free';
+            src: url('../fonts/Linearicons-Free.eot?pbf4y');
+            src: url('../fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
+            url('../fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
+            url('../fonts/Linearicons-Free.woff?pbf4y') format('woff'),
+            url('../fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+    </style>
+</head>
+
+<body style="margin: 20px 0 0 20px;">
+
+<div class="bg-box">
+    <div class="top">
+        <h2>顾客流量</h2>
+    </div>
+    <div class="cus" id="customerFlow">
+        <el-row :gutter="20">
+            <el-col :span="14">
+                <div class="grid-content">
+                    <div class="cus-chart">
+                    </div>
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content">
+                    <div class="cus-date-chart">
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+        <el-row :gutter="20">
+            <el-col :span="7"><div class="grid-content bg-purple"></div></el-col>
+            <el-col :span="7"><div class="grid-content bg-purple"></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+        </el-row>
+
+    </div>
+</div>
+</body>
+
+</html>

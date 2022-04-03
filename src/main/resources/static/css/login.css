@@ -1,0 +1,148 @@
+.rtop{
+	height: 120px;
+	background-color: white;
+}
+.top_mod ul li a{
+	display: inline-block;
+	height: 120px;
+	font-size: 16px;
+	line-height: 24px;
+}
+.loginarea{
+	position: relative;
+	height: 662px;
+	width: 1550px;
+	margin: 0 auto;
+}
+.ad_box{
+	position: absolute;
+	top: 32px;
+	left: 60px;
+	width: 600px;
+	height: 600px;
+	overflow: hidden;
+}
+.ad_box ul{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 2400px;
+}
+.ad_box ul li{
+	float: left;
+	width: 600px;
+	height: 600px;
+}
+
+.circle{
+	position: absolute;
+	top: 250px;
+	left: -140px;
+}
+.circle li{
+	width: 10px;
+	height: 10px;
+	margin-bottom: 20px;
+	border: 5px solid #77aeff;
+	border-radius: 50%;
+}
+.circle .current{
+	border: 5px solid #ffffff;
+}
+.login_box{
+	position: absolute;
+	top: 105px;
+	right: 120px;
+	width: 440px;
+	height: 450px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background: linear-gradient(to right bottom,rgba(255,255,255, .7),rgba(255,255,255, .4));
+	backdrop-filter: blur(8px);
+	box-shadow: 5px 5px 10px rgba(0,0,0, .2);
+}
+.login_box h3{
+	height: 40px;
+	background-color: rgba(0,0,0, .05);
+	border-radius: 3px 3px 0 0;
+	text-align: center;
+	line-height: 40px;
+	font-size: 18px;
+	color: rgba(0,0,0, .6);
+}
+.login_form{
+	position: relative;
+	width: 340px;
+	margin: 50px 0 0 42px;
+}
+.login_form ul li{
+	margin-bottom: 40px;
+}
+.login_form ul li label{
+	position: absolute;
+	pointer-events:none;
+	font-size: 16px;
+}
+.login_form ul li .labelname{
+	top:8px;
+	left: 32px;
+	transition: all 0.3s;
+}
+.login_form ul li .labelpwd{
+	top:85px;
+	left: 32px;
+	transition: all 0.3s;
+}
+.login_form ul li:nth-child(-n+2) input{
+	width: 300px;
+	height: 37px;
+	margin-left: 30px;
+	padding-left: 5px;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	background-color: transparent;
+	outline: none;
+}
+.login_form ul li:nth-child(-n+2) input:focus{
+	border-bottom: 1px solid #868686;
+}
+.login_form ul li:nth-child(-n+2) input:focus ~ .labelname,
+.login_form ul li:nth-child(-n+2) input:valid ~ .labelname{
+	top:-12px;
+	left: 34px;
+	font-size: 12px;
+	color: #1d80b1;
+}
+.login_form ul li:nth-child(-n+2) input:focus ~ .labelpwd,
+.login_form ul li:nth-child(-n+2) input:valid ~ .labelpwd{
+	top:68px;
+	left: 34px;
+	font-size: 12px;
+	color: #1d80b1;
+}
+
+.login_form a{
+	color: #66b2ff;
+}
+.login_form input[type^=checkbox]{
+	margin-left: 90px;
+	vertical-align: middle;
+}
+.login_form input[type^=submit]{
+	width: 242px;
+	height: 37px;
+	margin-left: 60px;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	background-color: #87CEEB;
+	color: white;
+	cursor: pointer;
+}
+.footer{
+	height: 155px;
+	background-color: white;
+}
+.copyright{
+	width: 450px;
+	padding-top: 75px;
+}

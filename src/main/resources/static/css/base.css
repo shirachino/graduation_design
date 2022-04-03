@@ -1,0 +1,72 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+/* 斜体更正 */
+em,
+i {
+	font-style: normal
+}
+/* 去掉圆点 */
+li {
+	list-style: none
+}
+/* border兼容性,vertical去掉图片缝隙 */
+img {
+	border: 0;
+	vertical-align: middle
+}
+/* 按钮 鼠标改成手型 */
+button {
+	cursor: pointer
+}
+/* 去掉a下划线 */
+a {
+	color: #666;
+	text-decoration: none
+}
+
+a:hover {
+	color: #c81623
+}
+/* "\5B8B\4F53"是宋体的Unicode码 */
+button,
+input {
+	font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif
+}
+
+body {
+	/* CSS3文字抗锯齿 */
+	-webkit-font-smoothing: antialiased;
+	font: 12px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+	color: #666;
+}
+
+.hide,
+.none {
+	display: none
+}
+
+/* 伪元素清除浮动 */
+.clearfix:after {
+	visibility: hidden;
+	clear: both;
+	display: block;
+	content: ".";
+	height: 0
+}
+.clearfix {
+	*zoom: 1
+}
+
+/* 去除谷歌浏览器输入历史记录样式 */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #333 !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  background-color: transparent;
+  background-image: none;
+  transition: background-color 50000s ease-in-out 0s;
+}
