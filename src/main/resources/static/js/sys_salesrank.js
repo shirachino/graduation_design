@@ -9,16 +9,17 @@ var saleRankVm = new Vue({
             userName:''
         },
         rankGoodsTotal: [],
+        rankGoodsByType:[],
         rankGoodsPerWeek:[],
         rankGoodsPerMonth:[]
     },
     created() {
         this.getSaleGoodsTotal();
-        // this.getSaleGoodsPerWeek();
+        this.getTypeTotalRank();
         // this.getSaleGoodsPerMonth();
     },
     mounted(){
-        this.typeRankChart()
+
     },
     methods: {
         getSaleGoodsTotal(){
@@ -37,6 +38,27 @@ var saleRankVm = new Vue({
                     console.log(that.rankGoodsTotal)
                     //初始化chart不能写在mounted里，数据获取不到
                     that.totalRankChart()
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error)
+                });
+        },
+        getTypeTotalRank(){
+            let qs = Qs
+            let that = this;
+            that.userInfo.userName = window.localStorage.getItem('tname')
+
+            axios({
+                url: '/rank/getTypeRank',
+                method: 'post',
+                data: qs.stringify(that.userInfo)
+            })
+                .then(function (result) {
+                    //console.log(result.data)
+                    that.rankGoodsByType = result.data
+                    console.log(that.rankGoodsByType)
+                    //初始化chart不能写在mounted里，数据获取不到
+                    that.typeRankChart()
                 })
                 .catch(function (error) { // 请求失败处理
                     console.log(error)
@@ -79,13 +101,7 @@ var saleRankVm = new Vue({
                 legend: {},
                 tooltip: {},
                 dataset: {
-                    source: [
-                        ['goods_type', 'num'],
-                        ['饮料', 800],
-                        ['香烟', 500],
-                        ['食品',600],
-                        ['日用品', 200]
-                    ]
+                    source: this.rankGoodsByType
                 },
                 series: [
                     {

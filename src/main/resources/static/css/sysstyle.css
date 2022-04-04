@@ -100,7 +100,7 @@ input[type^=text]:focus {
 
 /* 模态框 */
 .mask {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	display: none;
@@ -134,7 +134,7 @@ input[type^=text]:focus {
 }
 
 .mydefmodal {
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	display: none;

@@ -15,15 +15,20 @@ public class StockGetListServiceImpl implements StockGetListService {
     private StockListMapper stockListMapper;
 
     @Override
-    public String stockGetList(String userName) throws RuntimeException{
+    public String stockGetList(String userName,Integer pageNow) throws RuntimeException{
         try{
             List<User_stock> stockList;
-            stockList = stockListMapper.getStockListByUserName(userName);
+            pageNow = (pageNow - 1)*20;
+            stockList = stockListMapper.getStockListByUserName(userName,pageNow);
             return JSON.toJSONString(stockList);
         } catch (RuntimeException e){
             System.out.println("Get Stock List Failed 500 \n"+e.getMessage());
             return "Failed to get stock list HTTP Status: 500";
         }
+    }
 
+    @Override
+    public Integer stockAll(String userName){
+        return stockListMapper.getStockAll(userName);
     }
 }

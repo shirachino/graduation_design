@@ -14,7 +14,7 @@ public class StockDeleteServiceImpl implements StockDeleteService {
     public String stockDelete(String userName,String goodsId) throws RuntimeException{
         try{
             stockDeleteMapper.DeleteGoodsById(userName,goodsId);
-            return "HTTP Status: 200";
+            return "200";
         }catch (RuntimeException e){
             System.out.println(e.getMessage());
             return "HTTP Status: 500";

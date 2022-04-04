@@ -1,6 +1,7 @@
 package com.store.graduation_design.Controller;
 
 import com.store.graduation_design.Pojo.Goods_rank;
+import com.store.graduation_design.Pojo.Goods_typeRank;
 import com.store.graduation_design.Service.RankForGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,5 +18,10 @@ public class RankForGoodsController {
     @RequestMapping(value = "/getTotalRank")
     public List<Goods_rank> totalRank(String userName){
         return rankForGoodsService.getTotalRankSer(userName);
+    }
+
+    @RequestMapping(value = "/getTypeRank")
+    public List<Goods_typeRank> typeTotalRank(String userName){
+        return rankForGoodsService.getTypeTotalRankSer(userName);
     }
 }

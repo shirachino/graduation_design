@@ -11,7 +11,12 @@ public class StockGetListController {
     private StockGetListService stockGetListService;
 
     @RequestMapping(value = "/getStockList")
-    public String getStockList(String userName){
-        return stockGetListService.stockGetList(userName);
+    public String getStockList(String userName ,Integer pageNow){
+        return stockGetListService.stockGetList(userName,pageNow);
+    }
+
+    @RequestMapping(value = "/getStockAll")
+    public Integer getStockAll(String userName){
+        return stockGetListService.stockAll(userName);
     }
 }

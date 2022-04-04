@@ -31,7 +31,7 @@ public class StockUpdateServiceImpl implements StockUpdateService {
                      goodsOutPrice,
                      goodsSHLdate,
                      goodsEXPdate);
-            return "HTTP Status: 200";
+            return "200";
         } catch (RuntimeException e){
             System.out.println(e.getMessage());
             return "Failed to update goods.HTTP Status: 500";

@@ -31,7 +31,7 @@ public class StockInsertServiceImpl implements StockInsertService {
                     goodsOutPrice,
                     goodsSHLdate,
                     goodsEXPdate);
-            return "HTTP Status: 200";
+            return "200";
         } catch (RuntimeException e){
             System.out.println(e);
             return "HTTP Status: 500";

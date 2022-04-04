@@ -9,6 +9,10 @@ import java.util.List;
 
 @Component(value ="stockListMapper")
 public interface StockListMapper {
-    @Select("select * from ${userName}" + "_stock")
-    List<User_stock> getStockListByUserName(@Param("userName") String userName);
+    @Select("SELECT * FROM ${userName}" + "_stock" +
+            " LIMIT ${pageNow},20")
+    List<User_stock> getStockListByUserName(@Param("userName") String userName,@Param("pageNow") Integer pageNow);
+
+    @Select("SELECT COUNT(*) AS stock_all FROM ${userName}_stock")
+    Integer getStockAll(@Param("userName") String userName);
 }

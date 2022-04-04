@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>销售记录</title>
-    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css" />
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="../plug/vue/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -34,70 +34,76 @@
     <div id="sale-app">
         <div class="sale-mod">
             <el-row style="margin: 0 0 20px 30px">
-                <el-radio-group v-model="radioForSearch" size="small" >
-                <div class="floatleft" style="padding: 0 10px 0 0 " >
-                    <el-radio label="s_id" border>按编号</el-radio>
-                    <el-radio label="s_date" border>按时间</el-radio>
-                    <input type="text" v-model="searchSalesInfoById.salesId" placeholder="请输入订单编号"  v-if="radioForSearch == 's_id'" style="width: 196px;height: 34px"/>
-                    <el-date-picker
-                            v-model="searchSalesInfoByDate.salesDate"
-                            value-format="yyyy-MM-dd"
-                            type="date"
-                            placeholder="选择日期"
-                            v-if="radioForSearch == 's_date'">
-                    </el-date-picker>
-                </div>
-                    <el-button type="primary" icon="el-icon-search" circle  @click="searchSales"></el-button>
+                <el-radio-group v-model="radioForSearch" size="small">
+                    <div class="floatleft" style="padding: 0 10px 0 0 ">
+                        <el-radio label="s_id" border>按编号</el-radio>
+                        <el-radio label="s_date" border>按时间</el-radio>
+                        <input type="text" v-model="searchSalesInfoById.salesId" placeholder="请输入订单编号"
+                               v-if="radioForSearch == 's_id'" style="width: 196px;height: 34px"/>
+                        <el-date-picker
+                                v-model="searchSalesInfoByDate.salesDate"
+                                value-format="yyyy-MM-dd"
+                                type="date"
+                                placeholder="选择日期"
+                                v-if="radioForSearch == 's_date'">
+                        </el-date-picker>
+                    </div>
+                    <el-button type="primary" icon="el-icon-search" circle @click="searchSales"></el-button>
                 </el-radio-group>
             </el-row>
         </div>
 
         <div id="datalist">
-            <el-table
-                    :data="saleList"
-                    fit
-                    lazy
-                    :header-cell-style="listHeadColor"
-                    style="width: 100%"
-                    v-loading = "isLoading"
-                    element-loading-background = "rgba(0, 0, 0, 0.8)"
-                    element-loading-text = "加载中，请稍后..."
-                    element-loading-spinner = "el-icon-loading">
-                <el-table-column  label="详情" type="expand" style="width: 50%">
+            <el-card>
+                <el-table
+                        :data="saleList"
+                        fit
+                        lazy
+                        :header-cell-style="listHeadColor"
+                        style="width: 100%"
+                        v-loading="isLoading"
+                        element-loading-background="rgba(0, 0, 0, 0.8)"
+                        element-loading-text="加载中，请稍后..."
+                        element-loading-spinner="el-icon-loading">
+                    <el-table-column label="详情" type="expand" style="width: 50%">
 
-                    <template v-slot="scope">
-                        <el-table :data="scope.row.sale_info"
-                                  show-summary
-                                  :header-cell-style="listHeadColor"
-                                  :summary-method="moneySummary"
-                                  style="width: 100%">
-                            <el-table-column width="100"></el-table-column>
-                            <el-table-column prop="sale_goodsId" label="商品编号"></el-table-column>
-                            <el-table-column prop="sale_goodsName" label="商品名称"></el-table-column>
-                            <el-table-column prop="sale_goodsNum" label="数量"></el-table-column>
-                            <el-table-column prop="sale_outPrice" label="单价"></el-table-column>
-                            <el-table-column prop="sale_salary" label="小计"></el-table-column>
-                        </el-table>
-                    </template>
-                </el-table-column>
-                <el-table-column type="index" label="序号" ></el-table-column>
-                <el-table-column
-                        prop="sale_id"
-                        label="订单编号"
-                        style="width: 25%">
-                </el-table-column>
-                <el-table-column
-                        prop="sale_date"
-                        label="销售时间"
-                        style="width: 25%"
-                        >
-                </el-table-column>
-                <el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <el-button type="text" size="small" @click.native.stop="deleteSales(scope.row)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+                        <template v-slot="scope">
+                            <el-card>
+                                <el-table :data="scope.row.sale_info"
+                                          show-summary
+                                          :header-cell-style="listHeadColor"
+                                          :summary-method="moneySummary"
+                                          style="width: 100%">
+                                    <el-table-column width="100"></el-table-column>
+                                    <el-table-column prop="sale_goodsId" label="商品编号"></el-table-column>
+                                    <el-table-column prop="sale_goodsName" label="商品名称"></el-table-column>
+                                    <el-table-column prop="sale_goodsNum" label="数量"></el-table-column>
+                                    <el-table-column prop="sale_outPrice" label="单价"></el-table-column>
+                                    <el-table-column prop="sale_salary" label="小计"></el-table-column>
+                                </el-table>
+                            </el-card>
+                        </template>
+                    </el-table-column>
+                    <el-table-column type="index" label="序号"></el-table-column>
+                    <el-table-column
+                            prop="sale_id"
+                            label="订单编号"
+                            style="width: 25%">
+                    </el-table-column>
+                    <el-table-column
+                            prop="sale_date"
+                            label="销售时间"
+                            style="width: 25%"
+                    >
+                    </el-table-column>
+                    <el-table-column label="操作">
+                        <template slot-scope="scope">
+                            <el-button type="danger" plain size="small" @click.native.stop="deleteSales(scope.row)">删除
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-card>
         </div>
     </div>
 </div>
