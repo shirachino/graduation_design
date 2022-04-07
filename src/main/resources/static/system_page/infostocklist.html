@@ -3,34 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<title>商品管理</title>
-	<link rel="stylesheet" href="../plug/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../plug/bootstrap-table-master/dist/bootstrap-table.css">
 	<link rel="stylesheet" type="text/css" href="../css/sysstyle.css" >
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<script src="../plug/vue/vue.min.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
 	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-	<script src="../js/sys_goods.js" type="module"></script>
-	<style type="text/css">
-		@font-face {
-			font-family: 'Linearicons-Free';
-			src: url('../fonts/Linearicons-Free.eot?pbf4y');
-			src: url('../fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
-				url('../fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
-				url('../fonts/Linearicons-Free.woff?pbf4y') format('woff'),
-				url('../fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
-			font-weight: normal;
-			font-style: normal;
-			font-display: block;
-		}
-	</style>
+	<script src="../js/sys_infostocklist.js" type="module"></script>
 </head>
 
 <body>
 	<div class="bg-box">
 	<div class="top">
-		<h2>商品库存管理</h2>
+		<h2><i class="el-icon-s-shop"></i>商品库存管理</h2>
 	</div>
 	<!-- VUE作用域 -->
 	<div id="goods">
@@ -147,36 +132,36 @@
 				<div class="mydefmodal_body">
 					<table>
 						<tr>
-							<td>商品编号</td>
+							<td class="mylabel">商品编号</td>
 							<td><input class="form_control" v-model="addGoodsInfo.goodsId" placeholder="编号"> </td>
 						</tr>
 						<tr>
-							<td>商品名称</td>
+							<td class="mylabel">商品名称</td>
 							<td><input class="form_control" v-model="addGoodsInfo.goodsName" placeholder="名称"> </td>
 						</tr>
 						<tr>
-							<td>商品类型</td>
+							<td class="mylabel">商品类型</td>
 							<td><input class="form_control" v-model="addGoodsInfo.goodsType" placeholder="类型"> </td>
 						</tr>
 						<tr>
-							<td>商品数量</td>
+							<td class="mylabel">商品数量</td>
 							<td><input class="form_control" v-model="addGoodsInfo.goodsNum" placeholder="数量"> </td>
 						</tr>
 						<tr>
-							<td>进价</td>
+							<td class="mylabel">进价</td>
 							<td><input class="form_control" type="number" step="0.01" v-model="addGoodsInfo.goodsInPrice" placeholder="进价"> </td>
 						</tr>
 						<tr>
-							<td>售价</td>
+							<td class="mylabel">售价</td>
 							<td><input class="form_control" type="number" step="0.01" v-model="addGoodsInfo.goodsOutPrice" placeholder="售价"> </td>
 						</tr>
 						<tr>
-							<td>上架日期</td>
+							<td class="mylabel">上架日期</td>
 							<td>
 								<input type="date" class="form_control" v-model="addGoodsInfo.goodsSHLdate" placeholder="上架日期"> </td>
 						</tr>
 						<tr>
-							<td>过期时间</td>
+							<td class="mylabel">过期时间</td>
 							<td><input type="date" class="form_control" v-model="addGoodsInfo.goodsEXPdate" placeholder="过期时间"> </td>
 						</tr>
 					</table>

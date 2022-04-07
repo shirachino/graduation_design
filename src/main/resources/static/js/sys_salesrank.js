@@ -69,6 +69,10 @@ var saleRankVm = new Vue({
             var option;
             var rgTotal = this.rankGoodsTotal
             option = {
+                tooltip : {
+                    trigger: 'axis',
+
+                },
                 dataset: [{
                     dimensions: ['goods_name', 'goods_saleNum'],
                     source: rgTotal
@@ -105,10 +109,17 @@ var saleRankVm = new Vue({
                 },
                 series: [
                     {
+                        name: '类型',
                         type: 'pie',
                         radius: '50%',
-                        center: ['50%', '50%']
-                        // No encode specified, by default, it is '2012'.
+                        center: ['50%', '50%'],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
                     }
                 ]
             };

@@ -238,9 +238,7 @@ summary[focus] {
 	margin-left: -300px;
 	transition: margin-left .3s;
 }
-
 .change::after{
-
 	transform: rotate(45deg)!important;
 	transition: transform .5s;
 }

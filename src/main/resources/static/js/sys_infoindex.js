@@ -11,7 +11,8 @@ var sysIndexVm = new Vue({
 				userName:''
 			},
 			customNum:'0',
-			saleNum:'0'
+			saleNum:'0',
+			drawer: false,
 		}
 	},
 	created(){

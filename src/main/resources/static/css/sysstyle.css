@@ -13,6 +13,10 @@ body{
 	float: right;
 }
 
+[v-cloak]{
+	display: none;
+}
+
 /* 伪元素清除浮动 */
 .clearfix:after {
 	visibility: hidden;
@@ -151,7 +155,7 @@ input[type^=text]:focus {
 }
 
 .add{
-	height: 575px!important;
+	height: 620px!important;
 }
 
 .mydefmodal_main {
@@ -175,13 +179,13 @@ input[type^=text]:focus {
 	font-size: 20px;
 }
 
-.mydefmodal_body td:first-of-type {
-	width: 120px;
-	height: 50px;
-	padding-right: 4px;
+.mydefmodal_body .mylabel {
+	display: block;
+	width: 60px;
+	height: 20px;
+	margin: 20px 0 0 0 ;
 	text-align: right;
-	line-height: 50px;
-	font-size: 18px;
+	font-size: 15px;
 	font-weight: 500;
 	color: #000000;
 }
@@ -486,11 +490,6 @@ input[type^=text]:focus {
 	color: #8f3b3d;
 }
 
-.top h2::before {
-	content: '\e82d';
-	font-family: Linearicons-Free;
-}
-
 .goodsmod {
 	width: 1503px;
 	margin: 20px 0;
@@ -595,4 +594,21 @@ input[type^=text]:focus {
 .row-bg {
 	padding: 10px 0;
 	background-color: #f9fafc;
+}
+
+.el-carousel__item h3 {
+	color: #475669;
+	font-size: 20px;
+	text-align: center;
+	opacity: 0.75;
+	line-height: 300px;
+	margin: auto;
+}
+
+.el-carousel__item:nth-child(2n) {
+	background-color: #b5d4cd;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+	background-color: #d9e3de;
 }

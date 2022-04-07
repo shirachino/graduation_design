@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<script src="../plug/vue/vue.min.js"></script>
 	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-	<script src="../js/sys_index.js" type="module"></script>
+	<script src="../js/sys_infoindex.js" type="module"></script>
 	<style type="text/css">
 		@font-face {
 			font-family: 'Linearicons-Free';
@@ -30,7 +30,7 @@
 <body>
 <div class="bg-box">
 	<!-- 今日销售 -->
-	<div class="today_sale box" id="sale_info_app">
+	<div class="today_sale box" id="sale_info_app" v-cloak>
 		<h2>今日销售概况</h2>
 		<div class="customer tod_tag">
 			<h6>顾客数</h6>
@@ -47,6 +47,29 @@
 			<!-- 被购买次数=顾客数，后台动态接收 -->
 			<i>统一绿茶</i>
 		</div>
+		<el-badge is-dot class="item" style="position: fixed; bottom: 100px; right: 80px">
+			<el-button class="share-button" icon="el-icon-chat-dot-square" type="primary"
+					   @click="drawer = true"
+			></el-button>
+		</el-badge>
+		<el-drawer
+				title="消息中心"
+				:visible.sync="drawer"
+				:with-header="true"
+				v-cloak>
+			<el-card style="margin: 0 20px 20px 20px">
+				绿茶库存不足
+			</el-card>
+			<el-card style="margin: 0 20px 20px 20px">
+				红茶库存不足
+			</el-card>
+			<el-card style="margin: 0 20px 20px 20px">
+				饼干快到保质期
+			</el-card>
+			<el-card style="margin: 0 20px 20px 20px">
+				快到保质期
+			</el-card>
+		</el-drawer>
 	</div>
 	<!-- 今日销售/ -->
 
@@ -172,6 +195,7 @@
 	</div>
 	<!-- 备忘录模态框/ -->
 	<div class="mask"></div>
+
 
 </div>
 </body>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>缺货管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../js/sys_infostockout.js" type="module"></script>
+</head>
+<body>
+<div class="bg-box">
+    <div id="datalist" v-cloak>
+        <div class="top">
+            <h2><i class="el-icon-s-release"></i>商品缺货管理</h2>
+        </div>
+        <el-row :gutter="20">
+            <el-col :span="16">
+                <div class="grid-content">
+                    <el-card>
+                        <h3>缺货商品列表</h3>
+                        <el-table
+                                :data="outGoodsList"
+                                fit
+                                lazy
+                                style="width: 100%;min-height: 300px">
+                            <el-table-column type="index" label="序号"></el-table-column>
+                            <el-table-column
+                                    prop="goods_id"
+                                    label="商品编号"
+                                    sortable
+                                    width="150">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods_name"
+                                    label="商品名称"
+                                    width="220">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods_type"
+                                    label="商品类型"
+                                    width="150">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods_num"
+                                    label="商品数量"
+                                    sortable
+                                    width="150">
+                            </el-table-column>
+                            <el-table-column
+                                    label="修改"
+                                    width="100">
+                                <template slot-scope="scope">
+                                    <el-button type="primary" size="small" class="revbtn"
+                                               @click="">补货
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                    label="删除"
+                                    width="100">
+                                <template slot-scope="scope">
+                                    <el-button type="danger" plain size="small" @click.native.stop="">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-card>
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content">
+                    <el-card>
+                        <h3>补货提醒</h3>
+                        <el-carousel height="300px" :interval="10000" direction="vertical">
+                            <el-carousel-item v-for="item in this.outGoodsInfo" :key="item" >
+                                <h3>商品 {{ item.goods_name }} 还剩 {{ item.goods_num }} 件，请及时补货！</h3>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+
+    </div>
+</div>
+</body>
+</html>

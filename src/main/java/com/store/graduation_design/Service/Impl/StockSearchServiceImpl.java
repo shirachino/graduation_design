@@ -20,7 +20,7 @@ public class StockSearchServiceImpl implements StockSearchService {
             List<User_stock> searchResult = stockSearchMapper.searchByGoodsName(userName,goodsName);
             return JSON.toJSONString(searchResult);
         } catch (RuntimeException e){
-            return "Failed to search goods. HTTP Status: 500 \n"+e.getMessage();
+            return "HTTP Status: 500";
         }
     }
 }
