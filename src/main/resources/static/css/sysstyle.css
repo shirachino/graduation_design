@@ -612,3 +612,29 @@ input[type^=text]:focus {
 .el-carousel__item:nth-child(2n+1) {
 	background-color: #d9e3de;
 }
+
+/**
+营业额统计
+ */
+.turnover-rec h3 {
+	float: left;
+	font-size: 17px;
+	color: #61666d;
+}
+.turnover-card {
+	height: 176px;
+	margin-bottom: 25px;
+}
+.turnover-data {
+	color: #00aeec;
+	padding: 0 0 0 20px;
+	font-family: SF Pro Rounded,sans-serif;
+	font-weight: 800;
+	font-size: 22px;
+	line-height: 22px;
+}
+.turnover-inc{
+	float: right;
+	color: #ff464a;
+	margin: 20px 10px 0 0 ;
+}

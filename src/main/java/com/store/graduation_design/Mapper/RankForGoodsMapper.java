@@ -13,6 +13,6 @@ public interface RankForGoodsMapper {
     @Select("SELECT goods_name,goods_saleNum FROM ${userName}_stock LIMIT 0,25")
     List<Goods_rank> getTotalRank(@Param("userName") String userName);
 
-    @Select("SELECT goods_type, SUM(goods_num) AS type_saleNum FROM ${userName}_stock GROUP BY goods_type")
+    @Select("SELECT goods_type, SUM(goods_saleNum) AS type_saleNum FROM ${userName}_stock GROUP BY goods_type")
     List<Goods_typeRank> getTypeTotalRank(@Param("userName") String userName);
 }

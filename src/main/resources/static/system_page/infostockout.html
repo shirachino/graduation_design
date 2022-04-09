@@ -67,6 +67,13 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+                        <el-pagination
+                                background
+                                layout="prev, pager, next"
+                                :total="this.outGoodsAll"
+                                page-size="10"
+                        style="margin-top: 20px">
+                        </el-pagination>
                     </el-card>
                 </div>
             </el-col>

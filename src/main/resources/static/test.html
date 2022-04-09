@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="plug/vue/vue.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <style>
         .demo-table-expand {
@@ -23,92 +24,31 @@
 </head>
 <body>
 <div id="datalist">
-    <el-table
-            :data="goodList"
-            style="width: 100%"
-            :row-class-name="tableRowClassName">
-        <el-table-column
-                prop="goodsId"
-                label="商品编号"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsName"
-                label="商品名称"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsType"
-                label="商品类型"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsNum"
-                label="商品数量"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsInPrice"
-                label="单价"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsOutPrice"
-                label="售价"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsSHLdate"
-                label="上架日期"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                prop="goodsEXPdate"
-                label="过期时间"
-                width="180">
-        </el-table-column>
-        <el-table-column
-                label="销售"
-                width="180">
-            <el-button type="text" size="small">销售</el-button>
-        </el-table-column>
-        <el-table-column
-                label="操作"
-                width="180">
-                <el-button type="text" size="small">修改</el-button>
-                <el-button type="text" size="small">删除</el-button>
-        </el-table-column>
-    </el-table>
-
+{{list[0]}}
 </div>
 
 <script type="text/javascript">
     var goodVm = new Vue({
         el: '#datalist',
-        methods: {
-            tableRowClassName({row, rowIndex}) {
-                if (rowIndex === 1) {
-                    return 'warning-row';
-                } else if (rowIndex === 3) {
-                    return 'success-row';
-                }
-                return '';
-            }
-        },
         data() {
             return {
-                goodList: [
-                    {
-                        goodsId:'1',
-                        goodsName:'1',
-                        goodsType:'1',
-                        goodsNum:'1',
-                        goodsInPrice:'1',
-                        goodsOutPrice:'1',
-                        goodsSHLdate:'1',
-                        goodsEXPdate:'1'
-                    }
-                ]
+                list: []
+            }
+        },
+        created(){
+            this.requestTest()
+        },
+        methods: {
+            requestTest(){
+                var that = this
+                axios({
+                    methods:'get',
+                    url:'/getDayTurnover?userName=elaina'
+                }).then(function (result) {
+                    that.list = result.data
+                    console.log(that.list)
+                    that.list[0]
+                })
             }
         }
     })

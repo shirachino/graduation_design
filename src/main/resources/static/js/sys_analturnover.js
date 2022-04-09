@@ -7,15 +7,66 @@ Vue.config.devtools = true
 var turnoverVm = new Vue({
     el: '#turnoverApp',
     data() {
-        return {}
+        return {
+            userInfo:{
+              userName:''
+            },
+            turnoverType:[],
+            turnoverRec:{
+                dayTurnover:'100',
+                monthTurnover:'1000',
+                yearTurnover:'10000'
+            },
+            incTurnover:'50'
+        }
     },
     created() {
-
+        this.getDayTurnover()
+        this.getTurnoverType()
     },
     mounted() {
         this.turnoverStatic()
     },
     methods: {
+        /**
+         * 获取每日营业额
+         */
+        getDayTurnover(){
+            let qs = Qs
+            let that = this
+            this.userInfo.userName = window.localStorage.getItem('tname')
+            axios({
+                method:'post',
+                url:'/getDayTurnover',
+                data:qs.stringify(that.userInfo)
+            }).then(function (result) {
+                that.turnoverRec.dayTurnover = result.data[0]
+                that.turnoverRec.monthTurnover = result.data[1]
+                that.turnoverRec.yearTurnover = result.data[2]
+                that.incTurnover = result.data[3]
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
+        /**
+         *
+         */
+        getTurnoverType(){
+            let qs = Qs
+            let that = this
+            this.userInfo.userName = window.localStorage.getItem('tname')
+            axios({
+                method:'post',
+                url:'/getTurnoverType',
+                data:qs.stringify(that.userInfo)
+            }).then(function (result) {
+                that.turnoverType = result.data
+                console.log(that.turnoverType)
+                that.typeTurnoverChart()
+            }).catch(function (error) {
+                console.log(error)
+            })
+        },
         turnoverStatic() {
             var chartDom = document.getElementById('turnoverChart');
             var myChart = echarts.init(chartDom);
@@ -86,6 +137,29 @@ var turnoverVm = new Vue({
                 ]
             };
             myChart.setOption(option);
+        },
+        typeTurnoverChart(){
+            var chartDom = document.getElementById('type-turnover');
+            var myChart = echarts.init(chartDom);
+            var option;
+            option = {
+                dataset:{
+                    dimensions: ['turnover','goods_type'],
+                    source: this.turnoverType
+                },
+                series: [
+                    {
+                        name: '营业额商品类型分布图',
+                        type: 'pie',
+                        radius: [10, 100],
+                        center: ['50%', '50%'],
+                        itemStyle: {
+                            borderRadius: 8
+                        }
+                    }
+                ]
+            };
+            option && myChart.setOption(option);
         }
     }
 })

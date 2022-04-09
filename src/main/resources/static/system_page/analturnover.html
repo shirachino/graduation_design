@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="bg-box">
-    <div id="turnoverApp">
+    <div id="turnoverApp" v-cloak>
         <div class="top">
             <h2>营业额统计</h2>
         </div>
@@ -21,15 +21,50 @@
             <el-col :span="16">
                 <el-card>
                     <div class="grid-content">
-                        <div id="turnoverChart" style="height: 400px;width: 100%"></div>
+                        <div id="turnoverChart" style="height: 600px;width: 100%"></div>
                     </div>
                 </el-card>
             </el-col>
             <el-col :span="8">
                 <el-card>
-                    <div class="grid-content">
-
+                    <div class="grid-content turnover-rec">
+                        <el-row :gutter="10">
+                            <el-col :span="12">
+                                <div class="grid-content ">
+                                    <el-card class="turnover-card">
+                                        <el-row>
+                                            <h3><i class="el-icon-s-finance"></i>当日营业额</h3>
+                                            <i class="el-icon-caret-top turnover-inc"><span>{{incTurnover}}</span></i>
+                                        </el-row>
+                                        <div class="turnover-data">{{turnoverRec.dayTurnover}} 元</div>
+                                    </el-card>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div class="grid-content ">
+                                    <el-card class="turnover-card">
+                                        <el-row>
+                                            <h3><i class="el-icon-s-finance"></i>当月营业额</h3>
+                                        </el-row>
+                                        <div class="turnover-data">{{turnoverRec.monthTurnover}} 元</div>
+                                    </el-card>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <div class="grid-content" style="margin-top: -20px">
+                            <el-card class="turnover-card">
+                                <el-row>
+                                    <h3><i class="el-icon-s-finance"></i>当年营业额</h3>
+                                </el-row>
+                                <div class="turnover-data">{{turnoverRec.yearTurnover}} 元</div>
+                            </el-card>
+                        </div>
                     </div>
+                </el-card>
+
+                <el-card style="margin-top: 20px">
+                    <h3><i class="el-icon-s-finance"></i>商品类型营业额分布</h3>
+                    <div id="type-turnover" style="width: 460px;height: 280px;"></div>
                 </el-card>
             </el-col>
         </el-row>

@@ -19,4 +19,15 @@ public class StockGetListController {
     public Integer getStockAll(String userName){
         return stockGetListService.stockAll(userName);
     }
+
+    @RequestMapping(value = "/getStockOut")
+    public String getStockOutList(String userName ,Integer pageNow){
+        return stockGetListService.stockOutList(userName,pageNow);
+    }
+
+    @RequestMapping(value = "/getStockOutAll")
+    public Integer getStockOutAll(String userName){
+        return stockGetListService.stockOutAll(userName);
+    }
+
 }
