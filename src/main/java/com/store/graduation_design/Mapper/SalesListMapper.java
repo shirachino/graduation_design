@@ -15,11 +15,11 @@ public interface SalesListMapper {
 
     @Delete("DELETE FROM ${userName}" + "_saleRecord" +
             " WHERE sale_id = #{salesId}")
-    void deleteSalesRecord(@Param("userName") String userName,@Param("salesId") Integer salesId);
+    void deleteSalesRecord(@Param("userName") String userName,@Param("salesId") String salesId);
 
     @Select("SELECT * FROM ${userName}_saleRecord" +
             " WHERE sale_id = #{salesId}")
-    List<User_sale> searchSalesById(@Param("userName") String userName,@Param("salesId") Integer salesId);
+    List<User_sale> searchSalesById(@Param("userName") String userName,@Param("salesId") String salesId);
 
     @Select("SELECT * FROM ${userName}_saleRecord" +
             " WHERE sale_date = #{salesDate}")

@@ -27,7 +27,7 @@ public class SalesListController {
     private SaleDeleteRecService saleDeleteRecService;
 
     @RequestMapping(value = "/salesDelete")
-    public String deleteSaleRec(String userName,Integer salesId){
+    public String deleteSaleRec(String userName,String salesId){
         return saleDeleteRecService.deleteSaleRecord(userName,salesId);
     }
 
@@ -36,7 +36,7 @@ public class SalesListController {
     private SaleSearchService saleSearchService;
 
     @RequestMapping(value = "/salesSearchById")
-    public List<User_sale> searchSaleRecById(String userName,Integer salesId){
+    public List<User_sale> searchSaleRecById(String userName,String salesId){
         return saleSearchService.searchSalesById(userName,salesId);
     }
 

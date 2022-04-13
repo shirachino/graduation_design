@@ -11,7 +11,7 @@ public class SaleDeleteRecServiceImpl implements SaleDeleteRecService {
     private SalesListMapper salesListMapper;
 
     @Override
-    public String deleteSaleRecord(String userName,Integer salesId)throws RuntimeException{
+    public String deleteSaleRecord(String userName,String salesId)throws RuntimeException{
         try {
             salesListMapper.deleteSalesRecord(userName,salesId);
             return "Delete sale record success. Status: 200";

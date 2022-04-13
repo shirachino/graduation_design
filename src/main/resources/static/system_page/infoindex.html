@@ -2,199 +2,233 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="description" content="聊城大学 计算机学院 电子商务">
-	<meta name="keywords" content="系统,商品,毕设,商店管理" />
-	<title>店铺管家系统首页</title>
-	<link rel="stylesheet" type="text/css" href="../css/base.css" />
-	<link rel="stylesheet" type="text/css" href="../css/sysstyle.css" />
-	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-	<script src="../plug/vue/vue.min.js"></script>
-	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-	<script src="../js/sys_infoindex.js" type="module"></script>
-	<style type="text/css">
-		@font-face {
-			font-family: 'Linearicons-Free';
-			src: url('../fonts/Linearicons-Free.eot?pbf4y');
-			src: url('../fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
-				url('../fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
-				url('../fonts/Linearicons-Free.woff?pbf4y') format('woff'),
-				url('../fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
-			font-weight: normal;
-			font-style: normal;
-			font-display: block;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="description" content="聊城大学 计算机学院 电子商务">
+    <meta name="keywords" content="系统,商品,毕设,商店管理"/>
+    <title>店铺管家系统首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../plug/element-ui/element-ui.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
+    <script src="../plug/element-ui/element-ui.js"></script>
+    <script src="../js/sys_infoindex.js" type="module"></script>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Linearicons-Free';
+            src: url('../fonts/Linearicons-Free.eot?pbf4y');
+            src: url('../fonts/Linearicons-Free.eot?pbf4y#iefix') format('embedded-opentype'),
+            url('../fonts/Linearicons-Free.ttf?pbf4y') format('truetype'),
+            url('../fonts/Linearicons-Free.woff?pbf4y') format('woff'),
+            url('../fonts/Linearicons-Free.svg?pbf4y#Linearicons-Free') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+    </style>
 </head>
 
 <body>
 <div class="bg-box">
-	<!-- 今日销售 -->
-	<div class="today_sale box" id="sale_info_app" v-cloak>
-		<h2>今日销售概况</h2>
-		<div class="customer tod_tag">
-			<h6>顾客数</h6>
-			<!-- 被购买次数=顾客数，后台动态接收 -->
-			<i>{{customNum}}</i><span>人</span>
-		</div>
-		<div class="sales tod_tag">
-			<h6>销售额</h6>
-			<!-- 净销售，后台动态接收 -->
-			<i>{{saleNum}}</i><span>元</span>
-		</div>
-		<div class="saletop tod_tag">
-			<h6>销量最高</h6>
-			<!-- 被购买次数=顾客数，后台动态接收 -->
-			<i>统一绿茶</i>
-		</div>
-		<el-badge is-dot class="item" style="position: fixed; bottom: 100px; right: 80px">
-			<el-button class="share-button" icon="el-icon-chat-dot-square" type="primary"
-					   @click="drawer = true"
-			></el-button>
-		</el-badge>
-		<el-drawer
-				title="消息中心"
-				:visible.sync="drawer"
-				:with-header="true"
-				v-cloak>
-			<el-card style="margin: 0 20px 20px 20px">
-				绿茶库存不足
-			</el-card>
-			<el-card style="margin: 0 20px 20px 20px">
-				红茶库存不足
-			</el-card>
-			<el-card style="margin: 0 20px 20px 20px">
-				饼干快到保质期
-			</el-card>
-			<el-card style="margin: 0 20px 20px 20px">
-				快到保质期
-			</el-card>
-		</el-drawer>
-	</div>
-	<!-- 今日销售/ -->
+    <!-- 今日销售 -->
+    <div class="today_sale box" id="sale_info_app" v-cloak >
+        <h2>今日销售概况</h2>
+        <div class="customer tod_tag">
+            <h6>顾客数</h6>
+            <!-- 被购买次数=顾客数，后台动态接收 -->
+            <i>{{customNum}}</i><span>人</span>
+        </div>
+        <div class="sales tod_tag">
+            <h6>销售额</h6>
+            <!-- 净销售，后台动态接收 -->
+            <i>{{saleNum}}</i><span>元</span>
+        </div>
+        <div class="saletop tod_tag" style="width: 400px">
+            <h6>销量最高</h6>
+            <!-- 被购买次数=顾客数，后台动态接收 -->
+            <i>{{saleMost}}</i>
+        </div>
+        <el-badge is-dot class="item" style="position: fixed; bottom: 100px; right: 80px">
+            <el-button class="share-button" icon="el-icon-chat-dot-square" type="primary"
+                       @click="drawer = true"
+            ></el-button>
+        </el-badge>
+        <el-drawer
+                title="消息中心"
+                :visible.sync="drawer"
+                :with-header="true"
+                v-cloak>
+            <el-card style="margin: 0 20px 20px 20px">
+                绿茶库存不足
+            </el-card>
+            <el-card style="margin: 0 20px 20px 20px">
+                红茶库存不足
+            </el-card>
+            <el-card style="margin: 0 20px 20px 20px">
+                饼干快到保质期
+            </el-card>
+            <el-card style="margin: 0 20px 20px 20px">
+                快到保质期
+            </el-card>
+        </el-drawer>
+    </div>
+    <!-- 今日销售/ -->
 
-	<!-- 快速导航 -->
-	<div class="fastmod box">
-		<h2>快捷入口</h2>
-		<p class="sctt">常用功能</p>
-		<button class="btn mod_one">快速入库 </button>
-		<button class="btn mod_two">快捷查询 </button>
-		<button class="btn mod_thr">便捷销售 </button>
-	</div>
-	<!-- 快速导航/ -->
+    <!-- 快速导航 -->
+    <div class="fastmod box" id="fastBtn" v-cloak>
+        <h2>快捷入口</h2>
+        <p class="sctt">常用功能</p>
+        <button class="btn mod_one">快速入库</button>
+        <button class="btn mod_two">快捷查询</button>
+        <button class="btn mod_thr" @click="dialogFormVisibleFun">便捷销售</button>
+    </div>
+    <!-- 快速导航/ -->
 
-	<!-- 拓展功能 -->
-	<div class="othermod box" style="height: 100%">
-		<h2>其他功能</h2>
-		<!-- 备忘录 -->
-		<p class="sctt">备忘录&nbsp;&nbsp;<span id="newmem">新建&nbsp;</span></p>
-		<div class="memarea clearfix">
+    <!-- 拓展功能 -->
+    <div class="othermod box" style="height: 100%">
+        <h2>其他功能</h2>
+        <!-- 备忘录 -->
+        <p class="sctt">备忘录&nbsp;&nbsp;<span id="newmem">新建&nbsp;</span></p>
+        <div class="memarea clearfix">
 
-		</div>
-		<!-- 备忘录/ -->
-	</div>
-	<!-- 拓展功能/ -->
+        </div>
+        <!-- 备忘录/ -->
+    </div>
+    <!-- 拓展功能/ -->
 
-	<!-- 快速入库模态框 -->
-	<div class="fastadd mydefmodal" id="fast-addFun" style="height: 580px">
-		<button type="button" class="close"><span>&times;</span></button>
-		<div class="mydefmodal_main">
-			<div class="mydefmodal_header">
-				<h4 class="mydefmodal_title">快速入库</h4>
-			</div>
-			<div class="mydefmodal_body">
-				<table>
-					<tr>
-						<td>商品编号</td>
-						<td><input class="form_control" v-model="fastAddGoodsInfo.goodsId" placeholder="编号"> </td>
-					</tr>
-					<tr>
-						<td>商品名称</td>
-						<td><input class="form_control" v-model="fastAddGoodsInfo.goodsName" placeholder="名称"> </td>
-					</tr>
-					<tr>
-						<td>商品类型</td>
-						<td><input class="form_control" v-model="fastAddGoodsInfo.goodsType" placeholder="类型"> </td>
-					</tr>
-					<tr>
-						<td>商品数量</td>
-						<td><input class="form_control" v-model="fastAddGoodsInfo.goodsNum" placeholder="数量"> </td>
-					</tr>
-					<tr>
-						<td>进价</td>
-						<td><input class="form_control" type="number" step="0.01" v-model="fastAddGoodsInfo.goodsInPrice" placeholder="进价"> </td>
-					</tr>
-					<tr>
-						<td>售价</td>
-						<td><input class="form_control" type="number" step="0.01" v-model="fastAddGoodsInfo.goodsOutPrice" placeholder="售价"> </td>
-					</tr>
-					<tr>
-						<td>上架日期</td>
-						<td>
-							<input type="date" class="form_control" v-model="fastAddGoodsInfo.goodsSHLdate" placeholder="上架日期"> </td>
-					</tr>
-					<tr>
-						<td>过期时间</td>
-						<td><input type="date" class="form_control" v-model="fastAddGoodsInfo.goodsEXPdate" placeholder="过期时间"> </td>
-					</tr>
-				</table>
-				<div class="mydefmodal_footer">
-					<button type="button" class="mydefbtn mydefbtn_default">取消</button>
-					<el-button :plain="true" @click="fastAddGoodsToStock">入库</el-button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 快速入库模态框/ -->
+    <!-- 快速入库模态框 -->
+    <div class="fastadd mydefmodal" id="fast-addFun" style="height: 580px"  v-cloak>
+        <button type="button" class="close"><span>&times;</span></button>
+        <div class="mydefmodal_main">
+            <div class="mydefmodal_header">
+                <h4 class="mydefmodal_title">快速入库</h4>
+            </div>
+            <div class="mydefmodal_body">
+                <table>
+                    <tr>
+                        <td>商品编号</td>
+                        <td><input class="form_control" v-model="fastAddGoodsInfo.goodsId" placeholder="编号"></td>
+                    </tr>
+                    <tr>
+                        <td>商品名称</td>
+                        <td><input class="form_control" v-model="fastAddGoodsInfo.goodsName" placeholder="名称"></td>
+                    </tr>
+                    <tr>
+                        <td>商品类型</td>
+                        <td><input class="form_control" v-model="fastAddGoodsInfo.goodsType" placeholder="类型"></td>
+                    </tr>
+                    <tr>
+                        <td>商品数量</td>
+                        <td><input class="form_control" v-model="fastAddGoodsInfo.goodsNum" placeholder="数量"></td>
+                    </tr>
+                    <tr>
+                        <td>进价</td>
+                        <td><input class="form_control" type="number" step="0.01"
+                                   v-model="fastAddGoodsInfo.goodsInPrice" placeholder="进价"></td>
+                    </tr>
+                    <tr>
+                        <td>售价</td>
+                        <td><input class="form_control" type="number" step="0.01"
+                                   v-model="fastAddGoodsInfo.goodsOutPrice" placeholder="售价"></td>
+                    </tr>
+                    <tr>
+                        <td>上架日期</td>
+                        <td>
+                            <input type="date" class="form_control" v-model="fastAddGoodsInfo.goodsSHLdate"
+                                   placeholder="上架日期"></td>
+                    </tr>
+                    <tr>
+                        <td>过期时间</td>
+                        <td><input type="date" class="form_control" v-model="fastAddGoodsInfo.goodsEXPdate"
+                                   placeholder="过期时间"></td>
+                    </tr>
+                </table>
+                <div class="mydefmodal_footer">
+                    <button type="button" class="mydefbtn mydefbtn_default">取消</button>
+                    <el-button :plain="true" @click="fastAddGoodsToStock">入库</el-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 快速入库模态框/ -->
 
-	<!-- 快速查询模态框 -->
-	<div class="fastsearch mydefmodal">
-		<button type="button" class="close"><span>&times;</span></button>
-		<div class="mydefmodal_main">
-			<div class="mydefmodal_header">
-				<h4 class="mydefmodal_title">快捷查询</h4>
-			</div>
-			<div class="mydefmodal_body">
-				<input type="text" class="sc_input" v-model="" placeholder="请输入商品名称、编号查询">
-				<button type="button" class="btn mydefbtn_primary">查询</button>
-			</div>
-		</div>
-	</div>
-	<!-- 快速查询模态框/ -->
+    <!-- 快速查询模态框 -->
+    <div class="fastsearch mydefmodal">
+        <button type="button" class="close"><span>&times;</span></button>
+        <div class="mydefmodal_main">
+            <div class="mydefmodal_header">
+                <h4 class="mydefmodal_title">快捷查询</h4>
+            </div>
+            <div class="mydefmodal_body">
+                <input type="text" class="sc_input" v-model="" placeholder="请输入商品名称、编号查询">
+                <button type="button" class="btn mydefbtn_primary">查询</button>
+            </div>
+        </div>
+    </div>
+    <!-- 快速查询模态框/ -->
 
-	<!-- 便捷销售模态框 -->
-	<div class="fastsold mydefmodal">
-		<button type="button" class="close"><span>&times;</span></button>
-		<div class="mydefmodal_main">
-			<div class="mydefmodal_header">
-				<h4 class="mydefmodal_title">便捷销售</h4>
-			</div>
-			<div class="mydefmodal_body">
-				<input type="text" class="sc_input" v-model="" placeholder="请输入商品编号">
-				<input type="text" class="sc_input" v-model="" placeholder="请输入销售数量">
-				<button type="button" class="btn mydefbtn_primary">销售</button>
-			</div>
-		</div>
-	</div>
-	<!-- 便捷销售模态框/ -->
+    <!-- 便捷销售模态框 -->
+    <div id="saleApp" v-cloak>
+        <el-dialog title="订单生成" :visible.sync="dialogFormVisible">
+            <el-form :model="dynamicSaleForm" ref="dynamicValidateForm" class="demo-dynamic">
+                <el-form-item
+                        v-for="(saleInfo, index) in dynamicSaleForm.saleInfo"
+                        :key="saleInfo.index"
+                        :prop="'saleInfo.' + index"
+                >
+                    <el-row>
+                        <el-card>
+                            <el-input v-model="saleInfo.sale_goodsId" placeholder="请输入商品编号" label="编号"
+                                      style="width: 200px" @blur="saleInfoSearch(event,index)"></el-input>
+                            <el-input v-model="saleInfo.sale_goodsNum" placeholder="请输入数量" label="数量"
+                                      style="width: 200px" @blur="saleInfoCount(event,index)"></el-input>
+                            <el-button @click.prevent="removeDomain(saleInfo)">删除</el-button>
+                            <el-descriptions>
+                                <el-descriptions-item label="商品名称">{{searchByIdDataList[index].goods_name}}
+                                </el-descriptions-item>
+                                <el-descriptions-item label="商品单价">{{searchByIdDataList[index].goods_outPrice}}
+                                </el-descriptions-item>
+                                <el-descriptions-item label="商品库存">{{searchByIdDataList[index].goods_num}}
+                                </el-descriptions-item>
+                                <el-descriptions-item label="小计">{{searchByIdDataList[index].goods_count}}
+                                </el-descriptions-item>
+                            </el-descriptions>
 
-	<!-- 备忘录模态框 -->
-	<div class="mem mydefmodal">
-		<button type="button" class="close"><span>&times;</span></button>
-		<div class="mydefmodal_main">
-			<div class="mydefmodal_header">
-				<h4 class="mydefmodal_title">新建备忘录</h4>
-			</div>
-			<div class="mydefmodal_body">
-				<textarea placeholder="请在此输入您将要做的事情..."></textarea>
-				<p>完成时间</p>
-				<input type="date" class="form_control" v-model="" placeholder="完成时间">
-				<button type="button" class="btn mydefbtn_primary" id="memconfirm">确认</button>
-			</div>
-		</div>
-	</div>
-	<!-- 备忘录模态框/ -->
-	<div class="mask"></div>
+                        </el-card>
+                    </el-row>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button @click="addDomain">添加商品</el-button>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saleGoods">确 定</el-button>
+            </div>
+        </el-dialog>
+    </div>
+    <!-- 便捷销售模态框/ -->
+
+    <!-- 备忘录模态框 -->
+    <div class="mem mydefmodal">
+        <button type="button" class="close"><span>&times;</span></button>
+        <div class="mydefmodal_main">
+            <div class="mydefmodal_header">
+                <h4 class="mydefmodal_title">新建备忘录</h4>
+            </div>
+            <div class="mydefmodal_body">
+                <textarea placeholder="请在此输入您将要做的事情..."></textarea>
+                <p>完成时间</p>
+                <input type="date" class="form_control" v-model="" placeholder="完成时间">
+                <button type="button" class="btn mydefbtn_primary" id="memconfirm">确认</button>
+            </div>
+        </div>
+    </div>
+    <!-- 备忘录模态框/ -->
+    <div class="my-mask"></div>
 
 
 </div>

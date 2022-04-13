@@ -1,5 +1,5 @@
 import '../plug/vue/vue.min.js'
-import 'https://unpkg.com/element-ui/lib/index.js'
+import '../plug/element-ui/element-ui.js'
 
 Vue.config.devtools = true
 

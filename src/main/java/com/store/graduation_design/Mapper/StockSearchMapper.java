@@ -12,4 +12,8 @@ public interface StockSearchMapper {
     @Select("select * from ${userName}" + "_stock" +
     " where goods_name like '%${goodsName}%'")
     List<User_stock> searchByGoodsName(@Param("userName") String userName, @Param("goodsName") String goodsName);
+
+    @Select("select * from ${userName}" + "_stock" +
+            " where goods_id = ${goodsId}")
+    User_stock searchByGoodsId(@Param("userName") String userName, @Param("goodsId") Integer goodsId);
 }

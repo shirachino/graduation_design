@@ -45,6 +45,11 @@ public class InfoDisplayServiceImpl implements InfoDisplayService {
                 List<String> getResArr = infoDisplayMapper.getSalesNum(userName,dateNowDay);
                 user_sale.setSalesNum(MyJsonUtils.jsonArrayGetSalarySum(getResArr));
             }
+            if (infoDisplayMapper.getMostSaleName(userName) == null){
+                user_sale.setSaleMost("没有数据哦");
+            } else {
+                user_sale.setSaleMost(infoDisplayMapper.getMostSaleName(userName));
+            }
             //返回对象Json格式
             return JSON.toJSONString(user_sale);
         } catch (RuntimeException e){

@@ -14,7 +14,7 @@ public class SaleSearchServiceImpl implements SaleSearchService {
     private SalesListMapper salesListMapper;
 
     @Override
-    public List<User_sale> searchSalesById(String userName, Integer salesId){
+    public List<User_sale> searchSalesById(String userName, String salesId){
         return salesListMapper.searchSalesById(userName,salesId);
     }
 

@@ -23,4 +23,9 @@ public class StockSearchServiceImpl implements StockSearchService {
             return "HTTP Status: 500";
         }
     }
+
+    @Override
+    public User_stock searchGoodsById(String userName, Integer goodsId) {
+        return stockSearchMapper.searchByGoodsId(userName,goodsId);
+    }
 }

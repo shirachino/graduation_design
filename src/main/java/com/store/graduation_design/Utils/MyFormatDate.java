@@ -11,6 +11,13 @@ public class MyFormatDate {
         return dateStr;
     }
 
+    public static String yyyyMMddNowDayWithoutLine(){
+        LocalDate dateNow = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String dateStr = dateNow.format(formatter);
+        return dateStr;
+    }
+
     public static String yyyyMMNowMonth(){
         LocalDate dateNow = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");

@@ -103,7 +103,7 @@ input[type^=text]:focus {
 }
 
 /* 模态框 */
-.mask {
+.my-mask {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -235,7 +235,7 @@ input[type^=text]:focus {
 
 /* 首页 */
 .box {
-	width: 1200px;
+	width: 1400px;
 	height: 220px;
 	margin: 20px 0 0 50px;
 }

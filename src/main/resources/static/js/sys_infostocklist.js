@@ -1,6 +1,6 @@
 import '../plug/vue/vue.min.js'
 import '../plug/jquery/jquery-3.6.0.min.js'
-import 'https://unpkg.com/element-ui/lib/index.js'
+import '../plug/element-ui/element-ui.js'
 
 Vue.config.devtools = true
 
@@ -34,15 +34,15 @@ $(function () {
 
     // 关闭函数
     function cls(modal) {
-        $('.mask').css('animation', 'fadeout .3s');
+        $('.my-mask').css('animation', 'fadeout .3s');
         modal.style.animation = 'fadeout .3s';
         setTimeout(function () {
-            $('.mask').hide();
+            $('.my-mask').hide();
             modal.style.display = 'none';
-            $('.mask').css('animation', 'fadein .7s');
+            $('.my-mask').css('animation', 'fadein .7s');
             modal.style.animation = 'fadein .5s';
         }, 300)
-        $('.mask').css('opacity', 0);
+        $('.my-mask').css('opacity', 0);
         modal.style.opacity = 0;
     }
 
@@ -112,8 +112,8 @@ var headVm = new Vue({
     },
     methods: {
         openAddModal(){
-            $('.mask').show();
-            $('.mask').css('opacity', 1);
+            $('.my-mask').show();
+            $('.my-mask').css('opacity', 1);
             $('.add').show();
             $('.add').css('opacity', 1);
         },
@@ -241,8 +241,8 @@ var goodVm = new Vue({
         },
         //把修改前信息赋给更新模态框APP
         moveUpdateRowToModel(row) {
-            $('.mask').show();
-            $('.mask').css('opacity', 1);
+            $('.my-mask').show();
+            $('.my-mask').css('opacity', 1);
             $('.rev').show();
             $('.rev').css('opacity', 1);
             this.updGoodsInfo.goodsId = row.goods_id

@@ -21,4 +21,8 @@ public interface InfoDisplayMapper {
     @Select("SELECT sale_info FROM ${name}_saleRecord "+
     "WHERE sale_date LIKE '%${nowDate}%'")
     List<String> getSalesNum(@Param("name") String name, @Param("nowDate") String nowDate);
+
+    @Select("SELECT goods_name FROM ${name}_stock WHERE goods_num = ("+
+            " SELECT MAX(goods_num) FROM ${name}_stock)")
+    String getMostSaleName(@Param("name") String name);
 }

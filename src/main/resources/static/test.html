@@ -24,7 +24,7 @@
 </head>
 <body>
 <div id="datalist">
-{{list[0]}}
+{{list.BD29LPUBwangning}}
 </div>
 
 <script type="text/javascript">
@@ -43,11 +43,11 @@
                 var that = this
                 axios({
                     methods:'get',
-                    url:'/getDayTurnover?userName=elaina'
+                    url:'http://qqlykm.cn/api/wy/apijx.php?id=BD29LPUBwangning'
                 }).then(function (result) {
                     that.list = result.data
+                    console.log(result.data)
                     console.log(that.list)
-                    that.list[0]
                 })
             }
         }
