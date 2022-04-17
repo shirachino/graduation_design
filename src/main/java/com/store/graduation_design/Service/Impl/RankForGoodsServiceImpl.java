@@ -15,12 +15,17 @@ public class RankForGoodsServiceImpl implements RankForGoodsService {
     private RankForGoodsMapper rankForGoodsMapper;
 
     @Override
-    public List<Goods_rank> getTotalRankSer(String userName){
+    public List<Goods_rank> getTotalRankSer(String userName) {
         return rankForGoodsMapper.getTotalRank(userName);
     }
 
     @Override
-    public List<Goods_typeRank> getTypeTotalRankSer(String userName){
+    public List<Goods_typeRank> getTypeTotalRankSer(String userName) {
         return rankForGoodsMapper.getTypeTotalRank(userName);
+    }
+
+    @Override
+    public List<Goods_rank> getPerTypeRankSer(String userName, String goodsType) {
+        return rankForGoodsMapper.getPerTypeRank(userName,goodsType);
     }
 }

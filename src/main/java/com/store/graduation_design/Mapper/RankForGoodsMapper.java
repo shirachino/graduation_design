@@ -15,4 +15,7 @@ public interface RankForGoodsMapper {
 
     @Select("SELECT goods_type, SUM(goods_saleNum) AS type_saleNum FROM ${userName}_stock GROUP BY goods_type")
     List<Goods_typeRank> getTypeTotalRank(@Param("userName") String userName);
+
+    @Select("SELECT goods_name,goods_saleNum FROM ${userName}_stock WHERE goods_type = '${goodsType}' ORDER BY goods_saleNum DESC LIMIT 5")
+    List<Goods_rank> getPerTypeRank(@Param("userName") String userName,@Param("goodsType") String goodsType);
 }

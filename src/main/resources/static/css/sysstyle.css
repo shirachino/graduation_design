@@ -643,3 +643,13 @@ input[type^=text]:focus {
 	color: #6ecd3f;
 	margin: 20px 10px 0 0 ;
 }
+/**
+销量排行
+ */
+.per-type-rank{
+	width: 300px;
+	height: 240px;
+}
+.type-title{
+	margin: 5px 0 5px 0;
+}

@@ -5,29 +5,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class StockGetListController {
     @Autowired
     private StockGetListService stockGetListService;
 
     @RequestMapping(value = "/getStockList")
-    public String getStockList(String userName ,Integer pageNow){
-        return stockGetListService.stockGetList(userName,pageNow);
+    public String getStockList(String userName, Integer pageNow) {
+        return stockGetListService.stockGetList(userName, pageNow);
     }
 
     @RequestMapping(value = "/getStockAll")
-    public Integer getStockAll(String userName){
+    public Integer getStockAll(String userName) {
         return stockGetListService.stockAll(userName);
     }
 
     @RequestMapping(value = "/getStockOut")
-    public String getStockOutList(String userName ,Integer pageNow){
-        return stockGetListService.stockOutList(userName,pageNow);
+    public String getStockOutList(String userName, Integer pageNow) {
+        return stockGetListService.stockOutList(userName, pageNow);
     }
 
     @RequestMapping(value = "/getStockOutAll")
-    public Integer getStockOutAll(String userName){
+    public Integer getStockOutAll(String userName) {
         return stockGetListService.stockOutAll(userName);
     }
 
+    @RequestMapping(value = "/getAllType")
+    public List<String> getAllType(String userName) {
+        return stockGetListService.getAllTypeSer(userName);
+    }
 }

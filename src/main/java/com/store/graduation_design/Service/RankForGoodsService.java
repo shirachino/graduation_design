@@ -8,4 +8,5 @@ import java.util.List;
 public interface RankForGoodsService {
     List<Goods_rank> getTotalRankSer(String userName);
     List<Goods_typeRank> getTypeTotalRankSer(String userName);
+    List<Goods_rank> getPerTypeRankSer(String userName,String goodsType);
 }

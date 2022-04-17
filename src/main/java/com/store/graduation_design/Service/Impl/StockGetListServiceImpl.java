@@ -14,7 +14,12 @@ public class StockGetListServiceImpl implements StockGetListService {
     @Autowired
     private StockListMapper stockListMapper;
 
-    //获取全部列表 20组为一页
+    /**
+     * @Todo 获取全部列表 20组为一页
+     * @param userName 用户名
+     * @param pageNow 页数
+     * @return 每页商品信息列表
+     */
     @Override
     public String stockGetList(String userName,Integer pageNow) throws RuntimeException{
         try{
@@ -51,5 +56,10 @@ public class StockGetListServiceImpl implements StockGetListService {
     @Override
     public Integer stockOutAll(String userName){
         return stockListMapper.getStockOutAll(userName);
+    }
+
+    @Override
+    public List<String> getAllTypeSer(String userName) {
+        return stockListMapper.getAllType(userName);
     }
 }

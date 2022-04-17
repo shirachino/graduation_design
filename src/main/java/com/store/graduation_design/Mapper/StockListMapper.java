@@ -10,7 +10,7 @@ import java.util.List;
 @Component(value ="stockListMapper")
 public interface StockListMapper {
     /**
-     * @description 查询商品仓库数据库，每页返回20个结果
+     * @Todo 查询商品仓库数据库，每页返回20个结果
      * @param userName
      * @param pageNow
      * @return User_stock对象集合
@@ -20,7 +20,7 @@ public interface StockListMapper {
     List<User_stock> getStockListByUserName(@Param("userName") String userName,@Param("pageNow") Integer pageNow);
 
     /**
-     * @description 查询商品仓库数据库，返回总记录数
+     * @Todo 查询商品仓库数据库，返回总记录数
      * @param userName
      * @return 仓库记录数
      */
@@ -28,7 +28,7 @@ public interface StockListMapper {
     Integer getStockAll(@Param("userName") String userName);
 
     /**
-     * @description 查询缺货（数量小于10件的商品）
+     * @Todo 查询缺货（数量小于10件的商品）
      * @param userName
      * @param pageNow
      * @return User_stock对象集合
@@ -39,7 +39,7 @@ public interface StockListMapper {
     List<User_stock> getStockOutList(@Param("userName") String userName,@Param("pageNow") Integer pageNow);
 
     /**
-     * @description 查询商品仓库数据库，返回总缺货记录数
+     * @Todo 查询商品仓库数据库，返回总缺货记录数
      * @param userName
      * @return 仓库记录数
      */
@@ -47,4 +47,11 @@ public interface StockListMapper {
             " WHERE goods_num <= 10")
     Integer getStockOutAll(@Param("userName") String userName);
 
+    /**
+     * @Todo 获取全部类型
+     * @param userName
+     * @return 类型字符串列表
+     */
+    @Select("SELECT goods_type FROM ${userName}_stock GROUP BY goods_type ORDER BY SUM(goods_saleNum) DESC LIMIT 4")
+    List<String> getAllType(@Param("userName") String userName);
 }

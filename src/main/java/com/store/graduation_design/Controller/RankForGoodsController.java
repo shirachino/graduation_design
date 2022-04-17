@@ -16,12 +16,17 @@ public class RankForGoodsController {
     private RankForGoodsService rankForGoodsService;
 
     @RequestMapping(value = "/getTotalRank")
-    public List<Goods_rank> totalRank(String userName){
+    public List<Goods_rank> totalRank(String userName) {
         return rankForGoodsService.getTotalRankSer(userName);
     }
 
     @RequestMapping(value = "/getTypeRank")
-    public List<Goods_typeRank> typeTotalRank(String userName){
+    public List<Goods_typeRank> typeTotalRank(String userName) {
         return rankForGoodsService.getTypeTotalRankSer(userName);
+    }
+
+    @RequestMapping(value = "/getPerTypeRank")
+    public List<Goods_rank> perTypeRank(String userName, String goodsType){
+        return rankForGoodsService.getPerTypeRankSer(userName,goodsType);
     }
 }
