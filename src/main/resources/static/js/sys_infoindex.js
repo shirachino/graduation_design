@@ -181,6 +181,9 @@ var fastSale = new Vue({
                 })
         },
         saleInfoCount(event, index) {
+            if(event.target.value ==''){
+                return false
+            }
             let count
             count = this.searchByIdDataList[index].goods_outPrice * event.target.value
             this.$set(this.searchByIdDataList[index], 'goods_count', count)

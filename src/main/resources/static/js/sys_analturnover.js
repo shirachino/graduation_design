@@ -17,7 +17,8 @@ var turnoverVm = new Vue({
                 monthTurnover:'1000',
                 yearTurnover:'10000'
             },
-            incTurnover:'50'
+            incTurnover:'',
+            showTurnover:''
         }
     },
     created() {
@@ -44,6 +45,8 @@ var turnoverVm = new Vue({
                 that.turnoverRec.monthTurnover = result.data[1]
                 that.turnoverRec.yearTurnover = result.data[2]
                 that.incTurnover = result.data[3]
+                that.showTurnover = Math.abs(that.incTurnover)
+                console.log(that.incTurnover,typeof that.incTurnover)
             }).catch(function (error) {
                 console.log(error)
             })

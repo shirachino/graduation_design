@@ -5,14 +5,43 @@ import '../plug/element-ui/element-ui.js'
 var customerVm = new Vue({
     el: '#customerFlow',
     data() {
-        return {}
+        return {
+            userInfo: {
+                userName: ''
+            },
+            customList: []
+        }
+    },
+    created(){
+        this.getCustomPerSeason()
     },
     mounted() {
-        this.customerCharts()
         this.customerDateChart()
     },
+    watch: {
+        customList: {
+            deep: true,
+            handler: function () {
+                this.customerCharts(this.customList)
+            }
+        }
+    },
     methods: {
-        customerCharts() {
+        getCustomPerSeason() {
+            let qs = Qs
+            let that = this
+            that.userInfo.userName = window.localStorage.getItem('tname')
+            axios({
+                method:'post',
+                url:'/getSeasonCustom',
+                data:qs.stringify(that.userInfo)
+            }).then(function (result) {
+                that.customList = result.data
+                console.log(that.customList)
+                that.customerCharts(that.customList)
+            })
+        },
+        customerCharts(customList) {
             var chartDom = document.querySelector(".cus-chart");
             var myChart = echarts.init(chartDom);
             var option;
@@ -51,7 +80,7 @@ var customerVm = new Vue({
                 xAxis: [{
                     type: 'category',
                     boundaryGap: false,
-                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    data: customList.sevenDays
                 }, {
                     type: 'category',
                     boundaryGap: false,
@@ -73,19 +102,19 @@ var customerVm = new Vue({
                         name: '日流量',
                         type: 'line',
                         xAxisIndex: '0',
-                        data: [33, 38, 61, 88, 110, 40, 21]
+                        data: customList.weekCustom
                     },
                     {
                         name: '月流量',
                         type: 'line',
                         xAxisIndex: '1',
-                        data: [220, 182, 191, 234, 290, 330, 523, 123, 213, 452, 234, 123],
+                        data: customList.monthCustom
                     },
                     {
                         name: '年流量',
                         type: 'line',
                         xAxisIndex: '2',
-                        data: [1241, 4343, 2132, 3232]
+                        data: customList.seasonCustom
                     }
                 ]
             };
@@ -112,8 +141,8 @@ var customerVm = new Vue({
             }
 
             option = {
-                title:{
-                    show:true,
+                title: {
+                    show: true,
                     text: "当月客流量"
                 },
                 tooltip: {
@@ -143,7 +172,7 @@ var customerVm = new Vue({
                         dayLabel: {
                             firstDay: 1,
                             nameMap: ['周天', '周一', '周二', '周三', '周四', '周五', '周六'],
-                            position:'bottom'
+                            position: 'bottom'
                         },
                         monthLabel: {
                             nameMap: 'cn',
@@ -153,15 +182,15 @@ var customerVm = new Vue({
                         top: 100,
                         left: 100,
                         range: '2022-3',
-                        splitLine:{
-                            lineStyle:{
-                                color:'#93fcdd'
+                        splitLine: {
+                            lineStyle: {
+                                color: '#93fcdd'
                             }
                         },
-                        itemStyle:{
+                        itemStyle: {
                             borderWidth: 1,
                             borderColor: "#f5f5f5",
-                            borderCap:'round'
+                            borderCap: 'round'
                         }
                     }
                 ],

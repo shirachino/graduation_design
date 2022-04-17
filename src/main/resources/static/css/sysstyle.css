@@ -638,3 +638,8 @@ input[type^=text]:focus {
 	color: #ff464a;
 	margin: 20px 10px 0 0 ;
 }
+.turnover-dec{
+	float: right;
+	color: #6ecd3f;
+	margin: 20px 10px 0 0 ;
+}

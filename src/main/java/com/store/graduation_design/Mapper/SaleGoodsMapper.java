@@ -11,4 +11,9 @@ public interface SaleGoodsMapper {
     @Update("INSERT INTO ${userName}_salerecord(sale_id,sale_info,sale_date)" +
     " VALUES (${saleId},#{saleInfo},#{saleDate})")
     void saleGoods(@Param("userName") String userName, @Param("saleId") String saleId, @Param("saleInfo") String saleInfo, @Param("saleDate") String saleDate);
+
+    @Update("UPDATE ${userName}_stock SET goods_saleNum = goods_saleNum + '${saleNum}'," +
+            " goods_num = goods_num - '${saleNum}'" +
+            " WHERE goods_id = '${goodsId}'")
+    void updateGoodsSaleNum(@Param("userName") String userName,@Param("saleNum") Integer saleNum,@Param("goodsId") Integer goodsId);
 }

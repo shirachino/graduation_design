@@ -1,6 +1,7 @@
 package com.store.graduation_design.Utils;
 
 import com.alibaba.fastjson.JSONArray;
+import com.store.graduation_design.Pojo.User_saleInfo;
 import com.sun.istack.internal.NotNull;
 
 import java.math.BigDecimal;

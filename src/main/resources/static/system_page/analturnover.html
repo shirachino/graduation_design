@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
     <link rel="stylesheet" type="text/css" href="../plug/element-ui/element-ui.css">
     <script src="../plug/vue/vue.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../plug/axios/axios.min.js"></script>
     <script src="https://cdn.bootcss.com/qs/6.7.0/qs.min.js"></script>
     <script src="../plug/element-ui/element-ui.js"></script>
     <script src="../js/sys_analturnover.js" type="module"></script>
@@ -34,7 +34,9 @@
                                     <el-card class="turnover-card">
                                         <el-row>
                                             <h3><i class="el-icon-s-finance"></i>当日营业额</h3>
-                                            <i class="el-icon-caret-top turnover-inc"><span>{{incTurnover}}</span></i>
+                                            <i class="el-icon-caret-top turnover-inc" v-if="incTurnover >= 0"><span>{{showTurnover}}</span></i>
+                                            <i class="el-icon-caret-bottom
+ turnover-dec" v-if="incTurnover < 0"><span>{{showTurnover}}</span></i>
                                         </el-row>
                                         <div class="turnover-data">{{turnoverRec.dayTurnover}} 元</div>
                                     </el-card>

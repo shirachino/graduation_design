@@ -40,7 +40,7 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
         List<String> jsonArrYear = infoDisplayMapper.getSalesNum(userName,nowYear);
         List<String> jsonArrPriDay = infoDisplayMapper.getSalesNum(userName,priDay);
 
-        Double todayMinusPri = Math.abs(MyJsonUtils.jsonArrayGetSalarySum(jsonArrDay) - MyJsonUtils.jsonArrayGetSalarySum(jsonArrPriDay));
+        Double todayMinusPri = MyJsonUtils.jsonArrayGetSalarySum(jsonArrDay) - MyJsonUtils.jsonArrayGetSalarySum(jsonArrPriDay);
         return new LinkedList<Double>(){{
             add(MyJsonUtils.jsonArrayGetSalarySum(jsonArrDay));
             add(MyJsonUtils.jsonArrayGetSalarySum(jsonArrMonth));
