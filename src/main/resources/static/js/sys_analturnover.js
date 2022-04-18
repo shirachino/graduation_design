@@ -38,21 +38,22 @@ var turnoverVm = new Vue({
             this.userInfo.userName = window.localStorage.getItem('tname')
             axios({
                 method:'post',
-                url:'/getDayTurnover',
+                url:'/getTurnoverList',
                 data:qs.stringify(that.userInfo)
             }).then(function (result) {
                 that.turnoverRec.dayTurnover = result.data[0]
                 that.turnoverRec.monthTurnover = result.data[1]
                 that.turnoverRec.yearTurnover = result.data[2]
+                //先查看是正数还是负数，再取绝对值显示
                 that.incTurnover = result.data[3]
                 that.showTurnover = Math.abs(that.incTurnover)
-                console.log(that.incTurnover,typeof that.incTurnover)
+                //console.log(that.incTurnover,typeof that.incTurnover)
             }).catch(function (error) {
                 console.log(error)
             })
         },
         /**
-         *
+         *获取每个类型的营业额
          */
         getTurnoverType(){
             let qs = Qs
@@ -64,7 +65,7 @@ var turnoverVm = new Vue({
                 data:qs.stringify(that.userInfo)
             }).then(function (result) {
                 that.turnoverType = result.data
-                console.log(that.turnoverType)
+                //console.log(that.turnoverType)
                 that.typeTurnoverChart()
             }).catch(function (error) {
                 console.log(error)

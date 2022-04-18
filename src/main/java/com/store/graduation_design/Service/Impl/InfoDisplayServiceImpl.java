@@ -31,7 +31,7 @@ public class InfoDisplayServiceImpl implements InfoDisplayService {
         try{
             //根据日期判断顾客数和订单数
             UserSaleInfo user_sale = new UserSaleInfo();
-            String dateNowDay= MyFormatDate.yyyyMMddNowDay();
+            String dateNowDay= MyFormatDate.yyyyMMddNowDay(0);
             //如果获取不到结果，置0
             if(infoDisplayMapper.getOrderNum(userName,dateNowDay) == null){
                 user_sale.setCustomsNum("0");

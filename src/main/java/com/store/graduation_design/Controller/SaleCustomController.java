@@ -14,8 +14,13 @@ public class SaleCustomController {
     @Autowired
     private SaleCustomService saleCustomService;
 
-    @RequestMapping(value = "/getSeasonCustom")
-    public Custom_statics getSeasonCustom(String userName) {
+    /**
+     * @Todo 获取季度、近七日、每月顾客数
+     * @param userName 用户名
+     * @return 返回季度、近七日、每月顾客数和近七日x轴
+     */
+    @RequestMapping(value = "/getCustomList")
+    public Custom_statics getCustomList(String userName) {
         Custom_statics resCustom = new Custom_statics();
         resCustom.setSeasonCustom(saleCustomService.customBySeason(userName));
         resCustom.setWeekCustom(saleCustomService.customByWeek(userName));

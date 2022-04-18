@@ -111,7 +111,7 @@ var headVm = new Vue({
         }
     },
     methods: {
-        openAddModal(){
+        openAddModal() {
             $('.my-mask').show();
             $('.my-mask').css('opacity', 1);
             $('.add').show();
@@ -152,6 +152,7 @@ var goodVm = new Vue({
         },
         //商品列表
         goodsList: [],
+        typeFilters: [],
         //删除的商品信息
         delGoodsInfo: {
             userName: '',
@@ -176,6 +177,7 @@ var goodVm = new Vue({
         stockTotal: ''
     },
     created() {
+        this.getAllType()
         this.getGoodsList()
         this.getStockAllNum()
     },
@@ -213,6 +215,25 @@ var goodVm = new Vue({
                     console.log(error)
                     that.isLoading = false
                 });
+        },
+        getAllType() {
+            let qs = Qs
+            let that = this
+            that.userInfo.userName = window.localStorage.getItem('tname')
+            axios({
+                url: '/getAllType',
+                method: 'post',
+                data: qs.stringify(that.userInfo)
+            }).then(function (result) {
+                let filters = []
+                for (var i = 0; i < result.data.length; i++) {
+                    let oneType = {}
+                    oneType.text = result.data[i]
+                    oneType.value = result.data[i]
+                    filters.push(oneType)
+                }
+                that.typeFilters = filters
+            })
         },
         searchResultList() {
             goodVm.goodsList = headVm.searchResult;
@@ -265,10 +286,36 @@ var goodVm = new Vue({
         },
         filterHandler(value, row, column) {
             const property = column['property'];
+            // console.log(row[property] === value)
             return row[property] === value;
         },
+        filterChange(value) {
+            /**
+             * 没做出来
+
+            console.log(value.type)
+            let qs = Qs
+            let that = this
+            let requestData = {}
+            requestData.userName = window.localStorage.getItem('tname')
+            requestData.pageNow = that.currentPage
+            if (value.type[0] == undefined){
+                this.getGoodsList()
+            } else {
+                requestData.goodsType = value.type[0]
+            }
+            axios({
+                url: '/getStockListByType',
+                method: 'post',
+                data: qs.stringify(requestData)
+            })
+                .then(function (result) {
+
+                })
+             */
+        },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            //console.log(`当前页: ${val}`);
             let qs = Qs
             let that = this;
             that.userInfo.userName = window.localStorage.getItem('tname')
@@ -358,17 +405,17 @@ var goodAddVm = new Vue({
             }
 
             $.ajax({
-                async:false,
-                type:'post',
-                url:'/stockInsert',
-                data:that.addGoodsInfo,
-                dataType:"json",
-                success:function (res) {
-                    if (res == "200"){
+                async: false,
+                type: 'post',
+                url: '/stockInsert',
+                data: that.addGoodsInfo,
+                dataType: "json",
+                success: function (res) {
+                    if (res == "200") {
                         that.successMsg()
                         $('.close').eq(0).trigger("click")
                         goodVm.getGoodsList()
-                    }else{
+                    } else {
                         that.errorMsg()
                     }
                 }

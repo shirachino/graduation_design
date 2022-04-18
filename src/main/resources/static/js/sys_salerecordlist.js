@@ -8,7 +8,8 @@ var saleVm = new Vue({
     data(){
         return{
             userInfo: {
-                userName:''
+                userName:'',
+                pageNow: 1
             },
             saleList:[{
                 sale_id:'',
@@ -30,9 +31,13 @@ var saleVm = new Vue({
             isLoading:false,
             radioForSearch: 's_id',
             value1: '',
+
+            currentPage:1,
+            saleListTotal:1
         }
     },
     created(){
+        this.getSaleTotalNum()
         this.getSaleList()
     },
     methods: {
@@ -41,6 +46,7 @@ var saleVm = new Vue({
             let qs = Qs
             let that = this
             that.userInfo.userName = window.localStorage.getItem('tname')
+            that.userInfo.pageNow = 1
             //let postJsonData = JSON.stringify(that.userName)
             axios({
                 url:'/salesRecord/getSalesList',
@@ -68,6 +74,52 @@ var saleVm = new Vue({
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
                     that.isLoading = false;
+                });
+        },
+        getSaleTotalNum(){
+            let qs = Qs
+            let that = this
+            that.userInfo.userName = window.localStorage.getItem('tname')
+            axios({
+                url: '/salesRecord/getSalesAll',
+                method: 'post',
+                data: qs.stringify(that.userInfo)
+            }).then(function (result) {
+                that.saleListTotal = result.data
+            })
+
+        },
+        handleCurrentChange(val){
+            //console.log(`当前页: ${val}`);
+            let qs = Qs
+            let that = this;
+            that.userInfo.userName = window.localStorage.getItem('tname')
+            that.userInfo.pageNow = val
+            //let postJsonData = JSON.stringify(that.userName)
+            axios({
+                url: '/salesRecord/getSalesList',
+                method: 'post',
+                data: qs.stringify(that.userInfo)
+            })
+                .then(function (result) {
+                    var saleInfoArrPage = result.data
+                    saleInfoArrPage.forEach(function (value,i,arr) {
+                        //传回来的json是纯字符串，转换成json对象
+                        arr[i].sale_info = JSON.parse(arr[i].sale_info)
+                        //当对象只有一个构不成数组，vue无法遍历，将对象转换成数组
+                        if(!Array.isArray(arr[i].sale_info)){
+                            //console.log(arr[i].sale_info)
+                            const objToArr = [];
+                            objToArr.push(arr[i].sale_info)
+                            //console.log(objToArr)
+                            arr[i].sale_info = objToArr
+                            //console.log(arr[i].sale_info)
+                        }
+                    })
+                    that.saleList = saleInfoArrPage
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error)
                 });
         },
         deleteSales(row){

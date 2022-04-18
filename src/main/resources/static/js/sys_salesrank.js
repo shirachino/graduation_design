@@ -11,7 +11,8 @@ var saleRankVm = new Vue({
             userName: ''
         },
         rankGoodsTotal: [],
-        rankGoodsByType: [{
+        rankGoodsByType: [],
+        rankGoodsPerType: [{
             goods_type: 'XXX'
         }, {
             goods_type: 'XXX'
@@ -29,9 +30,7 @@ var saleRankVm = new Vue({
         this.getTypeTotalRank();
         this.getAllType().then();
     },
-    mounted() {
-        //this.getPerTypeRank('type-one');
-    },
+    mounted() {},
     methods: {
         //axios request
         async getAllType() {
@@ -39,14 +38,19 @@ var saleRankVm = new Vue({
             let that = this
             that.userInfo.userName = window.localStorage.getItem('tname')
             let typeList = await axios({
-                url: '/getAllType',
+                url: '/getAllTypeLimit4',
                 method: 'post',
                 data: qs.stringify(that.userInfo)
             })
-            this.getPerTypeRank('type-one', typeList.data[0], '#ffe7dc')
-            this.getPerTypeRank('type-two', typeList.data[1], '#ccf3ff')
-            this.getPerTypeRank('type-three', typeList.data[2], '#c2f0c2')
-            this.getPerTypeRank('type-four', typeList.data[3], '#ffcce0')
+
+            for (var i = 0; i < typeList.data.length; i++){
+                this.rankGoodsPerType[i].goods_type = typeList.data[i]
+            }
+
+            this.getPerTypeRank('type-one', typeList.data[0], '#ffe7dc','#fff8f6')
+            this.getPerTypeRank('type-two', typeList.data[1], '#ccf3ff','#f9fcff')
+            this.getPerTypeRank('type-three', typeList.data[2], '#c2f0c2','#eaf1ea')
+            this.getPerTypeRank('type-four', typeList.data[3], '#ffcce0','#fff7f9')
         },
         getSaleGoodsTotal() {
             let qs = Qs
@@ -61,7 +65,7 @@ var saleRankVm = new Vue({
                 .then(function (result) {
                     //console.log(result.data)
                     that.rankGoodsTotal = result.data
-                    console.log(that.rankGoodsTotal)
+                    //console.log(that.rankGoodsTotal)
                     //初始化chart不能写在mounted里，数据获取不到
                     that.totalRankChart()
                 })
@@ -82,7 +86,7 @@ var saleRankVm = new Vue({
                 .then(function (result) {
                     //console.log(result.data)
                     that.rankGoodsByType = result.data
-                    console.log(that.rankGoodsByType)
+                    //console.log(that.rankGoodsByType)
                     //初始化chart不能写在mounted里，数据获取不到
                     that.typeRankChart()
                 })
@@ -90,7 +94,7 @@ var saleRankVm = new Vue({
                     console.log(error)
                 });
         },
-        getPerTypeRank(divId, goodsType, color) {
+        getPerTypeRank(divId, goodsType, color1,color2) {
             let qs = Qs
             let that = this;
             let requestData = {}
@@ -103,8 +107,8 @@ var saleRankVm = new Vue({
                 data: qs.stringify(requestData)
             }).then(function (result) {
                 that.typeOneRank = result.data
-                console.log(that.typeOneRank)
-                that.perTypeCharts(divId, that.typeOneRank,color)
+                //console.log(that.typeOneRank)
+                that.perTypeCharts(divId, that.typeOneRank,color1,color2)
             })
 
         },
@@ -190,7 +194,7 @@ var saleRankVm = new Vue({
             };
             myChart.setOption(option);
         },
-        perTypeCharts(divId, dataList, color) {
+        perTypeCharts(divId, dataList, color1, color2) {
             var chartDom = document.getElementById(divId);
             var myChart = echarts.init(chartDom);
             var option;
@@ -247,11 +251,11 @@ var saleRankVm = new Vue({
                     [
                         {
                             offset: 0,
-                            color: '#f6f4f3'
+                            color: color2
                         },
                         {
                             offset: 1,
-                            color: color
+                            color: color1
                         }
                     ],
                     false

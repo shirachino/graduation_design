@@ -31,7 +31,7 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
      */
     @Override
     public List<Double> turnoverPerDay(String userName){
-        String nowDay = MyFormatDate.yyyyMMddNowDay();
+        String nowDay = MyFormatDate.yyyyMMddNowDay(0);
         String nowMonth = MyFormatDate.yyyyMMNowMonth();
         String nowYear = MyFormatDate.yyyyNowYear();
         String priDay = MyFormatDate.yyyyMMddPriDay();

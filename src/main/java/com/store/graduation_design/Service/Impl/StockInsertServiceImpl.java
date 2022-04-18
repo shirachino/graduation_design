@@ -34,7 +34,7 @@ public class StockInsertServiceImpl implements StockInsertService {
             return "200";
         } catch (RuntimeException e){
             System.out.println(e);
-            return "HTTP Status: 500";
+            return "500";
         }
     };
 }

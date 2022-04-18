@@ -19,7 +19,7 @@ public class SaleGoodsServiceImpl implements SaleGoodsService {
     @Override
     public void saleGoodsSer(String userName, String saleInfo) {
         String TimeMillis = System.currentTimeMillis() + "";
-        String saleDate = yyyyMMddNowDay();
+        String saleDate = yyyyMMddNowDay(0);
         String saleId = yyyyMMddNowDayWithoutLine() + TimeMillis; //根据日期＋时间戳生成唯一的订单编号
         saleGoodsMapper.saleGoods(userName, saleId, saleInfo, saleDate);
         JSONArray jsonArr = JSONArray.parseArray(saleInfo);

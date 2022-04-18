@@ -10,8 +10,11 @@ import java.util.List;
 
 @Component(value = "saleListMapper")
 public interface SalesListMapper {
-    @Select("SELECT * FROM ${userName}_saleRecord")
-    List<User_sale> getSaleList(@Param("userName") String userName);
+    @Select("SELECT * FROM ${userName}_saleRecord ORDER BY sale_date DESC LIMIT ${pageNow},15")
+    List<User_sale> getSaleList(@Param("userName") String userName,@Param("pageNow") Integer pageNow);
+
+    @Select("SELECT COUNT(*) AS saleTotal FROM ${userName}_saleRecord")
+    Integer getSaleAll(@Param("userName") String userName);
 
     @Delete("DELETE FROM ${userName}" + "_saleRecord" +
             " WHERE sale_id = #{salesId}")

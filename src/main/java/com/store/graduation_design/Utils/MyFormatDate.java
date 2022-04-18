@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class MyFormatDate {
-    public static String yyyyMMddNowDay(){
-        LocalDate dateNow = LocalDate.now();
+    public static String yyyyMMddNowDay(Integer minus){
+        LocalDate dateNow = LocalDate.now().minusDays(minus);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dateStr = dateNow.format(formatter);
         return dateStr;

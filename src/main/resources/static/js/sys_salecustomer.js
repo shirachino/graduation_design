@@ -33,11 +33,11 @@ var customerVm = new Vue({
             that.userInfo.userName = window.localStorage.getItem('tname')
             axios({
                 method:'post',
-                url:'/getSeasonCustom',
+                url:'/getCustomList',
                 data:qs.stringify(that.userInfo)
             }).then(function (result) {
                 that.customList = result.data
-                console.log(that.customList)
+                //console.log(that.customList)
                 that.customerCharts(that.customList)
             })
         },
@@ -136,7 +136,7 @@ var customerVm = new Vue({
                         Math.floor(Math.random() * 10000)
                     ]);
                 }
-                console.log(data[data.length - 1]);
+                //console.log(data[data.length - 1]);
                 return data;
             }
 

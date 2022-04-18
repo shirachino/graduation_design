@@ -32,7 +32,7 @@ public class StockInsertController {
                 goodsEXPdate) == "200"){
             return "200";
         } else {
-            return "Request Time-out HTTP 408";
+            return "500";
         }
     }
 }

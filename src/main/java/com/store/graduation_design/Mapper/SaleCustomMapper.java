@@ -25,8 +25,8 @@ public interface SaleCustomMapper {
     Integer getSeason4Customs(@Param("userName") String userName,@Param("nowYear") String nowYear);
 
     //七日内客流量
-    @Select("SELECT COUNT(*) AS weekCustoms FROM ${userName}_salerecord WHERE sale_date BETWEEN '${oneWeekAgo}' AND '${nowDate}' GROUP BY sale_date")
-    List<Integer> getWeekCustoms(@Param("userName") String userName,@Param("oneWeekAgo") String oneWeekAgo,@Param("nowDate") String nowDate);
+    @Select("SELECT COUNT(*) AS weekCustoms FROM ${userName}_salerecord WHERE sale_date = '${nowDate}'")
+    Integer getWeekCustoms(@Param("userName") String userName,@Param("nowDate") String nowDate);
 
     @Select("SELECT COUNT(*) as customs,MONTH(sale_date) as permonth FROM ${userName}_salerecord WHERE sale_date BETWEEN '${nowYear}-01' AND '${nowYear}-12' GROUP BY MONTH(sale_date)")
     List<Custom_month> getMonthCustoms(@Param("userName") String userName, @Param("nowYear") String nowYear);

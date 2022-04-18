@@ -200,7 +200,7 @@ var fastSale = new Vue({
             let requestData = {}
             requestData.userName = window.localStorage.getItem('tname')
             requestData.saleInfo = JSON.stringify(that.dynamicSaleForm.saleInfo)
-            console.log(requestData)
+            //console.log(requestData)
             axios({
                 method: 'post',
                 url: '/saleGoods',

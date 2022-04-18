@@ -31,21 +31,22 @@ var outVm = new Vue({
         }
     },
     created(){
+        this.userInfo.userName = window.localStorage.getItem('tname')
         this.getStockOutAll()
         this.getStockOutList()
+        this.getOutGoods5()
     },
     methods:{
         getStockOutAll(){
             let qs = Qs
             let that = this
-            this.userInfo.userName = window.localStorage.getItem('tname')
             axios({
                 method:'POST',
                 url:'/getStockOutAll',
                 data: qs.stringify(that.userInfo)
             }).then(function (result) {
                 that.outGoodsAll = result.data
-                console.log(that.outGoodsAll)
+                //console.log(that.outGoodsAll)
             })
         },
         getStockOutList(){
@@ -53,7 +54,6 @@ var outVm = new Vue({
             let that = this
             this.requestInfo.userName = window.localStorage.getItem('tname')
             this.requestInfo.pageNow = 1
-            console.log(qs.stringify(that.requestInfo))
             axios({
                 method: 'post',
                 url: '/getStockOut',
@@ -63,6 +63,18 @@ var outVm = new Vue({
                 //console.log(that.outGoodsList)
             }).catch(function (error) {
                 console.log(error)
+            })
+        },
+        getOutGoods5(){
+            let qs = Qs
+            let that = this
+            axios({
+                method: 'post',
+                url: '/getStockOutGoods',
+                data: qs.stringify(that.userInfo)
+            }).then(function (result) {
+                that.outGoodsInfo = result.data;
+                console.log(that.outGoodsInfo)
             })
         }
     }

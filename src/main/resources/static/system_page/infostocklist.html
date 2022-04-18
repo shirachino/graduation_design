@@ -33,9 +33,11 @@
 		<div id="datalist">
 			<el-card>
 			<el-table
+					ref="table"
 					:data="goodsList"
 					style="width: 100%"
 					:default-sort = "{prop: 'goods_id', order: 'descending'}"
+					@filter-change="filterChange"
 					:row-class-name="tableRowClassName"
 					v-loading = "isLoading"
 					element-loading-background = "rgba(242, 242, 242,0.5)"
@@ -58,8 +60,10 @@
 						label="商品类型"
 						width="150"
 						column-key="type"
-						:filters="[{text: '饮料', value: '饮料'}, {text: '食品', value: '食品'}, {text: '日用品', value: '日用品'}, {text: '香烟', value: '香烟'}]"
-						:filter-method="filterHandler">
+						:filters="typeFilters"
+						:filter-method="filterHandler"
+						:filter-multiple = false
+						>
 				</el-table-column>
 				<el-table-column
 						prop="goods_num"

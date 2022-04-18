@@ -11,6 +11,12 @@ public class SaleGoodsController {
     @Autowired
     private SaleGoodsService saleGoodsService;
 
+    /**
+     * @Todo 销售商品接口
+     * @param userName 用户名
+     * @param saleInfo 销售信息json字符串
+     * @return 状态200
+     */
     @RequestMapping(value = "/saleGoods")
     public String saleGoods(String userName,String saleInfo){
         saleGoodsService.saleGoodsSer(userName,saleInfo);

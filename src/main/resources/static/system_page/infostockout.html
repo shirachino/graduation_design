@@ -26,7 +26,7 @@
                                 :data="outGoodsList"
                                 fit
                                 lazy
-                                style="width: 100%;min-height: 300px">
+                                style="width: 100%;min-height: 600px">
                             <el-table-column type="index" label="序号"></el-table-column>
                             <el-table-column
                                     prop="goods_id"
@@ -83,7 +83,8 @@
                         <h3>补货提醒</h3>
                         <el-carousel height="300px" :interval="10000" direction="vertical">
                             <el-carousel-item v-for="item in this.outGoodsInfo" :key="item" >
-                                <h3>商品 {{ item.goods_name }} 还剩 {{ item.goods_num }} 件，请及时补货！</h3>
+                                <h3>商品 {{ item.goods_name }} </br>
+                                    还剩 {{ item.goods_num }} 件，请及时补货！</h3>
                             </el-carousel-item>
                         </el-carousel>
                     </el-card>

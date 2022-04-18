@@ -18,12 +18,18 @@ public class StatisticsForTurnoverController {
     @Autowired
     private StatisticsForTurnoverService statisticsForTurnoverService;
 
+    /**
+     * @Todo 计算每个类型的营业额并返回
+     */
     @RequestMapping(value = "/getTurnoverType")
     public List<Turnover_type> getTurnoverType(String userName){
         return statisticsForTurnoverService.turnoverType(userName);
     }
 
-    @RequestMapping(value = "/getDayTurnover")
+    /**
+     * @Todo 统计每日、月、年营业额，计算今日相较于昨日的营业额
+     */
+    @RequestMapping(value = "/getTurnoverList")
     public List<Double> getDayTurnover(String userName){
         return statisticsForTurnoverService.turnoverPerDay(userName);
     }

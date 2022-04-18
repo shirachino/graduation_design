@@ -1,8 +1,6 @@
 package com.store.graduation_design.Mapper;
 
-import com.alibaba.fastjson.JSONArray;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 

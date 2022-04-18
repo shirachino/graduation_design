@@ -11,6 +11,12 @@ public class InfoDisplayController {
     @Autowired
     private InfoDisplayService infoDisplayService;
 
+    /**
+     * @Todo 系统首页展示信息接口
+     * @param userName
+     * @return 系统首页展示信息
+     * @throws RuntimeException
+     */
     @RequestMapping(value = "/infoDisplay")
     public String getInfo(String userName) throws RuntimeException {
         try {
