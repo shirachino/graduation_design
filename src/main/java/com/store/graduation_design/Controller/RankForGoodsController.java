@@ -1,6 +1,6 @@
 package com.store.graduation_design.Controller;
 
-import com.store.graduation_design.Pojo.Goods_rank;
+import com.store.graduation_design.Pojo.Goods_salenum_rank;
 import com.store.graduation_design.Pojo.Goods_typeRank;
 import com.store.graduation_design.Service.RankForGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class RankForGoodsController {
      * @return 销量前20的商品数量
      */
     @RequestMapping(value = "/getTotalRank")
-    public List<Goods_rank> totalRank(String userName) {
+    public List<Goods_salenum_rank> totalRank(String userName) {
         return rankForGoodsService.getTotalRankSer(userName);
     }
 
@@ -41,7 +41,7 @@ public class RankForGoodsController {
      * @return 各类型销量最高的前五件商品
      */
     @RequestMapping(value = "/getPerTypeRank")
-    public List<Goods_rank> perTypeRank(String userName, String goodsType){
+    public List<Goods_salenum_rank> perTypeRank(String userName, String goodsType){
         return rankForGoodsService.getPerTypeRankSer(userName,goodsType);
     }
 }

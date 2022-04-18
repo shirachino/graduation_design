@@ -1,9 +1,9 @@
 package com.store.graduation_design.Controller;
 
 import com.store.graduation_design.Pojo.User_sale;
-import com.store.graduation_design.Service.SaleDeleteRecService;
-import com.store.graduation_design.Service.SaleGetListService;
-import com.store.graduation_design.Service.SaleSearchService;
+import com.store.graduation_design.Service.SaleInfoService.SaleDeleteRecService;
+import com.store.graduation_design.Service.SaleInfoService.SaleGetListService;
+import com.store.graduation_design.Service.SaleInfoService.SaleSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
