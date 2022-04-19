@@ -37,6 +37,7 @@ var saleVm = new Vue({
         }
     },
     created(){
+        this.userInfo.userName = window.localStorage.getItem('tname')
         this.getSaleTotalNum()
         this.getSaleList()
     },
@@ -45,7 +46,6 @@ var saleVm = new Vue({
             this.isLoading = true
             let qs = Qs
             let that = this
-            that.userInfo.userName = window.localStorage.getItem('tname')
             that.userInfo.pageNow = 1
             //let postJsonData = JSON.stringify(that.userName)
             axios({
@@ -77,17 +77,11 @@ var saleVm = new Vue({
                 });
         },
         getSaleTotalNum(){
-            let qs = Qs
             let that = this
-            that.userInfo.userName = window.localStorage.getItem('tname')
-            axios({
-                url: '/salesRecord/getSalesAll',
-                method: 'post',
-                data: qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/salesRecord/getSalesAll?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                 that.saleListTotal = result.data
             })
-
         },
         handleCurrentChange(val){
             //console.log(`当前页: ${val}`);

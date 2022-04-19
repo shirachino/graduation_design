@@ -688,3 +688,7 @@ input[type^=text]:focus {
 .type-title {
     margin: 5px 0 5px 0;
 }
+
+.el-select .el-input {
+    width: 130px;
+}

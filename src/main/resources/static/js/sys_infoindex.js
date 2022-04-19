@@ -13,14 +13,15 @@ var sysIndexVm = new Vue({
             },
             customNum: '0',
             saleNum: '0',
-            saleMost:'店铺管家',
+            saleMost: '店铺管家',
             drawer: false,
         }
     },
     created() {
         //this指向jQuery，定义that指向Vue
         var that = this
-        that.userInfo.userName = window.localStorage.getItem('tname')
+
+        this.userInfo.userName = window.localStorage.getItem('tname')
 
         $.ajax({
             async: false,
@@ -146,7 +147,15 @@ var fastSale = new Vue({
                     sale_goodsNum: ''
                 }]
             },
-            searchByIdDataList: [{}],
+            saleVipPhone: '',
+            isUseVipBalance: false,
+            searchByIdDataList: [{
+                goods_name: '',
+                goods_outPrice: '',
+                goods_num: '',
+                goods_count: ''
+            }],
+            searchVipName:'',
             formLabelWidth: '120px',
             dialogFormVisible: false,
         }
@@ -158,7 +167,7 @@ var fastSale = new Vue({
             let searchData = {}
             searchData.userName = window.localStorage.getItem('tname')
             searchData.goodsId = event.target.value
-            if(event.target.value == ''){
+            if (event.target.value == '') {
                 return false
             }
             axios({
@@ -177,11 +186,39 @@ var fastSale = new Vue({
                     //console.log(results.data)
                 }
             }).catch(function (error) {
-                    that.errorMsg('查询失败')
-                })
+                that.errorMsg('查询失败')
+            })
+        },
+        searchVip(){
+            let regExpPhone = /^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/
+            if (regExpPhone.test(this.saleVipPhone) === false ||this.saleVipPhone ===''){
+                this.searchVipName = '请输入正确的手机号'
+                return false
+            }
+            let that = this
+            let userName = window.localStorage.getItem('tname')
+            let requestUrl = `/searchVipByPhone?userName=${userName}&vipInfo=${this.saleVipPhone}`
+            axios.get(requestUrl).then(function (result) {
+                //console.log(result.data,result.data[0] == null)
+                if(result.data[0] == null){
+                    that.$message({
+                        type: 'info',
+                        message: '没有找到该用户'
+                    });
+                } else {
+                    that.successMsg('查询到Vip')
+                    that.searchVipName = result.data[0].vip_name
+                }
+            }).catch(function (error) {
+                console.log(error)
+                that.$message({
+                    type: 'error',
+                    message: '查询失败，状态：'+ error.data
+                });
+            })
         },
         saleInfoCount(event, index) {
-            if(event.target.value ==''){
+            if (event.target.value == '') {
                 return false
             }
             let count
@@ -200,6 +237,8 @@ var fastSale = new Vue({
             let requestData = {}
             requestData.userName = window.localStorage.getItem('tname')
             requestData.saleInfo = JSON.stringify(that.dynamicSaleForm.saleInfo)
+            requestData.vipPhone = this.saleVipPhone
+            requestData.isUseVipBalance = this.isUseVipBalance
             //console.log(requestData)
             axios({
                 method: 'post',
@@ -207,20 +246,47 @@ var fastSale = new Vue({
                 data: qs.stringify(requestData)
             }).then(function (result) {
                 //console.log(result.data)
-                that.dialogFormVisible = false
-                that.successMsg('销售成功！')
+                if(result.data == "200"){
+                    that.dialogFormVisible = false
+                    that.successMsg('销售成功！')
+                } else if (result.data == "601"){
+                    that.errorMsg('Vip账户余额不足！')
+                }
             }).catch(function (error) {
-                that.errorMsg('销售失败！请重试')
+                that.errorMsg('销售失败！请重试。状态：'+ error.data)
             })
+        },
+        closeSale() {
+            this.dialogFormVisible = false
+            this.dynamicSaleForm.saleInfo = [{
+                sale_goodsId: '',
+                sale_goodsNum: ''
+            }]
+            this.searchByIdDataList = [{}]
+            document.querySelectorAll('.good-num-inp').forEach(function (val) {
+                val.children[0].removeAttribute('disabled')
+            })
+
+
         },
         removeDomain(item) {
             var index = this.dynamicSaleForm.saleInfo.indexOf(item)
             if (index !== -1) {
                 this.dynamicSaleForm.saleInfo.splice(index, 1)
+                this.searchByIdDataList.splice(index, 1)
             }
         },
         addDomain() {
-            this.dynamicSaleForm.saleInfo.push({});
+            this.dynamicSaleForm.saleInfo.push({
+                sale_goodsId: '',
+                sale_goodsNum: ''
+            });
+            this.searchByIdDataList.push({
+                goods_name: '',
+                goods_outPrice: '',
+                goods_num: '',
+                goods_count: ''
+            });
         },
         successMsg(msg) {
             this.$message({

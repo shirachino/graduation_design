@@ -31,4 +31,18 @@ public class MyJsonUtils {
         Double sumFin = sumBD.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return sumFin;
     }
+
+    public static Double jsonGetSalarySum(@NotNull String jsonStr) {
+        //遍历一个订单中的sale_info
+        Double sum = 0.0;
+        JSONArray jsonArr = JSONArray.parseArray(jsonStr);
+        for (int i = 0; i < jsonArr.size(); i++) {
+            Map jsonObj = (Map) jsonArr.get(i);
+            sum = sum + Double.parseDouble((String) jsonObj.get("sale_salary"));
+        }
+        //解决精度问题，并保留两位小数
+        BigDecimal sumBD = new BigDecimal(sum);
+        Double sumFin = sumBD.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return sumFin;
+    }
 }

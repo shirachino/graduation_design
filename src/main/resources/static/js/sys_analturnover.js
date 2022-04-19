@@ -22,6 +22,7 @@ var turnoverVm = new Vue({
         }
     },
     created() {
+        this.userInfo.userName = window.localStorage.getItem('tname')
         this.getDayTurnover()
         this.getTurnoverType()
     },
@@ -33,14 +34,10 @@ var turnoverVm = new Vue({
          * 获取每日营业额
          */
         getDayTurnover(){
-            let qs = Qs
             let that = this
-            this.userInfo.userName = window.localStorage.getItem('tname')
-            axios({
-                method:'post',
-                url:'/getTurnoverList',
-                data:qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/getTurnoverList?userName=${this.userInfo.userName}`
+
+            axios.get(requestUrl).then(function (result) {
                 that.turnoverRec.dayTurnover = result.data[0]
                 that.turnoverRec.monthTurnover = result.data[1]
                 that.turnoverRec.yearTurnover = result.data[2]
@@ -56,14 +53,10 @@ var turnoverVm = new Vue({
          *获取每个类型的营业额
          */
         getTurnoverType(){
-            let qs = Qs
             let that = this
-            this.userInfo.userName = window.localStorage.getItem('tname')
-            axios({
-                method:'post',
-                url:'/getTurnoverType',
-                data:qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/getTurnoverType?userName=${this.userInfo.userName}`
+
+            axios.get(requestUrl).then(function (result) {
                 that.turnoverType = result.data
                 //console.log(that.turnoverType)
                 that.typeTurnoverChart()

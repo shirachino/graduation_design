@@ -18,8 +18,7 @@ public class SaleGoodsController {
      * @return 状态200
      */
     @RequestMapping(value = "/saleGoods")
-    public String saleGoods(String userName,String saleInfo){
-        saleGoodsService.saleGoodsSer(userName,saleInfo);
-        return "200";
+    public String saleGoods(String userName,String saleInfo,String vipPhone,Boolean isUseVipBalance){
+        return saleGoodsService.saleGoodsSer(userName,saleInfo,vipPhone,isUseVipBalance);
     }
 }

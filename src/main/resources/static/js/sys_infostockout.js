@@ -38,13 +38,9 @@ var outVm = new Vue({
     },
     methods:{
         getStockOutAll(){
-            let qs = Qs
             let that = this
-            axios({
-                method:'POST',
-                url:'/getStockOutAll',
-                data: qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/getStockOutAll?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                 that.outGoodsAll = result.data
                 //console.log(that.outGoodsAll)
             })
@@ -66,13 +62,9 @@ var outVm = new Vue({
             })
         },
         getOutGoods5(){
-            let qs = Qs
             let that = this
-            axios({
-                method: 'post',
-                url: '/getStockOutGoods',
-                data: qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/getStockOutGoods?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                 that.outGoodsInfo = result.data;
                 console.log(that.outGoodsInfo)
             })

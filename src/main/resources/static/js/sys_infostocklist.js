@@ -4,100 +4,6 @@ import '../plug/element-ui/element-ui.js'
 
 Vue.config.devtools = true
 
-$(function () {
-    // 模态框淡入淡出
-    // 调用关闭
-    // for(i=0; i<$('.close').length;i++){
-    // 	$('.close').on('click',() => { cls($('.mydefmodal')); });
-    // 	$('.mydefbtn_default').on('click',() => { cls($('.mydefmodal')); });
-    // } //for循环失败
-
-
-    $('.close').eq(0).on('click', () => {
-        cls($('.add').get(0));
-    });
-    $('.mydefbtn_default').eq(0).on('click', () => {
-        cls($('.add').get(0));
-    });
-    $('.close').eq(1).on('click', () => {
-        cls($('.rev').get(0));
-    });
-    $('.mydefbtn_default').eq(1).on('click', () => {
-        cls($('.rev').get(0));
-    });
-    $('.close').eq(2).on('click', () => {
-        cls($('.sold').get(0));
-    });
-    $('.mydefbtn_default').eq(2).on('click', () => {
-        cls($('.sold').get(0));
-    });
-
-    // 关闭函数
-    function cls(modal) {
-        $('.my-mask').css('animation', 'fadeout .3s');
-        modal.style.animation = 'fadeout .3s';
-        setTimeout(function () {
-            $('.my-mask').hide();
-            modal.style.display = 'none';
-            $('.my-mask').css('animation', 'fadein .7s');
-            modal.style.animation = 'fadein .5s';
-        }, 300)
-        $('.my-mask').css('opacity', 0);
-        modal.style.opacity = 0;
-    }
-
-    // 原生JS写法
-    // btnadd.addEventListener('click', function () {
-    // 	mask.style.display = 'block';
-    // 	mask.style.opacity = 1;
-    // 	addmodal.style.display = 'block';
-    // 	addmodal.style.opacity = 1;
-    // });
-    // btnrev.addEventListener('click', function () {
-    // 	mask.style.display = 'block';
-    // 	mask.style.opacity = 1;
-    // 	revmodal.style.display = 'block';
-    // 	revmodal.style.opacity = 1;
-    // });
-    // btnsold.addEventListener('click', function () {
-    // 	mask.style.display = 'block';
-    // 	mask.style.opacity = 1;
-    // 	soldmodal.style.display = 'block';
-    // 	soldmodal.style.opacity = 1;
-    // });
-    // 关闭
-
-    // close[1].addEventListener('click', clsrev);
-    // btndef[1].addEventListener('click', clsrev);
-    // function clsrev() {
-    // 	mask.style.animation = 'fadeout .3s';
-    // 	revmodal.style.animation = 'fadeout .3s';
-    // 	setTimeout(function () {
-    // 		mask.style.display = 'none';
-    // 		revmodal.style.display = 'none';
-    // 		mask.style.animation = 'fadein .7s';
-    // 		revmodal.style.animation = 'fadein .5s';
-    // 	}, 300)
-    // 	mask.style.opacity = 0;
-    // 	revmodal.style.opacity = 0;
-    // }
-
-    // close[2].addEventListener('click', clssold);
-    // btndef[2].addEventListener('click', clssold);
-    // function clssold() {
-    // 	mask.style.animation = 'fadeout .3s';
-    // 	soldmodal.style.animation = 'fadeout .3s';
-    // 	setTimeout(function () {
-    // 		mask.style.display = 'none';
-    // 		soldmodal.style.display = 'none';
-    // 		mask.style.animation = 'fadein .7s';
-    // 		soldmodal.style.animation = 'fadein .5s';
-    // 	}, 300)
-    // 	mask.style.opacity = 0;
-    // 	soldmodal.style.opacity = 0;
-    // }
-    // 模态框淡入淡出end
-});
 //头部 搜索、elementUI
 var headVm = new Vue({
     el: '#goods-head',
@@ -107,7 +13,8 @@ var headVm = new Vue({
                 userName: '',
                 goodsName: '',
             },
-            searchResult: []
+            searchResult: [],
+            searchBy:'goodsName'
         }
     },
     methods: {
@@ -118,6 +25,9 @@ var headVm = new Vue({
             $('.add').css('opacity', 1);
         },
         searchGoodsByName() {
+            if (this.searchGoodsInfo.goodsName == ''){
+                goodVm.getGoodsList()
+            }
             let qs = Qs
             let that = this;
             that.searchGoodsInfo.userName = window.localStorage.getItem('tname')
@@ -177,20 +87,16 @@ var goodVm = new Vue({
         stockTotal: ''
     },
     created() {
+        this.userInfo.userName = window.localStorage.getItem('tname')
         this.getAllType()
         this.getGoodsList()
         this.getStockAllNum()
     },
     methods: {
         getStockAllNum() {
-            let qs = Qs
             let that = this;
-            that.userInfo.userName = window.localStorage.getItem('tname')
-            axios({
-                url: '/getStockAll',
-                method: 'post',
-                data: qs.stringify(that.userInfo)
-            })
+            let requestUrl = `/getStockAll?userName=${this.userInfo.userName}`
+            axios.get(requestUrl)
                 .then(function (result) {
                     that.stockTotal = result.data
                 })
@@ -198,7 +104,6 @@ var goodVm = new Vue({
         getGoodsList() {
             let qs = Qs
             let that = this;
-            that.userInfo.userName = window.localStorage.getItem('tname')
             that.userInfo.pageNow = that.currentPage
             //let postJsonData = JSON.stringify(that.userName)
             axios({
@@ -217,14 +122,9 @@ var goodVm = new Vue({
                 });
         },
         getAllType() {
-            let qs = Qs
             let that = this
-            that.userInfo.userName = window.localStorage.getItem('tname')
-            axios({
-                url: '/getAllType',
-                method: 'post',
-                data: qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/getAllType?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                 let filters = []
                 for (var i = 0; i < result.data.length; i++) {
                     let oneType = {}
@@ -318,7 +218,6 @@ var goodVm = new Vue({
             //console.log(`当前页: ${val}`);
             let qs = Qs
             let that = this;
-            that.userInfo.userName = window.localStorage.getItem('tname')
             that.userInfo.pageNow = val
             //let postJsonData = JSON.stringify(that.userName)
             axios({
@@ -396,9 +295,7 @@ var goodAddVm = new Vue({
             }
         },
         addGoodsToStock() {
-            let qs = Qs
             let that = this
-            that.addGoodsInfo.userName = window.localStorage.getItem('tname')
             //判断输入是否正确
             if (that.isInputRight() == false) {
                 return false
@@ -512,5 +409,98 @@ var revVm = new Vue({
         }
     }
 })
-	
-	
+
+$(function () {
+    // 模态框淡入淡出
+    // 调用关闭
+    // for(i=0; i<$('.close').length;i++){
+    // 	$('.close').on('click',() => { cls($('.mydefmodal')); });
+    // 	$('.mydefbtn_default').on('click',() => { cls($('.mydefmodal')); });
+    // } //for循环失败
+
+
+    $('.close').eq(0).on('click', () => {
+        cls($('.add').get(0));
+    });
+    $('.mydefbtn_default').eq(0).on('click', () => {
+        cls($('.add').get(0));
+    });
+    $('.close').eq(1).on('click', () => {
+        cls($('.rev').get(0));
+    });
+    $('.mydefbtn_default').eq(1).on('click', () => {
+        cls($('.rev').get(0));
+    });
+    $('.close').eq(2).on('click', () => {
+        cls($('.sold').get(0));
+    });
+    $('.mydefbtn_default').eq(2).on('click', () => {
+        cls($('.sold').get(0));
+    });
+
+    // 关闭函数
+    function cls(modal) {
+        $('.my-mask').css('animation', 'fadeout .3s');
+        modal.style.animation = 'fadeout .3s';
+        setTimeout(function () {
+            $('.my-mask').hide();
+            modal.style.display = 'none';
+            $('.my-mask').css('animation', 'fadein .7s');
+            modal.style.animation = 'fadein .5s';
+        }, 300)
+        $('.my-mask').css('opacity', 0);
+        modal.style.opacity = 0;
+    }
+
+    // 原生JS写法
+    // btnadd.addEventListener('click', function () {
+    // 	mask.style.display = 'block';
+    // 	mask.style.opacity = 1;
+    // 	addmodal.style.display = 'block';
+    // 	addmodal.style.opacity = 1;
+    // });
+    // btnrev.addEventListener('click', function () {
+    // 	mask.style.display = 'block';
+    // 	mask.style.opacity = 1;
+    // 	revmodal.style.display = 'block';
+    // 	revmodal.style.opacity = 1;
+    // });
+    // btnsold.addEventListener('click', function () {
+    // 	mask.style.display = 'block';
+    // 	mask.style.opacity = 1;
+    // 	soldmodal.style.display = 'block';
+    // 	soldmodal.style.opacity = 1;
+    // });
+    // 关闭
+
+    // close[1].addEventListener('click', clsrev);
+    // btndef[1].addEventListener('click', clsrev);
+    // function clsrev() {
+    // 	mask.style.animation = 'fadeout .3s';
+    // 	revmodal.style.animation = 'fadeout .3s';
+    // 	setTimeout(function () {
+    // 		mask.style.display = 'none';
+    // 		revmodal.style.display = 'none';
+    // 		mask.style.animation = 'fadein .7s';
+    // 		revmodal.style.animation = 'fadein .5s';
+    // 	}, 300)
+    // 	mask.style.opacity = 0;
+    // 	revmodal.style.opacity = 0;
+    // }
+
+    // close[2].addEventListener('click', clssold);
+    // btndef[2].addEventListener('click', clssold);
+    // function clssold() {
+    // 	mask.style.animation = 'fadeout .3s';
+    // 	soldmodal.style.animation = 'fadeout .3s';
+    // 	setTimeout(function () {
+    // 		mask.style.display = 'none';
+    // 		soldmodal.style.display = 'none';
+    // 		mask.style.animation = 'fadein .7s';
+    // 		soldmodal.style.animation = 'fadein .5s';
+    // 	}, 300)
+    // 	mask.style.opacity = 0;
+    // 	soldmodal.style.opacity = 0;
+    // }
+    // 模态框淡入淡出end
+});

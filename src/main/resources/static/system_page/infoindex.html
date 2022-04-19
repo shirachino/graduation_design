@@ -32,7 +32,7 @@
 <body>
 <div class="bg-box">
     <!-- 今日销售 -->
-    <div class="today_sale box" id="sale_info_app" v-cloak >
+    <div class="today_sale box" id="sale_info_app" v-cloak>
         <h2>今日销售概况</h2>
         <div class="customer tod_tag">
             <h6>顾客数</h6>
@@ -98,7 +98,7 @@
     <!-- 拓展功能/ -->
 
     <!-- 快速入库模态框 -->
-    <div class="fastadd mydefmodal" id="fast-addFun" style="height: 580px"  v-cloak>
+    <div class="fastadd mydefmodal" id="fast-addFun" style="height: 580px" v-cloak>
         <button type="button" class="close"><span>&times;</span></button>
         <div class="mydefmodal_main">
             <div class="mydefmodal_header">
@@ -180,7 +180,8 @@
                     <el-row>
                         <el-card>
                             <el-input v-model="saleInfo.sale_goodsId" placeholder="请输入商品编号" label="编号"
-                                      style="width: 200px" @blur="saleInfoSearch(event,index)"></el-input>
+                                      style="width: 200px" @blur="saleInfoSearch(event,index)"
+                                      class="good-num-inp"></el-input>
                             <el-input v-model="saleInfo.sale_goodsNum" placeholder="请输入数量" label="数量"
                                       style="width: 200px" @blur="saleInfoCount(event,index)"></el-input>
                             <el-button @click.prevent="removeDomain(saleInfo)">删除</el-button>
@@ -201,11 +202,20 @@
 
                 <el-form-item>
                     <el-button @click="addDomain">添加商品</el-button>
+                    <el-input
+                            placeholder="请输入会员手机号"
+                            v-model="saleVipPhone"
+                            clearable
+                            style="width: 200px;float: right"
+                            @blur="searchVip">
+                    </el-input>
+                    <el-checkbox v-model="isUseVipBalance" style="float: right;margin-right: 30px">使用VIP账户余额</el-checkbox>
                 </el-form-item>
+                <div style="float: right">{{searchVipName}}</div>
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button @click="closeSale">取 消</el-button>
                 <el-button type="primary" @click="saleGoods">确 定</el-button>
             </div>
         </el-dialog>

@@ -26,6 +26,7 @@ var saleRankVm = new Vue({
         typeOneRank: []
     },
     created() {
+        this.userInfo.userName = window.localStorage.getItem('tname')
         this.getSaleGoodsTotal();
         this.getTypeTotalRank();
         this.getAllType().then();
@@ -53,16 +54,10 @@ var saleRankVm = new Vue({
             this.getPerTypeRank('type-four', typeList.data[3], '#ffcce0','#fff7f9')
         },
         getSaleGoodsTotal() {
-            let qs = Qs
             let that = this;
-            that.userInfo.userName = window.localStorage.getItem('tname')
             //let postJsonData = JSON.stringify(that.userName)
-            axios({
-                url: '/rank/getTotalRank',
-                method: 'post',
-                data: qs.stringify(that.userInfo)
-            })
-                .then(function (result) {
+            let requestUrl = `/rank/getTotalRank?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                     //console.log(result.data)
                     that.rankGoodsTotal = result.data
                     //console.log(that.rankGoodsTotal)
@@ -74,16 +69,9 @@ var saleRankVm = new Vue({
                 });
         },
         getTypeTotalRank() {
-            let qs = Qs
             let that = this;
-            that.userInfo.userName = window.localStorage.getItem('tname')
-
-            axios({
-                url: '/rank/getTypeRank',
-                method: 'post',
-                data: qs.stringify(that.userInfo)
-            })
-                .then(function (result) {
+            let requestUrl = `/rank/getTypeRank?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                     //console.log(result.data)
                     that.rankGoodsByType = result.data
                     //console.log(that.rankGoodsByType)

@@ -23,10 +23,20 @@
 			<el-row>
 				<el-button type="primary" class="addbtn floatleft" data-toggle="modal"
 						   data-target="#addModal" style="margin-left: 15px" @click="openAddModal">入库</el-button>
-				<div class="scmod floatleft" style="margin-left: 66px;">
-					<input type="text" name="scname" placeholder="请输入要查询的商品" v-model="searchGoodsInfo.goodsName"/>
-					<el-button type="primary" icon="el-icon-search" circle @click="searchGoodsByName"></el-button>
-				</div>
+
+					<el-input placeholder="请输入内容" v-model="searchGoodsInfo.goodsName" class="input-with-select floatleft" style="margin-left:50px;width: 30%">
+						<el-select v-model="searchBy" slot="prepend" placeholder="请选择">
+							<el-option label="商品名" value="goodsName"></el-option>
+							<el-option label="商品编号" value="goodsId"></el-option>
+							<el-option label="商品类型" value="goodsType"></el-option>
+						</el-select>
+						<el-button slot="append" icon="el-icon-search" @click="searchGoodsByName"></el-button>
+					</el-input>
+
+<!--				<div class="scmod floatleft" style="margin-left: 66px;">-->
+<!--					<input type="text" name="scname" placeholder="请输入要查询的商品" v-model="searchGoodsInfo.goodsName"/>-->
+<!--					<el-button type="primary" icon="el-icon-search" circle @click="searchGoodsByName"></el-button>-->
+<!--				</div>-->
 			</el-row>
 		</div>
 		<!-- 商品列表 -->

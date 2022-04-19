@@ -13,6 +13,7 @@ var customerVm = new Vue({
         }
     },
     created(){
+        this.userInfo.userName = window.localStorage.getItem('tname')
         this.getCustomPerSeason()
     },
     mounted() {
@@ -28,14 +29,9 @@ var customerVm = new Vue({
     },
     methods: {
         getCustomPerSeason() {
-            let qs = Qs
             let that = this
-            that.userInfo.userName = window.localStorage.getItem('tname')
-            axios({
-                method:'post',
-                url:'/getCustomList',
-                data:qs.stringify(that.userInfo)
-            }).then(function (result) {
+            let requestUrl = `/getCustomList?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
                 that.customList = result.data
                 //console.log(that.customList)
                 that.customerCharts(that.customList)
