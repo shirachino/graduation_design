@@ -1,5 +1,6 @@
 package com.store.graduation_design.Service;
 
+import com.store.graduation_design.Pojo.Status_return;
 import com.store.graduation_design.Pojo.Vip_Info;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface VipListService {
     List<Vip_Info> getVipListByIdSer(String userName, String vipId);
     String putMoneySer(String userName,String putNum,String vipId);
     String deleteVipSer(String userName, String vipId);
+    Status_return vipRegisterSer(String userName, String vipName, String vipPhone, String vipBirthday, Double vipBalance);
+    Boolean isPhoneUsedSer(String userName, String vipPhone);
 }

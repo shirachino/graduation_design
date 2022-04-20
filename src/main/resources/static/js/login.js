@@ -95,7 +95,7 @@ var logVm = new Vue({
 	                 	 //用户名存入缓存中用于下个页面读取
 						window.localStorage.setItem("tname", that.userIpt.userName)
 						 //跳转至系统
-						window.document.location.href = 'stroesys.html'
+						window.document.location.href = 'stroeSystem.html'
 	                 }else{
 	                	 alert('用户名或密码错误！')
 						 return false

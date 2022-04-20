@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员注册</title>
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../plug/element-ui/element-ui.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="../plug/axios/axios.min.js"></script>
+    <script src="../plug/qs/qs.min.js"></script>
+    <script src="../plug/element-ui/element-ui.js"></script>
+    <script src="../js/sys_vipregister.js" type="module"></script>
+</head>
+<body>
+<div class="bg-box">
+    <div id="vipForm" v-cloak>
+        <div class="top">
+            <h2><i class="el-icon-user-solid"></i>会员注册</h2>
+        </div>
+        <el-row :gutter="20">
+            <el-col :span="12">
+                <div class="grid-content">
+                    <el-card style="height: 600px">
+                        <h3>填写信息</h3>
+                        <el-form :label-position="labelPosition" label-width="80px" :model="registerVipInfo"
+                                 :rules="regVipFormRules" ref="regVipForm">
+                            <el-form-item label="姓名" prop="vipName">
+                                <el-input v-model="registerVipInfo.vipName" class="my-el-inp"></el-input>
+                            </el-form-item>
+                            <el-form-item label="手机号" prop="vipPhone">
+                                <el-input v-model="registerVipInfo.vipPhone" class="my-el-inp" @blur="searchPhoneUsed"></el-input>
+                                <el-tag type="danger" v-show="isPhoneUsed === true">该手机号已经被使用！</el-tag>
+                            </el-form-item>
+                            <el-form-item label="生日" prop="vipBirthday">
+                                <el-input v-model="registerVipInfo.vipBirthday" class="my-el-inp"
+                                          type="date"></el-input>
+                            </el-form-item>
+                            <el-form-item label="充值余额" prop="vipBalance">
+                                <el-input v-model.number="registerVipInfo.vipBalance" class="my-el-inp"></el-input>
+                            </el-form-item>
+
+                            <el-form-item>
+                                <el-button type="primary" @click="submitForm('regVipForm')">VIP入会</el-button>
+                                <el-button @click="resetForm('regVipForm')">重置</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
+                </div>
+            </el-col>
+            <el-col :span="12">
+                <div class="grid-content">
+                    <el-card style="height: 600px">
+                        <h3 style="margin-bottom: 100px">注册状态</h3>
+                        <el-result icon="info" title="请注册VIP" v-show="vipRegStatus !== '200'&&vipRegStatus !== '500'">
+                            <template slot="extra">
+                                注册完成后，此处会显示状态和会员编号
+                            </template>
+                        </el-result>
+                        <el-result icon="success" title="注册VIP成功" v-show="vipRegStatus == '200'">
+                            <template slot="extra">
+                                您的Vip编号为： {{vipRegId}}
+                            </template>
+                        </el-result>
+
+                        <el-result icon="error" title="注册失败"  v-show="vipRegStatus == '500'">
+                            <template slot="extra">
+                                请检查手机号姓名是否正确
+                            </template>
+                        </el-result>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</div>
+</body>
+</html>

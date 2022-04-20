@@ -1,5 +1,6 @@
 package com.store.graduation_design.Controller;
 
+import com.store.graduation_design.Pojo.Status_return;
 import com.store.graduation_design.Pojo.Vip_Info;
 import com.store.graduation_design.Service.VipListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,18 @@ public class VipListController {
     @RequestMapping(value = "/deleteVipById")
     public String deleteVip(String userName,String vipId){
         return vipListService.deleteVipSer(userName,vipId);
+    }
+
+    /**
+     * @Todo 注册VIP
+     */
+    @RequestMapping(value = "/regVip")
+    public Status_return registerVip(String userName, String vipName, String vipPhone, String vipBirthday, Double vipBalance){
+        return vipListService.vipRegisterSer(userName,vipName,vipPhone,vipBirthday,vipBalance);
+    }
+
+    @RequestMapping(value = "/isPhoneUsed")
+    public Boolean isPhoneUsed(String userName,String vipPhone){
+        return vipListService.isPhoneUsedSer(userName,vipPhone);
     }
 }
