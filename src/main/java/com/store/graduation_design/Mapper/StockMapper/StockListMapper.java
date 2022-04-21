@@ -4,6 +4,7 @@ import com.store.graduation_design.Pojo.Goods_out;
 import com.store.graduation_design.Pojo.User_stock;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -62,6 +63,13 @@ public interface StockListMapper {
      */
     @Select("SELECT goods_name,goods_num FROM ${userName}_stock WHERE goods_num <= 10 ORDER BY goods_num DESC LIMIT 5")
     List<Goods_out> getOutGoods(@Param("userName") String userName);
+
+    /**
+     * @Todo 补货
+     */
+    @Update("UPDATE ${userName}_stock SET goods_num = (goods_num + ${addNum}) " +
+            " WHERE goods_id = #{goodsId}")
+    void addOutGoodsSql(@Param("userName") String userName,@Param("addNum") Integer addNum,@Param("goodsId") Integer goodsId);
 
     /**
      * @Todo 获取销量前四个类型

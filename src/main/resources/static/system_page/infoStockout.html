@@ -51,11 +51,11 @@
                                     width="150">
                             </el-table-column>
                             <el-table-column
-                                    label="修改"
+                                    label="补货"
                                     width="100">
                                 <template slot-scope="scope">
-                                    <el-button type="primary" size="small" class="revbtn"
-                                               @click="">补货
+                                    <el-button type="primary" size="small"
+                                               @click="addGoodsNum(scope.row)">补货
                                     </el-button>
                                 </template>
                             </el-table-column>

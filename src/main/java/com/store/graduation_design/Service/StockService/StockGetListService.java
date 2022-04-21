@@ -14,4 +14,5 @@ public interface StockGetListService {
     List<String> getAllTypeSer(String userName);
     List<Goods_out> getOutGoodsSer(String userName);
     List<String> getAllTypeWithoutLimitSer(String userName);
+    String addOutGoodsSer(String userName,Integer addNum,Integer goodsId);
 }

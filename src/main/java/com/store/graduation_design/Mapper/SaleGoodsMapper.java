@@ -10,6 +10,10 @@ public interface SaleGoodsMapper {
     " VALUES (${saleId},#{saleInfo},#{saleDate})")
     void saleGoods(@Param("userName") String userName, @Param("saleId") String saleId, @Param("saleInfo") String saleInfo, @Param("saleDate") String saleDate);
 
+    @Update("INSERT INTO ${userName}_salerecord(sale_id,sale_info,sale_date,sale_vip)" +
+            " VALUES (${saleId},#{saleInfo},#{saleDate},#{vipName})")
+    void saleGoodsWithVip(@Param("userName") String userName, @Param("saleId") String saleId, @Param("saleInfo") String saleInfo, @Param("saleDate") String saleDate,@Param("vipName") String vipName);
+
     @Update("UPDATE ${userName}_stock SET goods_saleNum = goods_saleNum + '${saleNum}'," +
             " goods_num = goods_num - '${saleNum}'" +
             " WHERE goods_id = '${goodsId}'")

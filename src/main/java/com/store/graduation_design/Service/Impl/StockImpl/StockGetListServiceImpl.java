@@ -91,4 +91,14 @@ public class StockGetListServiceImpl implements StockGetListService {
     public List<String> getAllTypeWithoutLimitSer(String userName) {
         return stockListMapper.getAllTypeWithoutLimit(userName);
     }
+
+    @Override
+    public String addOutGoodsSer(String userName, Integer addNum, Integer goodsId) {
+        try{
+            stockListMapper.addOutGoodsSql(userName,addNum,goodsId);
+            return "200";
+        }catch (Exception e){
+            return "500";
+        }
+    }
 }

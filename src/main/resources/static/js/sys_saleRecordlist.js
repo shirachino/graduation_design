@@ -14,7 +14,8 @@ var saleVm = new Vue({
             saleList:[{
                 sale_id:'',
                 sale_info:[],
-                sale_data:''
+                sale_data:'',
+                sale_vip:''
             }],
             delSalesInfo:{
                 userName:'',

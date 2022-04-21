@@ -71,6 +71,11 @@ public class StockGetListController {
         return stockGetListService.getOutGoodsSer(userName);
     }
 
+
+    @RequestMapping(value = "/addOutGoodsNum")
+    public String addOutGoodsNum(String userName,Integer goodsId,Integer addNum) {
+        return stockGetListService.addOutGoodsSer(userName,addNum,goodsId);
+    }
     /**
      * @return 类型列表
      * @Todo 获取商品销量排行前四的类型接口

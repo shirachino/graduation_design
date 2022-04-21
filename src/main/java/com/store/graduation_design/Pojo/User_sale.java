@@ -9,4 +9,5 @@ public class User_sale {
     private String sale_id;
     private String sale_date;
     private String sale_info;
+    private String sale_vip;
 }
