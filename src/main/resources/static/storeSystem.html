@@ -12,6 +12,7 @@
 	<link rel="shortcut icon" href="icon_logo.ico" />
 	<script src="plug/jquery/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="plug/vue/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="plug/axios/axios.min.js"></script>
 	<script src="js/storeSys.js" type="module" charset="utf-8"></script>
 	<style type="text/css">
 		@font-face {
@@ -49,14 +50,14 @@
 		</div>
 		<div class="user" id="user-box">
 			<div class="profile">
-				<img src="img/user_head.jpg" alt="">
+				<img :src="avatarUrl" alt="">
 				<span>{{sysUserName}}</span>
 				<span id="user_state">在线</span>
 				<span id="user_vip"><a href="javascript:void(0);">VIP</a></span>
 			</div>
 			<span class="set">
 				<ul class="user_set">
-					<li><a href="javascript:void(0);">修改账户信息</a></li>
+					<li><a href="system_page/userInfoModify.html" target="iframe">修改账户信息</a></li>
 					<li><a href="javascript:void(0);">修改密码</a></li>
 					<li><a href="javascript:void(0);">开通VIP</a></li>
 					<li><a href="javascript:void(0);" @click="logout">退出登录</a></li>

@@ -700,3 +700,30 @@ vip注册
 .my-el-inp{
     width: 50%!important;
 }
+
+/**
+用户更改头像
+ */
+.avatar-uploader .el-upload {
+    width: 178px;
+    height: 178px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+}
+.avatar {
+    width: 178px!important;
+    height: 178px!important;
+    display: block;
+}

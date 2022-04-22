@@ -11,4 +11,5 @@ public class User_info {
     private String isvip;
     private String regtime;
     private String token;
+    private String avatar_url;
 }
