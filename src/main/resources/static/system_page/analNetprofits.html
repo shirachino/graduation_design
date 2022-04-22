@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>净利润</title>
@@ -9,13 +9,32 @@
     <script src="../plug/axios/axios.min.js"></script>
     <script src="../plug/qs/qs.min.js"></script>
     <script src="../plug/element-ui/element-ui.js"></script>
+    <script src="../js/sys_analNetprofits.js" type="module"></script>
 </head>
 <body>
 <div class="bg-box">
-    <div id="datalist" v-cloak>
+    <div id="netProfitsApp" v-cloak>
         <div class="top">
-            <h2><i class="el-icon-s-release"></i>净利润分析</h2>
+            <h2><i class="el-icon-pie-chart"></i>净利润分析</h2>
         </div>
+        <el-row :gutter="20">
+            <el-col :span="16">
+                <div class="grid-content bg-purple">
+                    <el-card shadow="hover">
+                        <h3><i class="el-icon-s-data"></i>净利润排行</h3>
+                        <div id="netProfits-chart" style="width: 100%;height: 400px"></div>
+                    </el-card>
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content bg-purple">
+                    <el-card shadow="hover">
+                        <h3>净利润转化率</h3>
+                        <div id="CPC-chart" style="width: 100%;height: 300px"></div>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </div>
 </body>
