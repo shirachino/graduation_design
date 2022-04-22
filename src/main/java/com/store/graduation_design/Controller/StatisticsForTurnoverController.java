@@ -2,7 +2,9 @@ package com.store.graduation_design.Controller;
 
 import com.store.graduation_design.Mapper.InfoDisplayMapper;
 import com.store.graduation_design.Mapper.StatisticsForTurnoverMapper;
+import com.store.graduation_design.Pojo.Turnover_statics;
 import com.store.graduation_design.Pojo.Turnover_type;
+import com.store.graduation_design.Service.SaleInfoService.SaleCustomService;
 import com.store.graduation_design.Service.StatisticsForTurnoverService;
 import com.store.graduation_design.Utils.MyFormatDate;
 import com.store.graduation_design.Utils.MyJsonUtils;
@@ -18,6 +20,7 @@ public class StatisticsForTurnoverController {
     @Autowired
     private StatisticsForTurnoverService statisticsForTurnoverService;
 
+    @Autowired SaleCustomService saleCustomService;
     /**
      * @Todo 计算每个类型的营业额并返回
      */
@@ -32,5 +35,19 @@ public class StatisticsForTurnoverController {
     @RequestMapping(value = "/getTurnoverList")
     public List<Double> getDayTurnover(String userName){
         return statisticsForTurnoverService.turnoverPerDay(userName);
+    }
+
+    /**
+     * @Todo 获取季度营业额
+     */
+    @RequestMapping(value = "/getTurnoverStatics")
+    public Turnover_statics getSeasonTurnover(String userName){
+        Turnover_statics resObj = new Turnover_statics();
+        resObj.setSeasonTurnover(statisticsForTurnoverService.turnoverBySeason(userName));
+        resObj.setMonthTurnover(statisticsForTurnoverService.turnoverByMonth(userName));
+        resObj.setWeekTurnover(statisticsForTurnoverService.turnoverByWeek(userName));
+        resObj.setSevenDays(saleCustomService.xSevenDays());
+        return resObj;
+
     }
 }

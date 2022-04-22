@@ -2,6 +2,7 @@ package com.store.graduation_design.Controller;
 
 import com.store.graduation_design.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,8 @@ public class RegController {
      */
     @RequestMapping(value = "/userRegister")
     public boolean useInsertFunction(String regName,String regTelNum,String regPsw){
-        return regService.insertUser(regName,regTelNum,regPsw);
+        String RegMD5Psw = DigestUtils.md5DigestAsHex(regPsw.getBytes());//加密密码
+        return regService.insertUser(regName,regTelNum,RegMD5Psw);
     }
 
 

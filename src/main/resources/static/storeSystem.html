@@ -8,10 +8,11 @@
 	<title>店铺管家-店铺管理系统</title>
 	<link rel="stylesheet" type="text/css" href="css/base.css" />
 	<link rel="stylesheet" type="text/css" href="css/common.css" />
-	<link rel="stylesheet" type="text/css" href="css/stroesys.css" />
+	<link rel="stylesheet" type="text/css" href="css/storeSys.css" />
 	<link rel="shortcut icon" href="icon_logo.ico" />
 	<script src="plug/jquery/jquery-3.6.0.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="plug/vue/vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/storeSys.js" type="module" charset="utf-8"></script>
 	<style type="text/css">
 		@font-face {
 			font-family: 'Linearicons-Free';
@@ -58,7 +59,7 @@
 					<li><a href="javascript:void(0);">修改账户信息</a></li>
 					<li><a href="javascript:void(0);">修改密码</a></li>
 					<li><a href="javascript:void(0);">开通VIP</a></li>
-					<li><a href="javascript:void(0);">退出登录</a></li>
+					<li><a href="javascript:void(0);" @click="logout">退出登录</a></li>
 				</ul>
 			</span>
 		</div>
@@ -127,7 +128,6 @@
 	</footer>
 	<!-- 底部版权/ -->
 	<!-- JavaScript -->
-	<script src="js/stroesys.js" type="module" charset="utf-8"></script>
 	<script>
 		// 显示系统时间
 		function myGetDate() {

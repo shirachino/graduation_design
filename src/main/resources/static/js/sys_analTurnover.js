@@ -8,32 +8,33 @@ var turnoverVm = new Vue({
     el: '#turnoverApp',
     data() {
         return {
-            userInfo:{
-              userName:''
+            userInfo: {
+                userName: ''
             },
-            turnoverType:[],
-            turnoverRec:{
-                dayTurnover:'100',
-                monthTurnover:'1000',
-                yearTurnover:'10000'
+            turnoverType: [],
+            turnoverRec: {
+                dayTurnover: '100',
+                monthTurnover: '1000',
+                yearTurnover: '10000'
             },
-            incTurnover:'',
-            showTurnover:''
+            incTurnover: '',
+            showTurnover: ''
         }
     },
     created() {
         this.userInfo.userName = window.localStorage.getItem('tname')
         this.getDayTurnover()
         this.getTurnoverType()
+        this.getTurnoverStat()
     },
     mounted() {
-        this.turnoverStatic()
+        //this.turnoverStatic()
     },
     methods: {
         /**
          * 获取每日营业额
          */
-        getDayTurnover(){
+        getDayTurnover() {
             let that = this
             let requestUrl = `/getTurnoverList?userName=${this.userInfo.userName}`
 
@@ -52,10 +53,9 @@ var turnoverVm = new Vue({
         /**
          *获取每个类型的营业额
          */
-        getTurnoverType(){
+        getTurnoverType() {
             let that = this
             let requestUrl = `/getTurnoverType?userName=${this.userInfo.userName}`
-
             axios.get(requestUrl).then(function (result) {
                 that.turnoverType = result.data
                 //console.log(that.turnoverType)
@@ -64,7 +64,17 @@ var turnoverVm = new Vue({
                 console.log(error)
             })
         },
-        turnoverStatic() {
+        /**
+         *获取每日、每月、季度营业额
+         */
+        getTurnoverStat() {
+            let that = this
+            let requestUrl = `/getTurnoverStatics?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
+                that.turnoverStatic(result.data)
+            })
+        },
+        turnoverStatic(data) {
             var chartDom = document.getElementById('turnoverChart');
             var myChart = echarts.init(chartDom);
             var option;
@@ -73,11 +83,17 @@ var turnoverVm = new Vue({
                 title: {
                     text: '营业额统计'
                 },
+                color: ['#0090ff', '#58a366','#ba6b6b'],
                 tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
-                    data: ['每日', '每月', '每年']
+                    data: ['近七日', '每月', '每年'],
+                    selected: {
+                        '近七日': true,
+                        '每月': false,
+                        '每年': false
+                    }
                 },
                 grid: {
                     left: '3%',
@@ -93,7 +109,8 @@ var turnoverVm = new Vue({
                 xAxis: [{
                     type: 'category',
                     boundaryGap: false,
-                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    //data:[1,2,3,4,5,6,7]
+                    data: data.sevenDays,
                 }, {
                     type: 'category',
                     boundaryGap: false,
@@ -111,37 +128,100 @@ var turnoverVm = new Vue({
                 },
                 series: [
                     {
-                        name: '每日',
+                        name: '近七日',
                         type: 'line',
-                        stack: 'Total',
                         xAxisIndex: '0',
-                        data: [120, 132, 101, 134, 90, 230, 210]
+                        //data: [10000,11000,10000,11000,10000,11000,10000,],
+                        data: data.weekTurnover,
+                        symbol:'roundRect',
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(0,156,255,0.5)',
+                                    },
+                                    {
+                                        offset: 0.8, //这是于下方线的距离,设置1就不留空隙
+                                        color: 'rgba(0,156,255,0)',
+                                    },
+                                ],
+                                global: false,
+                            },
+                        },
                     },
                     {
                         name: '每月',
                         type: 'line',
-                        stack: 'Total',
                         xAxisIndex: '1',
-                        data: [150, 232, 201, 154, 190, 330, 410,150, 232, 201, 154, 190, 330, 410]
+                        //data: [1000,1100,1000,1100,1000,1100,1000,1000,1100,1000,1100,1000],
+                        data: data.monthTurnover,
+                        symbol:'circle',
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [
+                                    {
+                                        offset: 0,
+                                        color: 'rgb(212,255,210)',
+                                    },
+                                    {
+                                        offset: 0.8, //这是于下方线的距离,设置1就不留空隙
+                                        color: 'rgba(76,255,0,0)',
+                                    },
+                                ],
+                                global: false,
+                            },
+                        },
                     },
                     {
                         name: '每年',
                         type: 'line',
-                        stack: 'Total',
                         xAxisIndex: '2',
-                        data: [1320, 1332, 1301, 1334]
+                        data: data.seasonTurnover,
+                        //data: [1000,1100,1000,1000],
+                        symbol:'diamond',
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(252,222,189,0.5)',
+                                    },
+                                    {
+                                        offset: 0.8, //这是于下方线的距离,设置1就不留空隙
+                                        color: 'rgba(255,236,213,0)',
+                                    },
+                                ],
+                                global: false,
+                            },
+                        },
                     }
                 ]
             };
             myChart.setOption(option);
         },
-        typeTurnoverChart(){
+        typeTurnoverChart() {
             var chartDom = document.getElementById('type-turnover');
             var myChart = echarts.init(chartDom);
             var option;
             option = {
-                dataset:{
-                    dimensions: ['turnover','goods_type'],
+                dataset: {
+                    dimensions: ['turnover', 'goods_type'],
                     source: this.turnoverType
                 },
                 series: [

@@ -7,4 +7,7 @@ import java.util.List;
 public interface StatisticsForTurnoverService {
     List<Turnover_type> turnoverType(String userName);
     List<Double> turnoverPerDay(String userName);
+    List<Double> turnoverBySeason(String userName);
+    List<Double> turnoverByWeek(String userName);
+    List<Double> turnoverByMonth(String userName);
 }

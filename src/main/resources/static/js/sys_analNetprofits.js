@@ -151,8 +151,10 @@ var netProfitsVm = new Vue({
                             lineStyle: {
                                 width: 12
                             }
+                        },
+                        axisTick: {
+                            show: false
                         }
-
                     }
                 ]
             };

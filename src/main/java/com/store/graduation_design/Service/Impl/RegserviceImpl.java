@@ -24,6 +24,8 @@ public class RegserviceImpl implements RegService {
                 //创建用户销售表
                 //regMapper.dropExistSaleTable(regName);
                 regMapper.createUserSaleTable(regName);
+                //创建用户销Vip表
+                regMapper.createUserVipTable(regName);
                 //将用户插入用户表中
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String regTime = df.format(new Date());
