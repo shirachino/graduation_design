@@ -14,7 +14,7 @@
 <body>
 <div class="bg-box">
     <div id="userInfoApp" v-cloak>
-        <el-row :gutter="20">
+        <el-row :gutter="20" style="min-width: 1140px">
             <el-col style="width: 240px">
                 <div class="grid-content">
                     <el-card>
@@ -30,9 +30,9 @@
                     </el-card>
                 </div>
             </el-col>
-            <el-col :span="20">
+            <el-col :span="18">
                 <div class="grid-content">
-                    <el-card>
+                    <el-card >
                         <el-descriptions class="margin-top" title="用户信息" :column="3"  border>
                             <template slot="extra">
                                 <el-button type="primary" size="small">修改</el-button>
@@ -63,8 +63,8 @@
                                     <i class="el-icon-tickets"></i>
                                     VIP
                                 </template>
-                                <el-tag size="small" type="danger" v-if="userInfo.userId === 1">VIP</el-tag>
-                                <el-tag size="small" type="info" v-if="userInfo.userId !== 1">VIP</el-tag>
+                                <el-tag size="small" type="danger" v-if="userInfo.userIsVip == '1'">VIP</el-tag>
+                                <el-tag size="small" type="info" v-if="userInfo.userIsVip != '1'">VIP</el-tag>
                             </el-descriptions-item>
                             <el-descriptions-item>
                                 <template slot="label">
@@ -72,6 +72,13 @@
                                     注册日期
                                 </template>
                                 {{userInfo.userRegDate}}
+                            </el-descriptions-item>
+                            <el-descriptions-item>
+                                <template slot="label">
+                                    <i class="el-icon-office-building"></i>
+                                    上次登入IP地址
+                                </template>
+                                {{userInfo.userIp}}
                             </el-descriptions-item>
                         </el-descriptions>
                     </el-card>

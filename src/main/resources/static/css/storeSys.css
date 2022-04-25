@@ -1,270 +1,278 @@
 body {
-	width: 100%;
-	height: 1050px;
+    width: 100%;
+    height: 1050px;
 }
 
 .top {
-	width: 100%;
-	background:linear-gradient(to top left, rgba(67, 134, 162, .5), rgba(67, 134, 162, .9));;
+    width: 100%;
+    background: linear-gradient(to top left, rgba(67, 134, 162, .5), rgba(67, 134, 162, .9));;
 }
 
 .top_logo {
-	background-color: #0d3f68;
+    background-color: #0d3f68;
 }
 
 .top_logo a img {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 .time {
-	float: left;
-	width: 600px;
-	height: 120px;
+    float: left;
+    width: 600px;
+    height: 120px;
 }
 
 #now_time {
-	position: relative;
+    position: relative;
 }
 
 #now_time p {
-	position: absolute;
-	top: 80px;
-	left: 20px;
-	font-family:FZYaoti;
-	font-size: 18px;
-	font-weight: 500px;
-	color: #ffffff;
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    font-family: FZYaoti;
+    font-size: 18px;
+    font-weight: 500px;
+    color: #ffffff;
 }
 
 .user {
-	position: relative;
-	float: right;
-	width: 260px;
-	height: 120px;
+    position: relative;
+    float: right;
+    width: 260px;
+    height: 120px;
 }
 
 .profile {
-	margin-top: 5px;
+    margin-top: 5px;
 }
 
 .profile img {
-	width: 50px;
-	height: 50px;
-	margin: 30px 0;
-	border-radius: 50%;
-	border: 2px solid white;
+    width: 50px;
+    height: 50px;
+    margin: 30px 0;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
 .profile i {
-	margin-left: 10px;
-	color: white;
-	font-size: 20px;
-	vertical-align: middle;
+    margin-left: 10px;
+    color: white;
+    font-size: 20px;
+    vertical-align: middle;
 }
 
 .profile span {
-	position: absolute;
-	top: 30px;
-	display: inline-block;
-	width: 180px;
-	height: 30px;
-	margin: 0 15px;
-	color: white;
-	font-size: 20px;
+    position: absolute;
+    top: 30px;
+    display: inline-block;
+    width: 180px;
+    height: 30px;
+    margin: 0 15px;
+    color: white;
+    font-size: 20px;
 }
 
 #user_state {
-	position: absolute;
-	top: 63px;
-	line-height: 14px;
-	font-size: 14px;
-	color: white;
+    position: absolute;
+    top: 63px;
+    line-height: 14px;
+    font-size: 14px;
+    color: white;
 }
 
 #user_state::before {
-	content: '';
-	display: inline-block;
-	vertical-align: middle;
-	height: 14px;
-	width: 14px;
-	margin-right: 5px;
-	border-radius: 50%;
-	background-color: #00ff00;
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 14px;
+    width: 14px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background-color: #00ff00;
 }
 
 #user_vip {
-	position: absolute;
-	top: 60px;
-	left: 105px;
-	display: inline-block;
-	width: 35px;
-	height: 22px;
-	border: 1px solid #674c22;
-	border-radius: 5px;
-	background-color: #d15347;
-	text-align: center;
-	font-size: 8px;
-	color: white;
+    position: absolute;
+    top: 60px;
+    left: 105px;
+    display: inline-block;
+    width: 35px;
+    height: 22px;
+    border: 1px solid #674c22;
+    border-radius: 5px;
+    background-color: #d15347;
+    text-align: center;
+    font-size: 8px;
+    color: white;
+}
+
+.not-vip{
+    background-color: #686868!important;
 }
 
 #user_vip a {
-	color: white;
+    color: white;
 }
 
 .set::after {
-	content: '\e810';
-	position: absolute;
-	bottom: 5px;
-	right: 15px;
-	font-weight: 600;
-	font-family: Linearicons-Free;
-	font-size: 24px;
-	color: white;
-	cursor: pointer;
-	transition: all .8s;
+    content: '\e810';
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    font-weight: 600;
+    font-family: Linearicons-Free;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: all .8s;
 }
 
 .set:hover::after {
-	color: #475387;
-	transform: rotate(180deg);
+    color: #475387;
+    transform: rotate(180deg);
 }
 
 .user_set {
-	position: absolute;
-	top: 120px;
-	right: 1px;
-	display: none;
-	width: 160px;
-	border: 1px solid #e7e7e7;
-	border-radius: 0 0 10px 10px;
-	border-top: none;
-	box-shadow: 2px 2px 5px #dddddd;
-	background-color: white;
+    position: absolute;
+    top: 120px;
+    right: 1px;
+    display: none;
+    width: 160px;
+    border: 1px solid #e7e7e7;
+    border-radius: 0 0 10px 10px;
+    border-top: none;
+    box-shadow: 2px 2px 5px #dddddd;
+    background-color: white;
 }
 
 .user_set li {
-	height: 50px;
-	margin: 0 30px;
-	border-bottom: 1px solid #ccc;
-	text-align: center;
-	line-height: 50px;
+    height: 50px;
+    margin: 0 30px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    line-height: 50px;
 }
 
 .user_set li:last-of-type {
-	border: none;
+    border: none;
 }
 
 .nav {
-	float: left;
-	height: 100%;
-	width: 15.765%;
-	background-color: #002136;
-	color: white;
-	transition: width .5s;
-	transition: margin-left .3s;
+    float: left;
+    height: 100%;
+    width: 15.765%;
+    background-color: #002136;
+    color: white;
+    transition: width .5s;
+    transition: margin-left .3s;
 }
 
 .nav_title {
-	height: 50px;
-	padding-left: 20px;
-	line-height: 50px;
-	font-size: 18px;
-	background-color: #002136;
-	color: #787878;
+    height: 50px;
+    padding-left: 20px;
+    line-height: 50px;
+    font-size: 18px;
+    background-color: #002136;
+    color: #787878;
 }
 
 details[open] {
-	background-color: #002d47;
+    background-color: #002d47;
 }
-.nav ul{
-	display: none;
+
+.nav ul {
+    display: none;
 }
+
 .nav ul li {
-	height: 40px;
-	line-height: 40px;
-	padding-left: 50px;
-	font-size: 14px;
-	background-color: #003f61;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 50px;
+    font-size: 14px;
+    background-color: #003f61;
 }
 
 .nav ul li a {
-	display: inline-block;
-	width: 100%;
-	height: 40px;
-	color: white;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    color: white;
 }
 
 .nav ul li a:hover {
-	color: #62C0EB;
+    color: #62C0EB;
 }
 
 details::-webkit-details-marker {
-	display: none;
+    display: none;
 }
 
 summary {
-	user-select: none;
-	outline: 0;
+    user-select: none;
+    outline: 0;
 }
 
 summary[focus] {
-	outline: 1px dotted;
-	outline: 5px auto -webkit-focus-ring-color;
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
 }
 
 .nav summary {
-	position: relative;
-	height: 50px;
-	padding-left: 20px;
-	line-height: 50px;
-	font-size: 18px;
-	color: #ffffff;
-	list-style: none;
-	cursor: pointer;
+    position: relative;
+    height: 50px;
+    padding-left: 20px;
+    line-height: 50px;
+    font-size: 18px;
+    color: #ffffff;
+    list-style: none;
+    cursor: pointer;
 }
 
-.nav_tog{
-	position: absolute;
-	top: 400px;
-	left: 15.765%;
-	width: 15px;
-	height: 30px;
-	background-color: #364ba5be;
-	border-radius: 0 50% 50% 0;
-	transition: margin-left .3s;
+.nav_tog {
+    position: absolute;
+    top: 400px;
+    left: 15.765%;
+    width: 15px;
+    height: 30px;
+    background-color: #364ba5be;
+    border-radius: 0 50% 50% 0;
+    transition: margin-left .3s;
 }
 
-.nav_hide{
-	margin-left: -300px;
-	transition: margin-left .3s;
+.nav_hide {
+    margin-left: -300px;
+    transition: margin-left .3s;
 }
-.change::after{
-	transform: rotate(45deg)!important;
-	transition: transform .5s;
+
+.change::after {
+    transform: rotate(45deg) !important;
+    transition: transform .5s;
 }
+
 .summary::after {
-	content: '';
-	position: absolute;
-	top: 18px;
-	right: 23px;
-	display: inline-block;
-	width: 10px;
-	height: 10px;
-	border-right: 3px solid #ffffff;
-	border-bottom: 3px solid #ffffff;
-	transform: rotate(-45deg);
-	transition: transform .5s;
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: 23px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
+    transform: rotate(-45deg);
+    transition: transform .5s;
 }
 
 .nav summary:hover {
-	background-color: #002b44;
+    background-color: #002b44;
 }
 
 iframe {
-	float: left;
-	width: 84.235%;
-	height: 900px;
-	border: none;
+    float: left;
+    width: 84.235%;
+    height: 900px;
+    border: none;
 }
 
 @media screen and (min-width: 2115px) {
@@ -272,10 +280,30 @@ iframe {
 }
 
 .footer {
-	float: left;
-	height: 10%;
-	width: 81.235%;
-	text-align: center;
-	line-height: 143px;
+    float: left;
+    height: 10%;
+    width: 81.235%;
+    text-align: center;
+    line-height: 143px;
 }
 
+/**
+不可点击
+ */
+
+[v-cloak] {
+    display: none;
+}
+
+.not-click {
+    pointer-events: none;
+    color: rgba(116, 116, 116, 0.86)!important;
+}
+
+.vip-can-use ::after{
+    content: '开通VIP可使用~';
+    position: absolute;
+    right: 20px;
+    color: #ce9c9c;
+    font-size: 6px;
+}

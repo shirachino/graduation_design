@@ -1,5 +1,6 @@
 import '../plug/vue/vue.min.js';
 import '../plug/jquery/jquery-3.6.0.min.js';
+
 Vue.config.devtools = true;
 
 var regvm = new Vue({
@@ -13,10 +14,10 @@ var regvm = new Vue({
                 regSecPsw: '',
                 regAgree: false
             },
-            isNameCorrect:false,
-            isTelNumCorrect:false,
-            isPswCorrect:false,
-            isSecPswCorrect:false,
+            isNameCorrect: false,
+            isTelNumCorrect: false,
+            isPswCorrect: false,
+            isSecPswCorrect: false,
         }
     },
     created() {
@@ -81,37 +82,37 @@ var regvm = new Vue({
     methods: {
         //1.判断用户是否同意协议，信息是否填写完整,正确
         //2.将用户名发到后端查询，是否被使用，若无重名继续执行，有重名则让reg-name-rf显示，并中断
-        submitRegForm(){
+        submitRegForm() {
             if (this.regInfo.regName == "") {
                 alert('用户名不能为空!')
                 return false
-            }else if (this.regInfo.regTelNum == "") {
+            } else if (this.regInfo.regTelNum == "") {
                 alert('手机号不能为空!')
                 return false
-            }else if (this.regInfo.regPsw == "") {
+            } else if (this.regInfo.regPsw == "") {
                 alert('密码不能为空!')
                 return false
-            }else if (!this.regInfo.regAgree) {
+            } else if (!this.regInfo.regAgree) {
                 alert('请阅读并同意用户协议!')
                 return false
-            }else if (!(this.isNameCorrect &&
+            } else if (!(this.isNameCorrect &&
                 this.isTelNumCorrect &&
                 this.isPswCorrect &&
-                this.isSecPswCorrect)){
+                this.isSecPswCorrect)) {
                 alert('信息有误，请检查！')
                 return false
             }
             $.ajax({
 
-                type:'post',
-                url:'/userRegister',
-                data:regvm.regInfo,
-                dataType:"json",
-                success:function (res) {
-                    if (res == false){
+                type: 'post',
+                url: '/userRegister',
+                data: regvm.regInfo,
+                dataType: "json",
+                success: function (res) {
+                    if (res == false) {
                         $('#reg-name-rf').show()
                         $('#reg-name-t').hide()
-                    }else{
+                    } else {
                         window.document.location.href = 'login.html'
                     }
                 }

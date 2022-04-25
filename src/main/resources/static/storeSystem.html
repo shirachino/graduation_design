@@ -48,12 +48,12 @@
 				<p></p>
 			</div>
 		</div>
-		<div class="user" id="user-box">
+		<div class="user" id="user-box" v-cloak>
 			<div class="profile">
 				<img :src="avatarUrl" alt="">
 				<span>{{sysUserName}}</span>
 				<span id="user_state">在线</span>
-				<span id="user_vip"><a href="javascript:void(0);">VIP</a></span>
+				<span id="user_vip" ref="user_vip"><a href="javascript:void(0);">VIP</a></span>
 			</div>
 			<span class="set">
 				<ul class="user_set">
@@ -67,7 +67,7 @@
 	</div>
 	<!-- 头部logo和用户/ -->
 	<!-- 侧边导航栏 -->
-	<div class="nav">
+	<div class="nav" id="sys-nav" v-cloak>
 		<div class="nav_title">
 			菜单
 		</div>
@@ -88,19 +88,19 @@
 			<li><a href="system_page/saleRecordlist.html" target="iframe">销售记录</a></li>
 			<li><a href="system_page/saleCustomer.html" target="iframe">顾客流量</a></li>
 		</ul>
-		<details>
-			<summary class="summary">统计分析</summary>
+		<details ref="vip_det_1">
+			<summary class="summary" ref="vip_mod_1">统计分析</summary>
 		</details>
-		<ul>
+		<ul v-if="isVip == '1'">
 			<li><a href="system_page/analSalesrank.html" target="iframe">销量排行</a></li>
 			<li><a href="system_page/analTurnover.html" target="iframe">营业额</a></li>
 			<li><a href="system_page/analNetprofits.html" target="iframe">净利润排行</a></li>
 			<li><a href="javascript:void(0);" target="iframe">经营分析</a></li>
 		</ul>
-		<details>
-			<summary class="summary">店铺会员</summary>
+		<details ref="vip_det_2">
+			<summary class="summary" ref="vip_mod_2">店铺会员</summary>
 		</details>
-		<ul>
+		<ul v-if="isVip == '1'">
 			<li><a href="system_page/vipInfo.html" target="iframe">会员信息</a></li>
 			<li><a href="system_page/vipRegister.html" target="iframe">新会员注册</a></li>
 		</ul>

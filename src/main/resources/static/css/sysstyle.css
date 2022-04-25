@@ -57,9 +57,8 @@ input[type^=text]:focus {
     background-color: #fff;
     margin: 15px 0 15px 15px;
     padding: 10px;
-    border: solid 12px;
     border-radius: 5px;
-    border-color: rgba(217, 217, 217, 0.52);
+    border: 12px solid rgba(217, 217, 217, 0.52);
     box-shadow: 3px 3px 3px rgba(151, 151, 151, 0.58);
 }
 

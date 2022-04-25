@@ -12,7 +12,8 @@ var userInfoVm = new Vue({
                 userPhone: '15555555555',
                 userId: '10001',
                 userIsVip: 1,
-                userRegDate: '2022-01-01'
+                userRegDate: '2022-01-01',
+                userIp:''
             },
             requestUrl: '',
             imageUrl: '',
@@ -29,10 +30,12 @@ var userInfoVm = new Vue({
             let that = this
             let url = `/getUserInfo?userName=${this.userInfo.userName}`
             axios.get(url).then(function (result) {
+                console.log(result.data)
                 that.userInfo.userPhone = result.data.phonenum
                 that.userInfo.userId = result.data.id
                 that.userInfo.userIsVip = result.data.isvip
                 that.userInfo.userRegDate = result.data.regtime
+                that.userInfo.userIp = result.data.last_login_ip
                 that.imageUrl = result.data.avatar_url
             })
         },

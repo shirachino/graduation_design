@@ -16,7 +16,7 @@ public class RegserviceImpl implements RegService {
 
     @Override
     public boolean insertUser(String regName, String regTelNum, String regPsw) {
-            //判断用户名,手机是否被注册过，没有则插入，有则返回fasle
+            //判断用户名,手机是否被注册过，没有则插入，有则返回false
             if (regMapper.isDoubleName(regName) == null && regMapper.isDoublePhone(regTelNum) == null){
                 //根据用户名创建用户仓库表
                 //regMapper.dropExistStockTable(regName);

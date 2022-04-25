@@ -12,4 +12,6 @@ public class User_info {
     private String regtime;
     private String token;
     private String avatar_url;
+    private String last_login_date;
+    private String last_login_ip;
 }

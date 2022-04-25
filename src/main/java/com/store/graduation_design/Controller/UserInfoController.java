@@ -57,7 +57,14 @@ public class UserInfoController {
     }
 
     @RequestMapping(value = "/getUserInfo")
-    public User_info getUserInfo(String userName){
-        return userMapper.getUserPswByName(userName);
+    public User_info getUserInfo(String userName) throws Exception{
+        try {
+            User_info infoWithoutPsw = userMapper.getUserPswByName(userName);
+            infoWithoutPsw.setPsw("你猜");
+            return infoWithoutPsw;
+        } catch (Exception e){
+            return new User_info();
+        }
+
     }
 }

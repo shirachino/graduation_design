@@ -76,14 +76,45 @@ var logVm = new Vue({
             }
         }
     },
-    created() {
+    mounted() {
+        this.tokenLogin()
     },
     methods: {
+        tokenLogin() {
+            let thisUser = window.localStorage.getItem("tname")
+            let thisToken = window.localStorage.getItem("token")
+            let thatToken
+            let thisDate = Date.now()
+            let thatDate
+            $.ajax({
+                async: false,
+                type: 'get',
+                url: `/getUserInfo?userName=${thisUser}`,
+                success: function (res) {
+                    if(res != null){
+                        thatToken = res.token
+                        thatDate = res.last_login_date
+                    } else {
+                        return false
+                    }
+                }
+            })
+            let lastTime = (thisDate - thatDate) / 100000000
+            console.log(lastTime)
+            if (thisToken == null || thisToken != thatToken || lastTime >= 6) {
+                console.log("未登录或登录已过期")
+                return false
+            } else {
+                setTimeout(function () {
+                    window.document.location.href = 'storeSystem.html'
+                },1000)
+            }
+        },
         login() {
             //this指向jQuery，定义that指向Vue
-            var that = this
-            //移除上一个用户
+            let that = this
             window.localStorage.removeItem("tname")
+            window.localStorage.removeItem("token")
             $.ajax({
                 async: false,
                 type: 'post',
@@ -93,7 +124,7 @@ var logVm = new Vue({
                 success: function (res) {
                     //this不能用因为这里的$是jq的标识
                     //判断密码是否与输入密码相同
-                    if (res && res == "200") {
+                    if (res == "200") {
                         //用户名存入缓存中用于下个页面读取
                         window.localStorage.setItem("tname", that.userIpt.userName)
                         //跳转至系统
@@ -108,6 +139,7 @@ var logVm = new Vue({
                     }
                 }
             })
+
         }
     },
 })

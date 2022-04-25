@@ -13,4 +13,7 @@ public interface UserMapper {
 
     @Update("UPDATE user_info SET avatar_url = #{avatarUrl} WHERE name = #{userName}")
     void updateAvatarSql(@Param("avatarUrl") String avatarUrl,@Param("userName") String userName);
+
+    @Update("UPDATE user_info SET token = #{thisToken}, last_login_date = #{nowTime}, last_login_ip = #{thisIp} WHERE name = #{userName}")
+    void setTokenAndLogInfo(@Param("thisToken") String thisToken,@Param("nowTime") String nowTime,@Param("thisIp") String thisIp,@Param("userName") String userName);
 }
