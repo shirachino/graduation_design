@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>收银台</title>
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../plug/element-ui/element-ui.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="../plug/axios/axios.min.js"></script>
+    <script src="../plug/qs/qs.min.js"></script>
+    <script src="../plug/element-ui/element-ui.js"></script>
+    <script src="../js/sys_infoCashier.js" type="module"></script>
+</head>
+<body>
+<div class="bg-box">
+    <div id="cashierApp" v-cloak>
+        <div class="top">
+            <h2><i class="el-icon-s-goods"></i>收银台</h2>
+        </div>
+
+        <el-row :gutter="20">
+            <el-col :span="16">
+                <div class="grid-content">
+                    <el-card style="min-height: 600px">
+                        <h3>购物车</h3>
+                        <transition name="el-zoom-in-top">
+                            <el-alert
+                                    title="还没有商品哟~"
+                                    type="info"
+                                    :closable="false"
+                                    style="float: left"
+                                    v-show="addSaleGoodsList.length == 0">
+                            </el-alert>
+                        </transition>
+                        <el-card v-for="(item,index) in addSaleGoodsList" :key="index">
+                            <el-descriptions class="margin-top" :column="3" size="mini" border>
+                                <el-descriptions-item style="width: 50px">
+                                    <template slot="label">
+                                        <i class="el-icon-user"></i>
+                                        商品编号
+                                    </template>
+                                    {{item.sale_goodsId}}
+                                </el-descriptions-item>
+                                <el-descriptions-item>
+                                    <template slot="label">
+                                        <i class="el-icon-mobile-phone"></i>
+                                        商品名
+                                    </template>
+                                    {{item.sale_goodsName}}
+                                </el-descriptions-item>
+                                <el-descriptions-item>
+                                    <template slot="label">
+                                        <i class="el-icon-location-outline"></i>
+                                        售价
+                                    </template>
+                                    {{item.sale_outPrice}}
+                                </el-descriptions-item>
+                                <el-descriptions-item>
+                                    <template slot="label">
+                                        <i class="el-icon-tickets"></i>
+                                        数量
+                                    </template>
+                                    <el-input-number v-model="item.sale_goodsNum" @change="handleChange" size="mini"
+                                                     :min="1" :max="item.goods_num"></el-input-number>
+                                </el-descriptions-item>
+                                <el-descriptions-item>
+                                    <template slot="label">
+                                        <i class="el-icon-tickets"></i>
+                                        小计
+                                    </template>
+                                    {{item.sale_salary}}
+                                </el-descriptions-item>
+                                <el-descriptions-item>
+                                    <template slot="label">
+                                        <i class="el-icon-mobile-phone"></i>
+                                        操作
+                                    </template>
+                                    <el-button type="warning" size="mini" plain>删除</el-button>
+                                </el-descriptions-item>
+                            </el-descriptions>
+                        </el-card>
+                        <el-row>
+                            <h3 style="float: right;margin-right: 20px">合计：<span
+                                    style="color: #ff7a04">{{saleSum}}￥</span></h3>
+                        </el-row>
+
+                        <el-row>
+                            <div style="float: left;">
+                                <el-switch
+                                        v-model="isUseVipBalance"
+                                        active-color="#13ce66"
+                                        inactive-color="#d1d1d1"
+                                        active-text="使用VIP余额"
+                                        style="padding: 9px 10px 0 0 ;float: left;">
+                                </el-switch>
+                                <el-input
+                                        placeholder="请输入会员手机号"
+                                        v-model="saleVipPhone"
+                                        clearable
+                                        style="width: 200px;float: left"
+                                        @blur="searchVip">
+                                </el-input>
+                                <h4 style="margin-top: 20px">VIP:{{searchVipName}}</h4>
+                            </div>
+                            <div style="float: right;">
+                                <el-button type="info" plain @click.native="clearCar">清空</el-button>
+                                <el-button type="primary" @click="saleGoods">销售</el-button>
+                            </div>
+                        </el-row>
+                    </el-card>
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content">
+                    <el-card>
+                        <el-input placeholder="请输入内容" v-model="searchInp" class="input-with-select">
+                            <el-button slot="append" icon="el-icon-search" @click="searchGoodsFun"></el-button>
+                        </el-input>
+                    </el-card>
+                    <el-card>
+                        <el-table
+                                :data="searchResultList"
+                                height="250"
+                                border
+                                style="width: 100%">
+                            <el-table-column
+                                    prop="goods_name"
+                                    label="商品名">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods_num"
+                                    label="库存"
+                                    width="100">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods_outPrice"
+                                    label="单价"
+                                    width="100">
+                            </el-table-column>
+                            <el-table-column
+                                    label="添加"
+                                    width="100">
+                                <template slot-scope="scope">
+                                    <el-button type="success" plain size="small"
+                                               @click.native.stop="addToCashier(scope.row)">
+                                        添加
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+
+    </div>
+</div>
+</body>
+</html>

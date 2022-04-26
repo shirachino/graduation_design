@@ -266,8 +266,6 @@ var fastSale = new Vue({
             document.querySelectorAll('.good-num-inp').forEach(function (val) {
                 val.children[0].removeAttribute('disabled')
             })
-
-
         },
         removeDomain(item) {
             var index = this.dynamicSaleForm.saleInfo.indexOf(item)

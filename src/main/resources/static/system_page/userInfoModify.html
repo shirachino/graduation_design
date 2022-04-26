@@ -20,7 +20,7 @@
                     <el-card>
                         <el-upload
                                 class="avatar-uploader"
-                                :action= requestUrl
+                                :action=requestUrl
                                 :show-file-list="false"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
@@ -32,11 +32,9 @@
             </el-col>
             <el-col :span="18">
                 <div class="grid-content">
-                    <el-card >
-                        <el-descriptions class="margin-top" title="用户信息" :column="3"  border>
-                            <template slot="extra">
-                                <el-button type="primary" size="small">修改</el-button>
-                            </template>
+                    <el-card>
+                        <el-descriptions class="margin-top" title="用户信息" :column="3" border>
+
                             <el-descriptions-item>
                                 <template slot="label">
                                     <i class="el-icon-user"></i>
@@ -84,7 +82,69 @@
                     </el-card>
                 </div>
             </el-col>
-
+        </el-row>
+        <el-row>
+            <el-card>
+                <el-tabs v-model="activeName" @tab-click="handleClick">
+                    <el-tab-pane label="用户信息修改" name="first">
+                        <h4>用户信息修改</h4>
+                        <el-form label-position="right" label-width="80px" style="width: 50%">
+                            <el-form-item label="用户ID">
+                                <el-input v-model="userInfo.userId" disabled></el-input>
+                            </el-form-item>
+                            <el-form-item label="用户名">
+                                <el-input v-model="userInfo.userName" disabled></el-input>
+                            </el-form-item>
+                            <el-form-item label="手机号">
+                                <el-input v-model="modifyInfo.userPhone"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="modifyInfoFun">修改</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-tab-pane>
+                    <el-tab-pane label="修改密码" name="second">
+                        <h4>修改密码</h4>
+                        <el-form label-position="right" label-width="80px" style="width: 50%">
+                            <el-form-item label="原密码">
+                                <el-input v-model="modifyPsw.oldPsw"></el-input>
+                            </el-form-item>
+                            <el-form-item label="新密码">
+                                <el-input v-model="modifyPsw.newPsw"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="modifyPswFun">修改</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-tab-pane>
+                    <el-tab-pane label="开通VIP" name="third">
+                        <h4>注册VIP</h4>
+                        <el-button type="primary" round @click="regVipFun" v-if="userInfo.userIsVip != '1'">成为VIP
+                        </el-button>
+                        <el-alert
+                                title="已经是VIP啦"
+                                type="success"
+                                center
+                                show-icon
+                                :closable="false"
+                                v-if="userInfo.userIsVip == '1'">
+                        </el-alert>
+                    </el-tab-pane>
+                    <el-tab-pane label="注销账户" name="fourth">
+                        <h4>注销账户</h4>
+                        <el-popconfirm
+                                confirm-button-text='确定'
+                                cancel-button-text='手滑了'
+                                icon="el-icon-info"
+                                icon-color="red"
+                                title="确定注销账号？您的所有信息将被清除！"
+                                @confirm="deleteAccount"
+                        >
+                            <el-button slot="reference" type="danger">注销账户</el-button>
+                        </el-popconfirm>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-card>
         </el-row>
     </div>
 </div>

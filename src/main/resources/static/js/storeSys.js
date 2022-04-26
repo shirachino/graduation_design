@@ -68,7 +68,7 @@ var sysHeadVm = new Vue({
             window.localStorage.removeItem('tname')
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('tpsw')
-            window.document.location.href = 'login.html'
+            top.document.location.href = 'login.html'
         }
     }
 })
