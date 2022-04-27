@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class User_stock {
     //商品编号
-    private Integer goods_id;
+    private String goods_id;
     //商品名称
     private String goods_name;
     //商品类型
@@ -22,4 +22,6 @@ public class User_stock {
     private String goods_EXPdate;
     //销售数量
     private Integer goods_saleNum;
+    //厂商
+    private String goods_company;
 }

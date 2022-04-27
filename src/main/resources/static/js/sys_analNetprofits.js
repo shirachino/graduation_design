@@ -11,13 +11,15 @@ var netProfitsVm = new Vue({
             userInfo:{
                 userName:''
             },
-            netProfitsRank:[]
+            netProfitsRank:[],
+            netProfitsType:[]
         }
     },
     created(){
         this.userInfo.userName = window.localStorage.getItem('tname')
         this.getNetProfitsRank()
         this.getPCR()
+        this.getNetProfitsType()
     },
     mounted() {
 
@@ -36,6 +38,14 @@ var netProfitsVm = new Vue({
             let requestUrl = `/getPCR?userName=${this.userInfo.userName}`
             axios.get(requestUrl).then(function (result) {
                 that.PCRChart(result.data)
+            })
+        },
+        getNetProfitsType(){
+            let that = this
+            let requestUrl = `/getNetProfitsType?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
+                that.netProfitsType = result.data
+                that.netProfitsTypeChart(that.netProfitsType)
             })
         },
         netProfitsChart(data) {
@@ -158,8 +168,35 @@ var netProfitsVm = new Vue({
                     }
                 ]
             };
-
-
+            option && myChart.setOption(option);
+        },
+        netProfitsTypeChart(data){
+            var chartDom = document.getElementById('typeNetProfit-chart');
+            var myChart = echarts.init(chartDom);
+            var option;
+            option = {
+                dataset: {
+                    dimensions: ['type_netProfits', 'goods_type'],
+                    source: data
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params){
+                        return(params.value['goods_type'] +':'+ params.value['type_netProfits'] +'元')
+                    }
+                },
+                series: [
+                    {
+                        name: '净利润商品类型分布图',
+                        type: 'pie',
+                        radius: [10, 100],
+                        center: ['50%', '50%'],
+                        itemStyle: {
+                            borderRadius: 8
+                        }
+                    }
+                ]
+            };
             option && myChart.setOption(option);
         }
     }

@@ -224,6 +224,9 @@ var turnoverVm = new Vue({
                     dimensions: ['turnover', 'goods_type'],
                     source: this.turnoverType
                 },
+                tooltip: {
+                    trigger: 'item'
+                },
                 series: [
                     {
                         name: '营业额商品类型分布图',

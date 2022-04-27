@@ -63,12 +63,12 @@
 				<el-table-column
 						prop="goods_name"
 						label="商品名称"
-						width="220">
+						width="200">
 				</el-table-column>
 				<el-table-column
 						prop="goods_type"
 						label="商品类型"
-						width="150"
+						width="100"
 						column-key="type"
 						:filters="typeFilters"
 						:filter-method="filterHandler"
@@ -79,7 +79,7 @@
 						prop="goods_num"
 						label="商品数量"
 						sortable
-						width="150">
+						width="100">
 				</el-table-column>
 				<el-table-column
 						prop="goods_inPrice"
@@ -107,16 +107,19 @@
 						width="100">
 				</el-table-column>
 				<el-table-column
-						label="修改"
-						width="100">
+						prop="goods_company"
+						label="厂商"
+						width="150">
+				</el-table-column>
+				<el-table-column
+						label="修改">
 					<template slot-scope="scope">
 					<el-button type="primary" size="small" class="revbtn"
 							   @click="moveUpdateRowToModel(scope.row)">修改</el-button>
 					</template>
 				</el-table-column>
 				<el-table-column
-						label="删除"
-						width="100">
+						label="删除">
 					<template slot-scope="scope">
 					<el-button type="danger" plain size="small" @click.native.stop="deleteGoods(scope.row)">删除</el-button>
 					</template>
@@ -137,7 +140,7 @@
 		<!-- 商品列表/ -->
 
 		<!-- 新增模态框 -->
-		<div class="add mydefmodal" id="addFun">
+		<div class="add mydefmodal" id="addFun" >
 			<button type="button" class="close"><span>&times;</span></button>
 			<div class="mydefmodal_main">
 				<div class="mydefmodal_header">
@@ -178,6 +181,10 @@
 							<td class="mylabel">过期时间</td>
 							<td><input type="date" class="form_control" v-model="addGoodsInfo.goodsEXPdate" placeholder="过期时间"> </td>
 						</tr>
+						<tr>
+							<td class="mylabel">厂商</td>
+							<td><input class="form_control" v-model="addGoodsInfo.goodsCompany" placeholder="厂商"> </td>
+						</tr>
 					</table>
 					<div class="mydefmodal_footer">
 						<button type="button" class="mydefbtn mydefbtn_default">取消</button>
@@ -190,7 +197,7 @@
 		<!-- 新增模态框/ -->
 
 		<!-- 修改模态框 -->
-		<div class="rev mydefmodal" id="revFun" style="height: 625px">
+		<div class="rev mydefmodal" id="revFun" style="height: 685px">
 			<button type="button" class="close"><span>&times;</span></button>
 			<div class="mydefmodal_main">
 				<div class="mydefmodal_header">
@@ -199,37 +206,41 @@
 				<div class="mydefmodal_body">
 					<table>
 						<tr>
-							<td>商品编号</td>
+							<td class="mylabel">商品编号</td>
 							<td><input class="form_control" v-model="UpdGoodsInfo.goodsId" placeholder="编号" disabled> </td>
 						</tr>
 						<tr>
-							<td>商品名称</td>
+							<td class="mylabel">商品名称</td>
 							<td><input class="form_control" v-model="UpdGoodsInfo.goodsName" placeholder="名称"> </td>
 						</tr>
 						<tr>
-							<td>商品类型</td>
+							<td class="mylabel">商品类型</td>
 							<td><input class="form_control" v-model="UpdGoodsInfo.goodsType" placeholder="类型"> </td>
 						</tr>
 						<tr>
-							<td>商品数量</td>
+							<td class="mylabel">商品数量</td>
 							<td><input class="form_control" v-model="UpdGoodsInfo.goodsNum" placeholder="数量"> </td>
 						</tr>
 						<tr>
-							<td>进价</td>
+							<td class="mylabel">进价</td>
 							<td><input class="form_control" type="number" step="0.01" v-model="UpdGoodsInfo.goodsInPrice" placeholder="进价"> </td>
 						</tr>
 						<tr>
-							<td>售价</td>
+							<td class="mylabel">售价</td>
 							<td><input class="form_control" type="number" step="0.01" v-model="UpdGoodsInfo.goodsOutPrice" placeholder="售价"> </td>
 						</tr>
 						<tr>
-							<td>上架日期</td>
+							<td class="mylabel">上架日期</td>
 							<td>
 								<input type="date" class="form_control" v-model="UpdGoodsInfo.goodsSHLdate" placeholder="上架日期"> </td>
 						</tr>
 						<tr>
-							<td>过期时间</td>
+							<td class="mylabel">过期时间</td>
 							<td><input type="date" class="form_control" v-model="UpdGoodsInfo.goodsEXPdate" placeholder="过期时间"> </td>
+						</tr>
+						<tr>
+							<td class="mylabel">厂商</td>
+							<td><input class="form_control" v-model="UpdGoodsInfo.goodsCompany" placeholder="厂商"> </td>
 						</tr>
 					</table>
 					<div class="mydefmodal_footer">
@@ -241,40 +252,6 @@
 		</div>
 		<!-- 修改模态框/ -->
 
-		<!-- 销售模态框 -->
-		<div class="sold mydefmodal">
-			<button type="button" class="close"><span>&times;</span></button>
-			<div class="mydefmodal_main">
-				<div class="mydefmodal_header">
-					<h4 class="mydefmodal_title">商品销售</h4>
-				</div>
-				<div class="mydefmodal_body">
-					<table>
-						<tr>
-							<td>商品编号</td>
-							<td><input class="form_control" v-model="" placeholder="编号"> </td>
-						</tr>
-						<tr>
-							<td>商品名称</td>
-							<td><input class="form_control" v-model="" placeholder="名称"> </td>
-						</tr>
-						<tr>
-							<td>销售数量</td>
-							<td><input class="form_control" v-model="" placeholder="数量"> </td>
-						</tr>
-						<tr>
-							<td>销售日期</td>
-							<td><input type="date" class="form_control" v-model="" placeholder="上架日期"> </td>
-						</tr>
-					</table>
-					<div class="mydefmodal_footer">
-						<button type="button" class="mydefbtn mydefbtn_default">取消</button>
-						<button type="button" class="mydefbtn mydefbtn_primary">销售</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 销售模态框/ -->
 	</div>
 	<!-- VUE作用域/ -->
 	</div>

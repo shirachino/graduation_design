@@ -1,6 +1,7 @@
 package com.store.graduation_design.Service.StockService;
 
 import com.store.graduation_design.Pojo.Goods_out;
+import com.store.graduation_design.Pojo.User_stock_exp;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface StockGetListService {
     List<Goods_out> getOutGoodsSer(String userName);
     List<String> getAllTypeWithoutLimitSer(String userName);
     String addOutGoodsSer(String userName,Integer addNum,Integer goodsId);
+    List<User_stock_exp> getExpiredListSer(String userName);
 }

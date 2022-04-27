@@ -38,38 +38,32 @@
                             <el-table-column
                                     prop="goods_name"
                                     label="商品名称"
-                                    width="220">
+                                    width="200">
                             </el-table-column>
                             <el-table-column
                                     prop="goods_type"
-                                    label="商品类型"
-                                    width="150">
+                                    label="商品类型">
                             </el-table-column>
                             <el-table-column
                                     prop="goods_num"
-                                    label="商品数量"
-                                    width="150">
+                                    label="商品数量">
                             </el-table-column>
                             <el-table-column
                                     prop="goods_EXPdate"
-                                    label="商品过期时间"
-                                    width="150">
+                                    label="商品过期日期">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="goods_expDay"
+                                    label="剩余天数">
                             </el-table-column>
                             <el-table-column
                                     label="下架"
                                     width="100">
                                 <template slot-scope="scope">
-                                    <el-button type="danger" plain size="small" @click.native.stop="">下架</el-button>
+                                    <el-button type="danger" plain size="small" @click.native.stop="deleteGoods(scope.row)">下架</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <el-pagination
-                                background
-                                layout="prev, pager, next"
-                                :total="this.outGoodsAll"
-                                page-size="10"
-                                style="margin-top: 20px">
-                        </el-pagination>
                     </el-card>
                 </div>
             </el-col>

@@ -9,7 +9,12 @@ var customerVm = new Vue({
             userInfo: {
                 userName: ''
             },
-            customList: []
+            customList: [],
+            tip:[
+                '使用会员功能可以让顾客充值余额、积累积分，提高顾客黏性~',
+                '合理使用会员功能，适当推出充值活动、积分换礼吸引顾客~',
+                '试着查看店铺的经营状况，对商品结构进行调整~'
+            ]
         }
     },
     created(){

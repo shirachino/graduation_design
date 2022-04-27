@@ -60,10 +60,11 @@ public class SaleGoodsServiceImpl implements SaleGoodsService {
                 Map jsonObj = (Map) jsonArr.get(i);
                 saleGoodsMapper.updateGoodsSaleNum(userName,
                         Integer.parseInt((String) jsonObj.get("sale_goodsNum")),
-                        Integer.parseInt((String) jsonObj.get("sale_goodsId")));
+                        (String) jsonObj.get("sale_goodsId"));
             }
             return "200";
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "500";
         }
     }

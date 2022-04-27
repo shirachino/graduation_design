@@ -25,7 +25,7 @@ public class StockSearchServiceImpl implements StockSearchService {
     }
 
     @Override
-    public User_stock searchGoodsById(String userName, Integer goodsId) {
+    public User_stock searchGoodsById(String userName, String goodsId) {
         return stockSearchMapper.searchByGoodsId(userName,goodsId);
     }
 }

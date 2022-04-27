@@ -11,14 +11,15 @@ public class StockInsertServiceImpl implements StockInsertService {
     private StockInsertMapper stockInsertMapper;
     @Override
     public String insertIntoStock(String userName,
-                                  Integer goodsId,
+                                  String goodsId,
                                   String goodsName,
                                   String goodsType,
                                   Integer goodsNum,
                                   Double goodsInPrice,
                                   Double goodsOutPrice,
                                   String goodsSHLdate,
-                                  String goodsEXPdate) throws RuntimeException
+                                  String goodsEXPdate,
+                                  String goodsCompany) throws RuntimeException
     {
         try{
             stockInsertMapper.insertIntoUserStock(
@@ -30,7 +31,8 @@ public class StockInsertServiceImpl implements StockInsertService {
                     goodsInPrice,
                     goodsOutPrice,
                     goodsSHLdate,
-                    goodsEXPdate);
+                    goodsEXPdate,
+                    goodsCompany);
             return "200";
         } catch (RuntimeException e){
             System.out.println(e);

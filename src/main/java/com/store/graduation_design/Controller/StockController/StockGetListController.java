@@ -2,6 +2,7 @@ package com.store.graduation_design.Controller.StockController;
 
 import com.store.graduation_design.Pojo.Goods_list_page;
 import com.store.graduation_design.Pojo.Goods_out;
+import com.store.graduation_design.Pojo.User_stock_exp;
 import com.store.graduation_design.Service.StockService.StockGetListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,5 +93,10 @@ public class StockGetListController {
     @RequestMapping(value = "/getAllType")
     public List<String> getType(String userName) {
         return stockGetListService.getAllTypeWithoutLimitSer(userName);
+    }
+
+    @RequestMapping(value = "/getExpiredList")
+    public List<User_stock_exp> getExpiredList(String userName){
+        return stockGetListService.getExpiredListSer(userName);
     }
 }

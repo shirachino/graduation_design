@@ -17,5 +17,5 @@ public interface SaleGoodsMapper {
     @Update("UPDATE ${userName}_stock SET goods_saleNum = goods_saleNum + '${saleNum}'," +
             " goods_num = goods_num - '${saleNum}'" +
             " WHERE goods_id = '${goodsId}'")
-    void updateGoodsSaleNum(@Param("userName") String userName,@Param("saleNum") Integer saleNum,@Param("goodsId") Integer goodsId);
+    void updateGoodsSaleNum(@Param("userName") String userName,@Param("saleNum") Integer saleNum,@Param("goodsId") String goodsId);
 }

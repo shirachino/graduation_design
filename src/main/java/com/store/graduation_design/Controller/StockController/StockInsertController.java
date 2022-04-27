@@ -12,15 +12,16 @@ public class StockInsertController {
 
     @RequestMapping(value = "/stockInsert")
     public String goodsInsert(String userName,
-                              Integer goodsId,
+                              String goodsId,
                               String goodsName,
                               String goodsType,
                               Integer goodsNum,
                               Double goodsInPrice,
                               Double goodsOutPrice,
                               String goodsSHLdate,
-                              String goodsEXPdate) {
-        if(stockInsertService.insertIntoStock(
+                              String goodsEXPdate,
+                              String goodsCompany) {
+        return stockInsertService.insertIntoStock(
                 userName,
                 goodsId,
                 goodsName,
@@ -29,10 +30,7 @@ public class StockInsertController {
                 goodsInPrice,
                 goodsOutPrice,
                 goodsSHLdate,
-                goodsEXPdate) == "200"){
-            return "200";
-        } else {
-            return "500";
-        }
+                goodsEXPdate,
+                goodsCompany);
     }
 }

@@ -2,6 +2,7 @@ package com.store.graduation_design.Mapper.StockMapper;
 
 import com.store.graduation_design.Pojo.Goods_out;
 import com.store.graduation_design.Pojo.User_stock;
+import com.store.graduation_design.Pojo.User_stock_exp;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -55,6 +56,15 @@ public interface StockListMapper {
     @Select("SELECT COUNT(*) AS stock_all FROM ${userName}_stock"+
             " WHERE goods_num <= 10")
     Integer getStockOutAll(@Param("userName") String userName);
+
+    /**
+     * @Todo 查询临近保质期（还有90天过期的商品）
+     * @param userName
+     * @return User_stock_exp对象集合
+     */
+    @Select("SELECT *,ABS((to_days(now()) - to_days(goods_EXPdate))) AS goods_expDay FROM elaina_stock WHERE ABS((to_days(now()) - to_days(goods_EXPdate))) < 90")
+    List<User_stock_exp> getExpiredListSql(@Param("userName") String userName);
+
 
     /**
      * @Todo 查询缺货排行前五的商品，用于提醒补货

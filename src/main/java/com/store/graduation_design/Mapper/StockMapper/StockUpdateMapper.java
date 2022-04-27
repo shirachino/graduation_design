@@ -7,15 +7,16 @@ import org.springframework.stereotype.Component;
 @Component(value = "stockUpdateMapper")
 public interface StockUpdateMapper {
     @Update("UPDATE ${userName}" + "_stock" +
-    " SET goods_name = #{goodsName},goods_type = #{goodsType},goods_num = #{goodsNum},goods_inPrice = #{goodsInPrice},goods_outPrice = #{goodsOutPrice},goods_SHLdate = #{goodsSHLdate},goods_EXPdate = #{goodsEXPdate}" +
+    " SET goods_name = #{goodsName},goods_type = #{goodsType},goods_num = #{goodsNum},goods_inPrice = #{goodsInPrice},goods_outPrice = #{goodsOutPrice},goods_SHLdate = #{goodsSHLdate},goods_EXPdate = #{goodsEXPdate},goods_company = #{goodsCompany}" +
     " WHERE goods_id = #{goodsId}")
     void UpdateGoodsById(@Param("userName")      String userName,
-                         @Param("goodsId")       Integer goodsId,
+                         @Param("goodsId")       String goodsId,
                          @Param("goodsName")     String goodsName,
                          @Param("goodsType")     String goodsType,
                          @Param("goodsNum")      Integer goodsNum,
                          @Param("goodsInPrice")  Double goodsInPrice,
                          @Param("goodsOutPrice") Double goodsOutPrice,
                          @Param("goodsSHLdate")  String goodsSHLdate,
-                         @Param("goodsEXPdate")  String goodsEXPdate);
+                         @Param("goodsEXPdate")  String goodsEXPdate,
+                         @Param("goodsCompany")  String goodsCompany);
     }

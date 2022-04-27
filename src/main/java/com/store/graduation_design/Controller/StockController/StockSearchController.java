@@ -21,7 +21,7 @@ public class StockSearchController {
     }
 
     @RequestMapping(value = "/searchById")
-    public User_stock getSearchById(String userName, Integer goodsId) {
+    public User_stock getSearchById(String userName, String goodsId) {
         return stockSearchService.searchGoodsById(userName, goodsId);
     }
 }

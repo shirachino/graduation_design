@@ -174,6 +174,7 @@ var goodVm = new Vue({
             this.updGoodsInfo.goodsOutPrice = row.goods_outPrice
             this.updGoodsInfo.goodsSHLdate = row.goods_SHLdate
             this.updGoodsInfo.goodsEXPdate = row.goods_EXPdate
+            this.updGoodsInfo.goodsCompany = row.goods_company
             revVm.UpdGoodsInfo = this.updGoodsInfo
         },
         tableRowClassName({row, rowIndex}) {
@@ -259,7 +260,8 @@ var goodAddVm = new Vue({
                 goodsInPrice: '',
                 goodsOutPrice: '',
                 goodsSHLdate: '',
-                goodsEXPdate: ''
+                goodsEXPdate: '',
+                goodsCompany:''
             }
         }
     },
@@ -300,7 +302,7 @@ var goodAddVm = new Vue({
             if (that.isInputRight() == false) {
                 return false
             }
-
+            this.addGoodsInfo.userName = window.localStorage.getItem('tname')
             $.ajax({
                 async: false,
                 type: 'post',
@@ -371,7 +373,8 @@ var revVm = new Vue({
                 goodsInPrice: '',
                 goodsOutPrice: '',
                 goodsSHLdate: '',
-                goodsEXPdate: ''
+                goodsEXPdate: '',
+                goodsCompany:''
             }
         }
     },

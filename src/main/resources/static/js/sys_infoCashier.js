@@ -93,9 +93,8 @@ var cashierVm = new Vue({
                 url: '/saleGoods',
                 data: qs.stringify(requestData)
             }).then(function (result) {
-                //console.log(result.data)
+                console.log(result.data)
                 if(result.data == "200"){
-                    that.dialogFormVisible = false
                     that.successMsg('销售成功！')
                 } else if (result.data == "601"){
                     that.errorMsg('Vip账户余额不足！')

@@ -12,14 +12,15 @@ public class StockUpdateController {
 
     @RequestMapping(value = "/updateStock")
     public String updateStock(String userName,
-                              Integer goodsId,
+                              String goodsId,
                               String goodsName,
                               String goodsType,
                               Integer goodsNum,
                               Double goodsInPrice,
                               Double goodsOutPrice,
                               String goodsSHLdate,
-                              String goodsEXPdate){
+                              String goodsEXPdate,
+                              String goodsCompany){
         return stockUpdateService.updateGoods(userName,
                 goodsId,
                 goodsName,
@@ -28,6 +29,7 @@ public class StockUpdateController {
                 goodsInPrice,
                 goodsOutPrice,
                 goodsSHLdate,
-                goodsEXPdate);
+                goodsEXPdate,
+                goodsCompany);
     }
 }

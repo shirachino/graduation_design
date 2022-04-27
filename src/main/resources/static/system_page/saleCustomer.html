@@ -26,6 +26,23 @@
             font-display: block;
         }
     </style>
+    <style>
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 30px;
+            opacity: 0.75;
+            line-height: 40px;
+            margin: 0;
+        }
+
+        .el-carousel__item:nth-child(2n) {
+            background-color: #b4e5ef;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d7e6d3;
+        }
+    </style>
 </head>
 
 <body style="margin: 20px 0 0 20px;">
@@ -60,7 +77,13 @@
         <el-row :gutter="20">
             <el-col :span="22">
                 <el-card>
-                    <div class="grid-content "></div>
+                    <div class="grid-content ">
+                        <el-carousel indicator-position="outside" interval="5000">
+                            <el-carousel-item v-for="item in tip" :key="item">
+                                <h3>小贴士：{{ item }}</h3>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
                 </el-card>
             </el-col>
 

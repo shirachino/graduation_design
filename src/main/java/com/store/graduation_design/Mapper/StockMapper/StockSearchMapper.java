@@ -15,5 +15,5 @@ public interface StockSearchMapper {
 
     @Select("select * from ${userName}" + "_stock" +
             " where goods_id = ${goodsId}")
-    User_stock searchByGoodsId(@Param("userName") String userName, @Param("goodsId") Integer goodsId);
+    User_stock searchByGoodsId(@Param("userName") String userName, @Param("goodsId") String goodsId);
 }

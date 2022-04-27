@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.store.graduation_design.Mapper.StockMapper.StockListMapper;
 import com.store.graduation_design.Pojo.Goods_out;
 import com.store.graduation_design.Pojo.User_stock;
+import com.store.graduation_design.Pojo.User_stock_exp;
 import com.store.graduation_design.Service.StockService.StockGetListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,5 +101,10 @@ public class StockGetListServiceImpl implements StockGetListService {
         }catch (Exception e){
             return "500";
         }
+    }
+
+    @Override
+    public List<User_stock_exp> getExpiredListSer(String userName) {
+        return stockListMapper.getExpiredListSql(userName);
     }
 }
