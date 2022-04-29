@@ -12,7 +12,8 @@ var netProfitsVm = new Vue({
                 userName:''
             },
             netProfitsRank:[],
-            netProfitsType:[]
+            netProfitsType:[],
+            netProfitsDate:[]  //0是当日利润，1是当月利润，2是总利润
         }
     },
     created(){
@@ -20,6 +21,7 @@ var netProfitsVm = new Vue({
         this.getNetProfitsRank()
         this.getPCR()
         this.getNetProfitsType()
+        this.getNetProfitsDate()
     },
     mounted() {
 
@@ -46,6 +48,13 @@ var netProfitsVm = new Vue({
             axios.get(requestUrl).then(function (result) {
                 that.netProfitsType = result.data
                 that.netProfitsTypeChart(that.netProfitsType)
+            })
+        },
+        getNetProfitsDate(){
+            let that = this
+            let requestUrl = `/getNetProfitsDate?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
+                that.netProfitsDate = result.data
             })
         },
         netProfitsChart(data) {

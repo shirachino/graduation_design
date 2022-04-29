@@ -13,7 +13,8 @@ var expDateVm = new Vue({
                 goods_name:'',
                 goods_type:'',
                 goods_num:'',
-                goods_EXPdate:''
+                goods_EXPdate:'',
+                goods_expDay:''
             }]
         }
     },

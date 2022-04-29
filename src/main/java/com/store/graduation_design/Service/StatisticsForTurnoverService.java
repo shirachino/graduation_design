@@ -1,5 +1,6 @@
 package com.store.graduation_design.Service;
 
+import com.store.graduation_design.Pojo.Turnover_rank;
 import com.store.graduation_design.Pojo.Turnover_type;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface StatisticsForTurnoverService {
     List<Double> turnoverBySeason(String userName);
     List<Double> turnoverByWeek(String userName);
     List<Double> turnoverByMonth(String userName);
+    Double perCustomerTransaction(String userName);
+    List<Turnover_rank> turnoverRank(String userName);
 }

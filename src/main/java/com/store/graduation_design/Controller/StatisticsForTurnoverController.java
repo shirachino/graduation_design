@@ -2,6 +2,7 @@ package com.store.graduation_design.Controller;
 
 import com.store.graduation_design.Mapper.InfoDisplayMapper;
 import com.store.graduation_design.Mapper.StatisticsForTurnoverMapper;
+import com.store.graduation_design.Pojo.Turnover_rank;
 import com.store.graduation_design.Pojo.Turnover_statics;
 import com.store.graduation_design.Pojo.Turnover_type;
 import com.store.graduation_design.Service.SaleInfoService.SaleCustomService;
@@ -38,7 +39,7 @@ public class StatisticsForTurnoverController {
     }
 
     /**
-     * @Todo 获取季度营业额
+     * @Todo 获取营业额
      */
     @RequestMapping(value = "/getTurnoverStatics")
     public Turnover_statics getSeasonTurnover(String userName){
@@ -48,6 +49,15 @@ public class StatisticsForTurnoverController {
         resObj.setWeekTurnover(statisticsForTurnoverService.turnoverByWeek(userName));
         resObj.setSevenDays(saleCustomService.xSevenDays());
         return resObj;
+    }
 
+    @RequestMapping(value = "/getPTC")
+    public Double getPTC(String userName){
+        return statisticsForTurnoverService.perCustomerTransaction(userName);
+    }
+
+    @RequestMapping(value = "/getTurnoverRank")
+    public List<Turnover_rank> getTurnoverRank(String userName) {
+        return statisticsForTurnoverService.turnoverRank(userName);
     }
 }

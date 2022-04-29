@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>营业额</title>
@@ -22,6 +22,24 @@
                 <el-card>
                     <div class="grid-content">
                         <div id="turnoverChart" style="height: 400px;width: 100%"></div>
+                    </div>
+                </el-card>
+                <el-card style="margin: 20px 0 0 0">
+                    <div class="grid-content">
+                        <el-card style="width: 32%;height: 340px;float: left">
+                            <h3><i class="el-icon-s-finance"></i>年客单价</h3>
+                            <div class="turnover-data" style="margin-bottom: 40px">{{yearPTC}} 元</div>
+                            <div>
+                            <span style="color: #8f3b3d"><i class="el-icon-question"></i>Tips：什么是客单价?</span>
+                                <div style="margin-top: 20px;color: #9a9a9a">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;客单价是指每一个顾客平均购买商品的金额，也即是平均交易金额。</br>&nbsp;&nbsp;&nbsp;&nbsp;客单价的高低反映了店铺顾客消费承受能力的情况，多订适合消费者承受力价位的产品，有助于提升营业额。
+                                </div>
+                            </div>
+                        </el-card>
+                        <el-card style="width: 66%;float: right;margin: 0 0 20px 0">
+                            <h3>明星商品</h3>
+                            <div id="turnoverRankChart" style="width: 100%;height: 260px"></div>
+                        </el-card>
                     </div>
                 </el-card>
             </el-col>

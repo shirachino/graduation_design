@@ -1,7 +1,7 @@
 package com.store.graduation_design.Service.Impl.SaleInfoImpl;
 
 import com.store.graduation_design.Mapper.SaleCustomMapper;
-import com.store.graduation_design.Pojo.Custom_month;
+import com.store.graduation_design.Pojo.Custom_per;
 import com.store.graduation_design.Service.SaleInfoService.SaleCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,13 +40,13 @@ public class SaleCustomServiceImpl implements SaleCustomService {
     @Override
     public List<Integer> customByMonth(String userName) {
         List<Integer> resList = Arrays.asList(new Integer[12]);
-        List<Custom_month> customsPerMonth = saleCustomMapper.getMonthCustoms(userName, yyyyNowYear());
+        List<Custom_per> customsPerMonth = saleCustomMapper.getMonthCustoms(userName, yyyyNowYear());
 //        System.out.println(customsPerMonth);
 //        System.out.println(customsPerMonth.get(0).getPermonth());
         for (int i = 0; i < resList.size(); i++) {
             resList.set(i, 0);
             for (int j = 0; j < customsPerMonth.size(); j++) {
-                if (i == customsPerMonth.get(j).getPermonth() - 1) {
+                if (i == customsPerMonth.get(j).getPer() - 1) {
                     resList.set(i, customsPerMonth.get(j).getCustoms());
                 }
             }
@@ -61,5 +61,21 @@ public class SaleCustomServiceImpl implements SaleCustomService {
             sevenDays.set(i, ddNowDay(7 - (i + 1)) + "日");
         }
         return sevenDays;
+    }
+
+    @Override
+    public List<Integer> customPerMonth(String userName) {
+        int maxDay = getCurrentMonthDay();
+        List<Integer> resList = Arrays.asList(new Integer[maxDay]);
+        List<Custom_per> customsPerDay = saleCustomMapper.getDayCustoms(userName);
+        for (int i = 0; i < maxDay; i++) {
+            resList.set(i, 0);
+            for (int j = 0; j < customsPerDay.size(); j++) {
+                if (i == customsPerDay.get(j).getPer() - 1) {
+                    resList.set(i, customsPerDay.get(j).getCustoms());
+                }
+            }
+        }
+        return resList;
     }
 }

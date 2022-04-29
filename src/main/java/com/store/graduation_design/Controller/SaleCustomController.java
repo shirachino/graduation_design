@@ -1,11 +1,15 @@
 package com.store.graduation_design.Controller;
 
 
+import com.store.graduation_design.Pojo.Custom_chart;
 import com.store.graduation_design.Pojo.Custom_statics;
 import com.store.graduation_design.Service.SaleInfoService.SaleCustomService;
+import com.store.graduation_design.Utils.MyFormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class SaleCustomController {
@@ -25,5 +29,14 @@ public class SaleCustomController {
         resCustom.setMonthCustom(saleCustomService.customByMonth(userName));
         resCustom.setSevenDays(saleCustomService.xSevenDays());
         return resCustom;
+    }
+
+    @RequestMapping(value = "/getCustomOneMonth")
+    public Custom_chart getCustomOneMonth(String userName) {
+        Custom_chart needData = new Custom_chart();
+        needData.setRealData(saleCustomService.customPerMonth(userName));
+        needData.setNowYearMonth(MyFormatDate.yyyyMMNowMonth());
+        needData.setNextYearMonth(MyFormatDate.yyyyMMNextYear());
+        return needData;
     }
 }

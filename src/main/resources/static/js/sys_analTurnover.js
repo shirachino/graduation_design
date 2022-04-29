@@ -18,7 +18,9 @@ var turnoverVm = new Vue({
                 yearTurnover: '10000'
             },
             incTurnover: '',
-            showTurnover: ''
+            showTurnover: '',
+            yearPTC:'',
+            turnoverRank:[]
         }
     },
     created() {
@@ -26,6 +28,9 @@ var turnoverVm = new Vue({
         this.getDayTurnover()
         this.getTurnoverType()
         this.getTurnoverStat()
+        this.getPTC()
+        this.getTurnoverRank()
+
     },
     mounted() {
         //this.turnoverStatic()
@@ -73,6 +78,70 @@ var turnoverVm = new Vue({
             axios.get(requestUrl).then(function (result) {
                 that.turnoverStatic(result.data)
             })
+        },
+        getPTC() {
+            let that = this
+            let requestUrl = `/getPTC?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
+                that.yearPTC = result.data
+            })
+        },
+        getTurnoverRank() {
+            let that = this
+            let requestUrl = `/getTurnoverRank?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
+                that.turnoverRank = result.data
+                that.turnoverRankChart(result.data)
+            })
+        },
+        turnoverRankChart(data){
+            var myChart = echarts.init(document.getElementById('turnoverRankChart'));
+            var option;
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+
+                },
+                dataset: [{
+                    dimensions: ['goods_name', 'turnover'],
+                    source: data
+                }, {
+                    transform: {
+                        type: 'sort',
+                        config: {dimension: 'turnover', order: 'desc'}
+                    }
+                }],
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {interval: 0, rotate: 30},
+                },
+                yAxis: {},
+                grid:{
+                    bottom:80
+                },
+                series: [{
+                    type: 'bar',
+                    encode: {x: 'goods_name', y: 'turnover'},
+                    datasetIndex: 1,
+                    itemStyle: {
+                        barBorderRadius:[5,5,5,5]
+                    }
+                }],
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1,
+                    [
+                        {
+                            offset: 0,
+                            color: '#90e0ff'
+                        },
+                        {
+                            offset: 1,
+                            color: '#f7fffe'
+                        }
+                    ],
+                    false
+                )
+            };
+            myChart.setOption(option);
         },
         turnoverStatic(data) {
             var chartDom = document.getElementById('turnoverChart');

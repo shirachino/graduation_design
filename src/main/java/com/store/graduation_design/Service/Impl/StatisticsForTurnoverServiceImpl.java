@@ -1,8 +1,9 @@
 package com.store.graduation_design.Service.Impl;
 
 import com.store.graduation_design.Mapper.InfoDisplayMapper;
+import com.store.graduation_design.Mapper.SaleCustomMapper;
 import com.store.graduation_design.Mapper.StatisticsForTurnoverMapper;
-import com.store.graduation_design.Pojo.Custom_month;
+import com.store.graduation_design.Pojo.Turnover_rank;
 import com.store.graduation_design.Pojo.Turnover_type;
 import com.store.graduation_design.Service.StatisticsForTurnoverService;
 import com.store.graduation_design.Utils.MyFormatDate;
@@ -10,12 +11,12 @@ import com.store.graduation_design.Utils.MyJsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import static com.store.graduation_design.Utils.MyFormatDate.yyyyMMddNowDay;
-import static com.store.graduation_design.Utils.MyFormatDate.yyyyNowYear;
 
 @Service
 public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverService {
@@ -24,6 +25,9 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
 
     @Autowired
     private InfoDisplayMapper infoDisplayMapper;
+
+    @Autowired
+    private SaleCustomMapper saleCustomMapper;
 
     @Override
     public List<Turnover_type> turnoverType(String userName) {
@@ -88,5 +92,21 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
             }
         }
         return resList;
+    }
+
+    @Override
+    public Double perCustomerTransaction(String userName) {
+        String nowYear = MyFormatDate.yyyyNowYear();
+        List<String> jsonArrYear = infoDisplayMapper.getSalesNum(userName, nowYear);
+        Double yearTurnover = MyJsonUtils.jsonArrayGetSalarySum(jsonArrYear);
+        Double yearCustoms = saleCustomMapper.getYearCustoms(userName, nowYear).doubleValue();
+        //System.out.println("T:" + yearTurnover + "C:" +yearCustoms);
+        BigDecimal sumBD = new BigDecimal(yearTurnover/yearCustoms);
+        return sumBD.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    @Override
+    public List<Turnover_rank> turnoverRank(String userName) {
+        return statisticsForTurnoverMapper.getSaleNumRankSql(userName);
     }
 }

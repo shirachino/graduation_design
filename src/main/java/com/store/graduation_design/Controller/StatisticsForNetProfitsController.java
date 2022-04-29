@@ -28,4 +28,9 @@ public class StatisticsForNetProfitsController {
     public List<NetProfits_type> getNetProfitsType(String userName){
         return statisticsForNetProfitsService.getNetProfitsTypeSer(userName);
     }
+
+    @RequestMapping(value = "/getNetProfitsDate")
+    public List<Double> getNetProfitsDate(String userName){
+        return statisticsForNetProfitsService.getNetProfitsByDateSer(userName);
+    }
 }

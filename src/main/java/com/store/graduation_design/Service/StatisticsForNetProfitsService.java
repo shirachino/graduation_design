@@ -9,4 +9,5 @@ public interface StatisticsForNetProfitsService {
     List<NetProfits_Rank> getNetProfitsRankSer(String userName);
     Double getPCRSer(String userName);
     List<NetProfits_type> getNetProfitsTypeSer(String userName);
+    List<Double> getNetProfitsByDateSer(String userName);
 }

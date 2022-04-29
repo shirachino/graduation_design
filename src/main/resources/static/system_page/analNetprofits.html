@@ -15,11 +15,11 @@
 <div class="bg-box">
     <div id="netProfitsApp" v-cloak>
         <div class="top">
-            <h2><i class="el-icon-pie-chart"></i>净利润分析</h2>
+            <h2><i class="el-icon-s-data"></i>净利润分析</h2>
         </div>
         <el-row :gutter="20">
             <el-col :span="16">
-                <div class="grid-content bg-purple">
+                <div class="grid-content ">
                     <el-card shadow="hover">
                         <h3><i class="el-icon-s-data"></i>净利润排行</h3>
                         <div id="netProfits-chart" style="width: 100%;height: 300px"></div>
@@ -27,7 +27,7 @@
                 </div>
             </el-col>
             <el-col :span="8">
-                <div class="grid-content bg-purple">
+                <div class="grid-content ">
                     <el-card shadow="hover">
                         <h3>净利润转化率</h3>
                         <div id="CPC-chart" style="width: 100%;height: 300px"></div>
@@ -37,15 +37,34 @@
         </el-row>
         <el-row :gutter="20">
             <el-col :span="16">
-                <div class="grid-content bg-purple">
-                    <el-card shadow="hover">
-                        <h3><i class="el-icon-s-data"></i></h3>
-                        <div id="" style="width: 100%"></div>
+                <div class="grid-content">
+                    <el-card shadow="hover" style="height: 400px">
+                        <h3>店铺盈利状况</h3>
+                        <el-row :gutter="20">
+                            <el-col :span="8">
+                                <el-card shadow="hover" style="height: 300px">
+                                    <h4><i class="el-icon-s-finance"></i>当日净利润</h4>
+                                    <div class="turnover-data" style="padding: 20px 0 0 0;font-size: 26px;">{{netProfitsDate[0]}} 元</div>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card shadow="hover" style="height: 300px">
+                                    <h4><i class="el-icon-s-finance"></i>当月净利润</h4>
+                                    <div class="turnover-data" style="padding: 20px 0 0 0;font-size: 26px;">{{netProfitsDate[1]}} 元</div>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card shadow="hover" style="height: 300px">
+                                    <h4><i class="el-icon-s-finance"></i>店铺总利润</h4>
+                                    <div class="turnover-data" style="padding: 20px 0 0 0;font-size: 26px;">{{netProfitsDate[2]}} 元</div>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-card>
                 </div>
             </el-col>
             <el-col :span="8">
-                <div class="grid-content bg-purple">
+                <div class="grid-content ">
                     <el-card shadow="hover">
                         <h3>净利润商品类型分布图</h3>
                         <div id="typeNetProfit-chart" style="width: 100%;height: 300px"></div>

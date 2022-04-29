@@ -67,6 +67,20 @@
                     </el-card>
                 </div>
             </el-col>
+            <el-col :span="8">
+                <div class="grid-content">
+                    <el-card>
+                        <h3>临近保质期提醒</h3>
+                        <el-carousel height="300px" :interval="10000" direction="vertical">
+                            <el-carousel-item v-for="item in this.expGoodsList" :key="item" >
+                                <h3>商品 {{ item.goods_name }} </br>
+                                    还剩 {{ item.goods_expDay }} 日过期，请及时处理！</h3>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </div>
 </body>

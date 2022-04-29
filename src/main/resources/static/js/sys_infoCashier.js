@@ -52,15 +52,17 @@ var cashierVm = new Vue({
             addGoodsObj.goods_num = row.goods_num
             addGoodsObj.sale_goodsNum = '1'
             addGoodsObj.sale_salary = addGoodsObj.sale_goodsNum * addGoodsObj.sale_outPrice.toString()
+            addGoodsObj.netProfit = row.goods_outPrice - row.goods_inPrice
+            addGoodsObj.sale_netProfit = ''
             this.addSaleGoodsList.push(addGoodsObj)
             this.handleChange()
         },
         handleChange() {
             let sum = 0
             this.addSaleGoodsList.forEach(function (value) {
-                value.sale_salary = (value.sale_outPrice * value.sale_goodsNum).toString()
-                sum += value.sale_outPrice * value.sale_goodsNum
-                value.sale_goodsNum = value.sale_goodsNum.toString()
+                value.sale_salary = (value.sale_outPrice * value.sale_goodsNum).toString() //计算营业额
+                value.sale_netProfit = (value.netProfit * value.sale_goodsNum).toString() //计算净利润
+                sum += value.sale_outPrice * value.sale_goodsNum //计算营业额合计，仅展示
             })
             this.saleSum = sum
         },
@@ -81,6 +83,7 @@ var cashierVm = new Vue({
             let requestObj = this.addSaleGoodsList
             requestObj.forEach(function (val) {
                 delete val.goods_num
+                delete val.netProfit //删除订单中不需要的属性
             })
             let requestData = {}
             requestData.userName = this.userName
@@ -96,6 +99,8 @@ var cashierVm = new Vue({
                 console.log(result.data)
                 if(result.data == "200"){
                     that.successMsg('销售成功！')
+                    that.saleSum = 0
+                    that.addSaleGoodsList = []
                 } else if (result.data == "601"){
                     that.errorMsg('Vip账户余额不足！')
                 }

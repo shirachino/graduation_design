@@ -1,6 +1,9 @@
 package com.store.graduation_design.Mapper;
 
+import com.store.graduation_design.Pojo.Goods_out;
+import com.store.graduation_design.Pojo.Turnover_rank;
 import com.store.graduation_design.Pojo.Turnover_type;
+import com.store.graduation_design.Pojo.User_stock;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -12,6 +15,8 @@ public interface StatisticsForTurnoverMapper {
     @Select("SELECT SUM(goods_saleNum*goods_outPrice) AS turnover,goods_type FROM ${userName}_stock GROUP BY goods_type")
     List<Turnover_type> getTurnoverByType(@Param("userName") String userName);
 
+    @Select("SELECT goods_name,(goods_saleNum * goods_outPrice) AS turnover FROM ${userName}_stock ORDER BY turnover DESC LIMIT 5")
+    List<Turnover_rank> getSaleNumRankSql(@Param("userName") String userName);
     //季度
     @Select("SELECT sale_info FROM ${userName}_saleRecord "+
             "WHERE sale_date BETWEEN '${nowYear}-01' AND '${nowYear}-04'")

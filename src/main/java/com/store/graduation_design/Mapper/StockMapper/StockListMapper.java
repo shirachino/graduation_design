@@ -26,6 +26,8 @@ public interface StockListMapper {
             " LIMIT ${pageNow},20")
     List<User_stock> getStockListByType(@Param("userName") String userName,@Param("pageNow") Integer pageNow,@Param("goodsType") String goodsType);
 
+    @Select("SELECT * FROM ${userName}" + "_stock WHERE goods_id = #{goodsId}")
+    List<User_stock> getStockListById(@Param("userName") String userName,@Param("goodsId") String goodsId);
     /**
      * @Todo 查询商品仓库数据库，返回总记录数
      * @param userName

@@ -14,15 +14,17 @@ var customerVm = new Vue({
                 '使用会员功能可以让顾客充值余额、积累积分，提高顾客黏性~',
                 '合理使用会员功能，适当推出充值活动、积分换礼吸引顾客~',
                 '试着查看店铺的经营状况，对商品结构进行调整~'
-            ]
+            ],
+            thisMonthCustom: {}
         }
     },
     created(){
         this.userInfo.userName = window.localStorage.getItem('tname')
         this.getCustomPerSeason()
+        this.getCustomOneMonth()
     },
     mounted() {
-        this.customerDateChart()
+        //this.customerDateChart()
     },
     watch: {
         customList: {
@@ -40,6 +42,15 @@ var customerVm = new Vue({
                 that.customList = result.data
                 //console.log(that.customList)
                 that.customerCharts(that.customList)
+            })
+        },
+        getCustomOneMonth() {
+            let that = this
+            let requestUrl = `/getCustomOneMonth?userName=${this.userInfo.userName}`
+            axios.get(requestUrl).then(function (result) {
+                that.thisMonthCustom = result.data
+                console.log(that.thisMonthCustom )
+                that.customerDateChart(that.thisMonthCustom)
             })
         },
         customerCharts(customList) {
@@ -121,24 +132,30 @@ var customerVm = new Vue({
             };
             option && myChart.setOption(option);
         },
-        customerDateChart() {
+        customerDateChart(realDataObj) {
             var chartDom = document.querySelector('.cus-date-chart');
             var myChart = echarts.init(chartDom);
             var option;
 
-            function getVirtulData(year) {
-                let date = +echarts.number.parseDate(year + '-01-01');
-                let end = +echarts.number.parseDate(+year + 1 + '-01-01');
+            function getRealData(nowYearMonth,nextYearMonth) {
+                let date = +echarts.number.parseDate(nowYearMonth + '-01');
+                let end = +echarts.number.parseDate(nextYearMonth + '-01');
                 let dayTime = 3600 * 24 * 1000;
-                let data = [];
+                let dateArr = [];
+                let rData = [];
                 for (let time = date; time < end; time += dayTime) {
-                    data.push([
-                        echarts.format.formatTime('yyyy-MM-dd', time),
-                        Math.floor(Math.random() * 10000)
-                    ]);
+                    dateArr.push(
+                        echarts.format.formatTime('yyyy-MM-dd', time)
+                    );
                 }
-                //console.log(data[data.length - 1]);
-                return data;
+                for (var i = 0;i<realDataObj.realData.length;i++){
+                    rData.push([
+                        dateArr[i],
+                        realDataObj.realData[i].toString()
+                    ])
+                }
+                console.log(rData[rData.length - 1]);
+                return rData;
             }
 
             option = {
@@ -152,14 +169,14 @@ var customerVm = new Vue({
                 visualMap: [
                     {
                         min: 0,
-                        max: 10000,
+                        max: Math.max(...realDataObj.realData),
                         calculable: true,
                         seriesIndex: [0],
                         orient: 'horizontal',
                         right: '25%',
                         bottom: 10,
                         inRange: {
-                            color: ['#9cf7ff', '#2eb6ff', '#0086ff'],
+                            color: ['#f0fcff', '#30b8fc', '#0086ff'],
                             symbolSize: [30, 100]
                         }
                     }
@@ -182,15 +199,15 @@ var customerVm = new Vue({
                         cellSize: 40,
                         top: 100,
                         left: 100,
-                        range: '2022-3',
+                        range: realDataObj.nowYearMonth,
                         splitLine: {
                             lineStyle: {
-                                color: '#93fcdd'
+                                color: '#cdcfd7'
                             }
                         },
                         itemStyle: {
                             borderWidth: 1,
-                            borderColor: "#f5f5f5",
+                            borderColor: "#c2c2c2",
                             borderCap: 'round'
                         }
                     }
@@ -200,7 +217,7 @@ var customerVm = new Vue({
                         type: 'heatmap',
                         coordinateSystem: 'calendar',
                         calendarIndex: 0,
-                        data: getVirtulData('2022'),
+                        data: getRealData(realDataObj.nowYearMonth,realDataObj.nextYearMonth),
                     }
                 ]
             };
