@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经营分析</title>
+    <link rel="stylesheet" type="text/css" href="../css/sysstyle.css">
+    <link rel="stylesheet" type="text/css" href="../plug/element-ui/element-ui.css">
+    <script src="../plug/vue/vue.min.js"></script>
+    <script src="../plug/axios/axios.min.js"></script>
+    <script src="../plug/qs/qs.min.js"></script>
+    <script src="../plug/element-ui/element-ui.js"></script>
+    <script src="../js/sys_analAnalysis.js" type="module"></script>
+</head>
+<body>
+<div class="bg-box">
+    <div id="analysisApp" v-cloak>
+        <div class="top">
+            <h2><i class="el-icon-s-marketing"></i>经营分析</h2>
+        </div>
+        <el-row :gutter="20">
+            <el-col :span="16">
+                <div class="grid-content">
+
+                    <el-card>
+                        <el-row :gutter="20">
+                            <el-col :span="12">
+                                <el-card style="height: 600px">
+                                    <transition name="el-fade-in-linear">
+                                        <div v-show="show1" class="transition-box">
+                                            <h4>店铺中销量最高的商品是：</h4>
+                                            <span class="turnover-data">{{saleNum.top.goods_name}}</span>，总共被销售了<span
+                                                class="turnover-data">{{saleNum.top.goods_saleNum}}</span>件
+                                        </div>
+                                    </transition>
+
+                                    <transition name="el-fade-in-linear">
+                                        <div v-show="show2" class="transition-box">
+                                            <h5>店铺中销量最低的商品是：</h5>
+                                            <span class="turnover-data">{{saleNum.last.goods_name}}</span>，仅被销售了<span
+                                                class="turnover-data"
+                                                style="color: #af2124">{{saleNum.last.goods_saleNum}}</span>件
+                                        </div>
+                                    </transition>
+
+                                    <transition name="el-fade-in-linear">
+                                        <div v-show="show3" class="transition-box">
+                                            <h4>带来营业额最高的商品是：</h4>
+                                            <span class="turnover-data">{{turnover.top.goods_name}}</span>，销售额为<span
+                                                class="turnover-data">{{turnover.top.turnover}}</span>元
+                                        </div>
+                                    </transition>
+
+                                    <transition name="el-fade-in-linear">
+                                        <div v-show="show4" class="transition-box">
+                                            <h5>营业额最低的商品是：</h5>
+                                            <span class="turnover-data">{{turnover.last.goods_name}}</span>，销售额仅为<span
+                                                class="turnover-data"
+                                                style="color: #47d91f">{{turnover.last.turnover}}</span>元
+                                        </div>
+                                    </transition>
+
+                                    <transition name="el-fade-in-linear">
+                                        <div v-show="show5" class="transition-box">
+                                            <h4>带来净利润最高的商品是：</h4>
+                                            <span class="turnover-data">{{netProfit.top.goods_name}}</span>，净利润为<span
+                                                class="turnover-data">{{netProfit.top.goods_netProfits}}</span>元
+                                        </div>
+                                    </transition>
+
+                                    <transition name="el-fade-in-linear">
+                                        <div v-show="show6" class="transition-box">
+                                            <h5>净利润最低的商品是：</h5>
+                                            <span class="turnover-data">{{netProfit.last.goods_name}}</span>，净利润仅为<span
+                                                class="turnover-data"
+                                                style="color: #47d91f">{{netProfit.last.goods_netProfits}}</span>元
+                                        </div>
+                                    </transition>
+                                </el-card>
+                            </el-col>
+
+                            <el-col :span="12">
+                                <el-card>
+                                    <div id="anal-chart" style="width: 100%;height: 560px"></div>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                    </el-card>
+                </div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content">
+                    <el-card>
+                        <div>
+                            <h3><i class="el-icon-edit"></i>经营建议</h3>
+                            <p class="anal-text">近期，您店铺中的 <span class="anal-data">{{saleTopList[0].goods_name}}、{{saleTopList[1].goods_name}}、{{saleTopList[2].goods_name}}、{{saleTopList[3].goods_name}}、{{saleTopList[4].goods_name}}</span>的销量不错，请注意以上商品的库存。
+                            </p>
+                            <p class="anal-text"><span class="anal-data">{{saleLastList[0].goods_name}}、{{saleLastList[1].goods_name}}、{{saleLastList[2].goods_name}}、{{saleLastList[3].goods_name}}、{{saleLastList[4].goods_name}}</span>的销量较低，请注意保质期。
+                            </p>
+                            <p class="anal-text">建议对以上商品进行优惠活动或捆绑销售，避免库存积压。</p>
+                            <el-divider></el-divider>
+                            <p class="anal-text"><span class="anal-data">{{turnoverList[0].goods_name}}、{{turnoverList[1].goods_name}}、{{turnoverList[2].goods_name}}、{{turnoverList[3].goods_name}}、{{turnoverList[4].goods_name}}</span>给您带来的流水较低，请考虑是否由环境、季节等因素造成。
+                            </p>
+                            <p class="anal-text">建议对以上商品进行下架处理，调整商品结构。</p>
+                            <el-divider></el-divider>
+                        </div>
+                    </el-card>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</div>
+</body>
+</html>

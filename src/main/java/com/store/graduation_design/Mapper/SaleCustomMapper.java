@@ -10,8 +10,8 @@ import java.util.List;
 @Component(value = "saleCustomMapper")
 public interface SaleCustomMapper {
 
-    @Select("SELECT COUNT(*) AS yearCustom FROM ${userName}_salerecord WHERE sale_date LIKE '%${nowYear}%'")
-    Integer getYearCustoms(@Param("userName") String userName,@Param("nowYear") String nowYear);
+    @Select("SELECT COUNT(*) AS yearCustom FROM ${userName}_salerecord WHERE sale_date LIKE '%${nowDate}%'")
+    Integer getCustoms(@Param("userName") String userName,@Param("nowDate") String nowDate);
     //季度客流量
     @Select("SELECT COUNT(*) AS season_1 FROM ${userName}_salerecord WHERE sale_date LIKE '%${nowYear}-01%' || sale_date LIKE '%${nowYear}-02%' ||  sale_date LIKE '%${nowYear}-03%'")
     Integer getSeason1Customs(@Param("userName") String userName,@Param("nowYear") String nowYear);

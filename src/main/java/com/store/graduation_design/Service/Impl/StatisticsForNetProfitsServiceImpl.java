@@ -40,7 +40,7 @@ public class StatisticsForNetProfitsServiceImpl implements StatisticsForNetProfi
     @Override
     public List<Double> getNetProfitsByDateSer(String userName) {
         String nowDay = MyFormatDate.yyyyMMddNowDay(0);
-        String nowMonth = MyFormatDate.yyyyMMNowMonth();
+        String nowMonth = MyFormatDate.yyyyMMNowMonth(0);
         List<String> jsonArrDay = infoDisplayMapper.getSalesNum(userName, nowDay);
         List<String> jsonArrMonth = infoDisplayMapper.getSalesNum(userName, nowMonth);
         List<String> jsonArrAll = infoDisplayMapper.getSalesAll(userName);

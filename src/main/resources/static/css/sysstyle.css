@@ -726,3 +726,15 @@ vip注册
     height: 178px!important;
     display: block;
 }
+
+.anal-data{
+    color: #ec6e00;
+    padding: 0 0 0 10px;
+    font-family: SF Pro Rounded, sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+}
+.anal-text{
+    line-height: 30px;
+    color: #747474;
+}

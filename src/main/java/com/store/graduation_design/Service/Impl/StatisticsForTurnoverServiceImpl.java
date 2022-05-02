@@ -41,7 +41,7 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
     @Override
     public List<Double> turnoverPerDay(String userName) {
         String nowDay = MyFormatDate.yyyyMMddNowDay(0);
-        String nowMonth = MyFormatDate.yyyyMMNowMonth();
+        String nowMonth = MyFormatDate.yyyyMMNowMonth(0);
         String nowYear = MyFormatDate.yyyyNowYear();
         String priDay = MyFormatDate.yyyyMMddPriDay();
         List<String> jsonArrDay = infoDisplayMapper.getSalesNum(userName, nowDay);
@@ -99,7 +99,7 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
         String nowYear = MyFormatDate.yyyyNowYear();
         List<String> jsonArrYear = infoDisplayMapper.getSalesNum(userName, nowYear);
         Double yearTurnover = MyJsonUtils.jsonArrayGetSalarySum(jsonArrYear);
-        Double yearCustoms = saleCustomMapper.getYearCustoms(userName, nowYear).doubleValue();
+        Double yearCustoms = saleCustomMapper.getCustoms(userName, nowYear).doubleValue();
         //System.out.println("T:" + yearTurnover + "C:" +yearCustoms);
         BigDecimal sumBD = new BigDecimal(yearTurnover/yearCustoms);
         return sumBD.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -107,6 +107,6 @@ public class StatisticsForTurnoverServiceImpl implements StatisticsForTurnoverSe
 
     @Override
     public List<Turnover_rank> turnoverRank(String userName) {
-        return statisticsForTurnoverMapper.getSaleNumRankSql(userName);
+        return statisticsForTurnoverMapper.getTurnoverRankSql(userName);
     }
 }

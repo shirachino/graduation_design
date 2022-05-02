@@ -23,8 +23,8 @@ public class MyFormatDate {
         return dateNow.format(formatter);
     }
 
-    public static String yyyyMMNowMonth() {
-        LocalDate dateNow = LocalDate.now();
+    public static String yyyyMMNowMonth(Integer minus) {
+        LocalDate dateNow = LocalDate.now().minusMonths(minus);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         return dateNow.format(formatter);
     }

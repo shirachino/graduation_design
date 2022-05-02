@@ -35,7 +35,7 @@ public class SaleCustomController {
     public Custom_chart getCustomOneMonth(String userName) {
         Custom_chart needData = new Custom_chart();
         needData.setRealData(saleCustomService.customPerMonth(userName));
-        needData.setNowYearMonth(MyFormatDate.yyyyMMNowMonth());
+        needData.setNowYearMonth(MyFormatDate.yyyyMMNowMonth(0));
         needData.setNextYearMonth(MyFormatDate.yyyyMMNextYear());
         return needData;
     }

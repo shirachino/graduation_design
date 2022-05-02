@@ -14,6 +14,9 @@ public interface StatisticsForNetProfitMapper {
     @Select("SELECT goods_name,goods_saleNum*(goods_outPrice - goods_inPrice) AS goods_netProfits FROM ${userName}_stock ORDER BY goods_netProfits DESC LIMIT 20")
     List<NetProfits_Rank> orderByNetProfitSql(@Param("userName") String userName);
 
+    @Select("SELECT goods_name,goods_saleNum*(goods_outPrice - goods_inPrice) AS goods_netProfits FROM ${userName}_stock ORDER BY goods_netProfits LIMIT 5")
+    List<NetProfits_Rank> netProfitLastSql(@Param("userName") String userName);
+
     @Select("SELECT Round(SUM(goods_saleNum*(goods_outPrice-goods_inPrice))/SUM(goods_saleNum*goods_outPrice) * 100 ,2) AS PCR FROM ${userName}_stock")
     Double getPCRSql(@Param("userName") String userName);
 
